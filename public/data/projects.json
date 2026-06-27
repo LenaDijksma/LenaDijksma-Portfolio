@@ -1,0 +1,32 @@
+[
+    {
+        "title": "Healthcare Website",
+        "name": "NerineZorg",
+        "desc": "Modern website for a Dutch ZZP outpatient care company focused on accessibility, trust, and clean presentation.",
+        "link": "http://nerinezorg.nl",
+        "color": "#c65a8a",
+        "public": true,
+        "tech": ["HTML", "CSS", "JavaScript"],
+        "type": "website"
+    },
+    {
+        "title": "Collection Platform",
+        "name": "Fridge Emblem Collection",
+        "desc": "Website showcasing the world's biggest fridge emblem collection with a modern and organized gallery layout.",
+        "link": "https://refrigeratoremblems.com/",
+        "color": "#a9cfe6",
+        "public": true,
+        "tech": ["HTML", "CSS", "JavaScript", "SQL"],
+        "type": "website"
+    },
+    {
+        "title": "Autonate",
+        "name": "Autonote Systems",
+        "desc": "The autonote tool and associated tools were made to track days weeks months and eventually years.",
+        "link": "/autonote",
+        "color": "#8033c9",
+        "public": false,
+        "tech": ["Bash"],
+        "type": "personal"
+    }
+]
