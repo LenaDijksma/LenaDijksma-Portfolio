@@ -1062,4 +1062,9 @@ body.dark .form-feedback.error {
     .socials-grid {
         grid-template-columns: 1fr;
     }
+
+    .links-card {
+        display: flex;
+        flex-direction: column;
+    }
 }
