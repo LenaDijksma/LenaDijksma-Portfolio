@@ -110,4 +110,14 @@ router.post('/send-email', async (req, res) => {
     }
 });
 
+// =========================
+// 404 (must stay last)
+// =========================
+
+router.use((req, res) => {
+    res.status(404).sendFile(
+        path.join(__dirname, 'public', '404.html')
+    );
+});
+
 module.exports = router;

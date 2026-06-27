@@ -1,0 +1,95 @@
+<!-- placeholder.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Placeholder Project | Lena Dijksma</title>
+
+    <link rel="shortcut icon" href="images/logo.png" type="image/png">
+
+    <!-- AOS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+
+    <!-- Remix Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+
+    <!-- SAME CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <script>
+        if (localStorage.getItem("theme") === "dark") {
+            document.documentElement.classList.add("dark");
+        }
+        document.documentElement.classList.add("no-transition");
+        window.addEventListener("load", () => {
+            document.documentElement.classList.remove("no-transition");
+        });
+    </script>
+</head>
+
+<body>
+    <div class="background-glow"></div>
+
+    <!-- SAME HEADER -->
+    <header class="header">
+        <div class="logo">
+            <img src="images/logo.png" alt="Logo Lena" class="logo-img">
+            <div class="stacked">
+                <span>Lena</span>
+                <span class="stacked-btm">Dijksma</span>
+            </div>
+        </div>
+
+        <nav class="nav">
+            <a href="/#projects">Back to Portfolio</a>
+        </nav>
+
+        <button id="theme-toggle" class="theme-toggle">
+            <i class="ri-moon-line"></i>
+        </button>
+    </header>
+
+    <main>
+
+        <!-- HERO -->
+        <section class="hero small-hero">
+
+            <div class="hero-content" data-aos="fade-up">
+
+                <p class="small-text">
+                    Error page
+                </p>
+
+                <h1 class="page-title">
+                    404 page not found
+                </h1>
+
+                <p class="description">
+                    You may have used a depricated or incorrect link.
+                </p>
+
+                <a href="/#projects" class="primary-btn">
+                    Back To Portfolio
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <p>© 2026 Lena Dijksma</p>
+    </footer>
+
+    <!-- AOS -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
