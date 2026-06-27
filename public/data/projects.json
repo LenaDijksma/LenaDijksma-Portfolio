@@ -7,7 +7,8 @@
         "color": "#c65a8a",
         "public": true,
         "tech": ["HTML", "CSS", "JavaScript"],
-        "type": "website"
+        "type": "website",
+        "img": "/images/Nerinezorg.webp"
     },
     {
         "title": "Collection Platform",
@@ -17,7 +18,8 @@
         "color": "#a9cfe6",
         "public": true,
         "tech": ["HTML", "CSS", "JavaScript", "SQL"],
-        "type": "website"
+        "type": "website",
+        "img": "/images/fridge.webp"
     },
     {
         "title": "Autonate",
@@ -27,6 +29,7 @@
         "color": "#8033c9",
         "public": false,
         "tech": ["Bash"],
-        "type": "personal"
+        "type": "personal",
+        "img": "/images/autonote.webp"
     }
 ]

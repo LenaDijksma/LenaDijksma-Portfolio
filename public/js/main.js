@@ -258,6 +258,7 @@ function createProjectCard(project, index) {
 
             <h3>${project.name}</h3>
             <p>${project.desc}</p>
+            <img src="${project.img}" class="cover-img">
 
             ${techTags ? `<div class="tech-tags">${techTags}</div>` : ""}
 
