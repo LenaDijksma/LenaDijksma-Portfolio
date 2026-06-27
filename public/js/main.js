@@ -270,7 +270,7 @@ function createProjectCard(project, index) {
 
 // LOAD PROJECTS
 
-fetch("data/projects.json")
+fetch("/data/projects.json")
 
     .then(response => response.json())
 
