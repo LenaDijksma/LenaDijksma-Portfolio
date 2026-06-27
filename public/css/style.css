@@ -1063,7 +1063,7 @@ body.dark .form-feedback.error {
         grid-template-columns: 1fr;
     }
 
-    .links-card {
+    .links-div {
         display: flex;
         flex-direction: column;
     }
