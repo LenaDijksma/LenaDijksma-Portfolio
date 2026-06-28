@@ -240,8 +240,8 @@ function createProjectCard(project, index) {
         : "";
 
     const linkLabel = project.type === "website" ? "View Website"
-    : project.type === "program" ? "View Program"
-    : "View Project Page";
+        : project.type === "program" ? "View Program"
+            : "View Project Page";
 
     return `
         <div
@@ -456,3 +456,23 @@ if (contactForm) {
 // =========================
 
 document.getElementById("year").textContent = new Date().getFullYear();
+
+// =========================
+// COPY EMAIL
+// =========================
+
+document.querySelectorAll(".copy-email-btn").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+        const email = btn.dataset.email;
+        try {
+            await navigator.clipboard.writeText(email);
+            const icon = btn.querySelector("i");
+            icon.className = "ri-check-line";
+            setTimeout(() => {
+                icon.className = "ri-file-copy-line";
+            }, 1500);
+        } catch (err) {
+            console.error("Copy failed:", err);
+        }
+    });
+});

@@ -1,0 +1,15 @@
+{
+    "name": "Lena Dijksma | Portfolio",
+    "short_name": "Lena Dijksma",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0d0d12",
+    "theme_color": "#7f4bfb",
+    "icons": [
+        {
+            "src": "/images/logo.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        }
+    ]
+}

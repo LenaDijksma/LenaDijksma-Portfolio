@@ -669,6 +669,27 @@ body.dark .header.scrolled {
     line-height: 1.7;
 }
 
+.email-copy-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.copy-email-btn {
+    background: none;
+    border: none;
+    color: var(--text);
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+    padding: 0.2rem;
+    transition: color 0.2s ease;
+}
+
+.copy-email-btn:hover {
+    color: var(--accent);
+}
+
 /* =========================
    CONTACT CARD
 ========================= */

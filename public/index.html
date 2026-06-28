@@ -6,7 +6,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lena Dijksma | Portfolio</title>
-    <link rel="shortcut icon" href="/images/logo.webp" type="image/webp">
+    <link rel="shortcut icon" href="/images/logo.png" type="image/png">
+    <link rel="apple-touch-icon" href="/images/logo.png" sizes="180x180">
+    <link rel="manifest" href="/manifest.json">
 
     <!-- AOS -->
     <link rel=" stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
@@ -15,6 +17,9 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="css/style.css" />
+
+    <!-- Extra Meta Tags -->
+    <meta name="theme-color" content="#7f4bfb">
 
     <!-- Open Graph -->
     <meta property="og:title" content="Lena Dijksma | Portfolio" />
@@ -45,7 +50,7 @@
 
     <header class="header">
         <div class="logo">
-            <img src="/images/logo.webp" alt="Logo Lena" class="logo-img">
+            <img src="/images/logo.png" alt="Logo Lena" class="logo-img">
             <div class="stacked">
                 <span>Lena</span>
                 <span class="stacked-btm">Dijksma</span>
@@ -180,106 +185,113 @@
             <div class="content">
                 <div class="contact-grid">
 
-                <!-- CONTACT INFO -->
+                    <!-- CONTACT INFO -->
 
-                <div data-aos="fade-right">
+                    <div data-aos="fade-right">
 
-                    <div class="section-title left-align">
-                        <p>Contact</p>
-                        <h2>Get In Touch</h2>
+                        <div class="section-title left-align">
+                            <p>Contact</p>
+                            <h2>Get In Touch</h2>
+                        </div>
+
+                        <p class="contact-description">
+                            Reach out and I will try to respond as soon as possible.
+                        </p>
+
+                        <div class="contact-info">
+
+                            <div class="contact-item">
+                                <span>Email</span>
+
+                                <div class="email-copy-row">
+                                    <a href="mailto:lenadijksma08@gmail.com">
+                                        lenadijksma08@gmail.com
+                                    </a>
+                                    <button type="button" class="copy-email-btn" data-email="lenadijksma08@gmail.com"
+                                        aria-label="Copy email address">
+                                        <i class="ri-file-copy-line"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="contact-item">
+                                <span>Location</span>
+
+                                <p>Netherlands</p>
+                            </div>
+
+                            <div class="contact-item">
+                                <span>Availability</span>
+
+                                <p>Monday - Friday</p>
+                            </div>
+
+                        </div>
+
                     </div>
 
-                    <p class="contact-description">
-                        Reach out and I will try to respond as soon as possible.
-                    </p>
+                    <!-- CONTACT FORM -->
 
-                    <div class="contact-info">
+                    <div data-aos="fade-left">
 
-                        <div class="contact-item">
-                            <span>Email</span>
+                        <div class="contact-card">
 
-                            <a href="mailto:lenadijksma08@gmail.com">
-                                lenadijksma08@gmail.com
-                            </a>
-                        </div>
+                            <form id="contact-form">
 
-                        <div class="contact-item">
-                            <span>Location</span>
+                                <div class="form-row">
 
-                            <p>Netherlands</p>
-                        </div>
+                                    <div class="form-group">
+                                        <label for="name">
+                                            Full Name
+                                        </label>
 
-                        <div class="contact-item">
-                            <span>Availability</span>
+                                        <input type="text" id="name" name="name" required>
+                                    </div>
 
-                            <p>Monday - Friday</p>
+                                    <div class="form-group">
+                                        <label for="email">
+                                            Email Address
+                                        </label>
+
+                                        <input type="email" id="email" name="email" required>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="subject">
+                                        Subject
+                                    </label>
+
+                                    <input type="text" id="subject" name="subject" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="message">
+                                        Project Details
+                                    </label>
+
+                                    <textarea id="message" name="message" rows="6" required></textarea>
+                                </div>
+
+                                <!-- HONEYPOT -->
+
+                                <input type="text" name="company" autocomplete="off" tabindex="-1"
+                                    class="hidden-input" />
+
+                                <div id="form-feedback" class="form-feedback"></div>
+
+                                <button type="submit" class="primary-btn contact-btn">
+                                    Send Message
+                                </button>
+
+                            </form>
+
                         </div>
 
                     </div>
 
                 </div>
-
-                <!-- CONTACT FORM -->
-
-                <div data-aos="fade-left">
-
-                    <div class="contact-card">
-
-                        <form id="contact-form">
-
-                            <div class="form-row">
-
-                                <div class="form-group">
-                                    <label for="name">
-                                        Full Name
-                                    </label>
-
-                                    <input type="text" id="name" name="name" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="email">
-                                        Email Address
-                                    </label>
-
-                                    <input type="email" id="email" name="email" required>
-                                </div>
-
-                            </div>
-
-                            <div class="form-group">
-                                <label for="subject">
-                                    Subject
-                                </label>
-
-                                <input type="text" id="subject" name="subject" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="message">
-                                    Project Details
-                                </label>
-
-                                <textarea id="message" name="message" rows="6" required></textarea>
-                            </div>
-
-                            <!-- HONEYPOT -->
-
-                            <input type="text" name="company" autocomplete="off" tabindex="-1" class="hidden-input" />
-
-                            <div id="form-feedback" class="form-feedback"></div>
-
-                            <button type="submit" class="primary-btn contact-btn">
-                                Send Message
-                            </button>
-
-                        </form>
-
-                    </div>
-
-                </div>
-
-            </div>
             </div>
 
         </section>
