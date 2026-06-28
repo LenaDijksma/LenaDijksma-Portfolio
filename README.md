@@ -1,5 +1,6 @@
 # LenaDijksma-Portfolio
 My personal portfolio website
+https://lenadijksma.is-.dev/
 
 ## Stack
 - Frontend: HTML, CSS, JavaScript
