@@ -260,10 +260,12 @@ function createProjectCard(project, index) {
             <p>${project.desc}</p>
             <img src="${project.img}" class="cover-img">
 
+            <div class="card-divider"></div>
+
             ${techTags ? `<div class="tech-tags">${techTags}</div>` : ""}
 
             <a href="${project.link}" ${project.public ? 'target="_blank"' : ""} rel="noopener noreferrer">
-                ${linkLabel}
+                ${linkLabel}<i class="ri-arrow-right-up-line" style="margin-left: 5px"></i>
             </a>
         </div>
     `;

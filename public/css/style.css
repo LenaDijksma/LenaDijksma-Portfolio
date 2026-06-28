@@ -4,7 +4,9 @@
 
 :root {
     --bg: #f6f7fb;
+    --offset: #b4c2fda1;
     --card: rgba(255, 255, 255, 0.7);
+    --card-dark: rgba(212, 212, 212, 0.7);
     --text: #111827;
     --text-light: #6b7280;
     --border: rgba(0, 0, 0, 0.08);
@@ -14,7 +16,9 @@
 
 body.dark {
     --bg: #0f1117;
+    --offset: #0e121ca1;
     --card: rgba(22, 25, 34, 0.7);
+    --card-dark: rgba(10, 12, 16, 0.7);
     --text: #f3f4f6;
     --text-light: #9ca3af;
     --border: rgba(255, 255, 255, 0.08);
@@ -394,14 +398,30 @@ body.dark .header.scrolled {
 .projects-section,
 .socials-section,
 .links-section,
-.about-section {
-    max-width: 1200px;
+.about-section,
+.contact-section {
+    width: 100%;
 
     margin: auto;
 
     padding:
         5rem
         2rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    max-width: 1200px;
+}
+
+.about-section,
+.links-section,
+.contact-section {
+    background-color: var(--offset);
 }
 
 /* =========================
@@ -471,6 +491,15 @@ body.dark .header.scrolled {
     transform: translateY(-6px);
 }
 
+.card-divider {
+    width: calc(100% + 4rem);
+    height: 3px;
+    background-color: var(--card-dark);
+    margin-top: 25px;
+    position: relative;
+    left: -2rem;
+}
+
 /* =========================
    PROJECT TOP
 ========================= */
@@ -520,6 +549,7 @@ body.dark .header.scrolled {
     max-width: 100%;
     border-radius: 15px;
     margin-top: 20px;
+    border: 5px solid var(--card-dark);
 }
 
 /* =========================
@@ -577,20 +607,6 @@ body.dark .header.scrolled {
     font-size: 2rem;
 
     color: var(--accent);
-}
-
-/* =========================
-   CONTACT SECTION
-========================= */
-
-.contact-section {
-    max-width: 1200px;
-
-    margin: auto;
-
-    padding:
-        5rem
-        2rem;
 }
 
 /* =========================
@@ -843,7 +859,6 @@ body.dark .form-feedback.error {
 ========================= */
 
 .footer {
-    margin-top: 3rem;
 
     padding: 2rem;
 
@@ -1003,6 +1018,13 @@ body.dark .form-feedback.error {
     font-size: 0.8rem;
     font-weight: 500;
     color: var(--text-light);
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.tech-tag:hover {
+    transform: translateY(-5px);
+    background-color: var(--accent);
+    color: var(--text);
 }
 
 .tech-pill {
