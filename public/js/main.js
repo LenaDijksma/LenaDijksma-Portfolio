@@ -26,16 +26,27 @@ document.addEventListener("click", (e) => {
     }
 });
 
+function getCurrentAccent() {
+    if (body.classList.contains("accent-mint")) return "mint";
+    if (body.classList.contains("accent-blue")) return "blue";
+    return "purple";
+}
+
+function getCurrentScheme() {
+    if (body.classList.contains("scheme-sunset")) return "sunset";
+    if (body.classList.contains("scheme-ocean")) return "ocean";
+    return "default";
+}
+
 function setActiveButtons() {
     document.querySelectorAll("[data-mode]").forEach((btn) => {
         btn.classList.toggle("active", btn.dataset.mode === (body.classList.contains("dark") ? "dark" : "light"));
     });
     document.querySelectorAll("[data-accent]").forEach((btn) => {
-        btn.classList.toggle("active", btn.dataset.accent === (body.classList.contains("accent-mint") ? "mint" : "purple"));
+        btn.classList.toggle("active", btn.dataset.accent === getCurrentAccent());
     });
     document.querySelectorAll("[data-scheme]").forEach((btn) => {
-        const currentScheme = body.classList.contains("scheme-sunset") ? "sunset" : body.classList.contains("scheme-ocean") ? "ocean" : "default";
-        btn.classList.toggle("active", btn.dataset.scheme === currentScheme);
+        btn.classList.toggle("active", btn.dataset.scheme === getCurrentScheme());
     });
 }
 
@@ -51,7 +62,12 @@ document.querySelectorAll("[data-mode]").forEach((btn) => {
 // ACCENT
 document.querySelectorAll("[data-accent]").forEach((btn) => {
     btn.addEventListener("click", () => {
-        body.classList.toggle("accent-mint", btn.dataset.accent === "mint");
+        body.classList.remove("accent-mint", "accent-blue");
+        if (btn.dataset.accent === "mint") {
+            body.classList.add("accent-mint");
+        } else if (btn.dataset.accent === "blue") {
+            body.classList.add("accent-blue");
+        }
         localStorage.setItem("accent", btn.dataset.accent);
         setActiveButtons();
     });
@@ -71,7 +87,11 @@ document.querySelectorAll("[data-scheme]").forEach((btn) => {
 
 // INIT FROM LOCALSTORAGE
 if (localStorage.getItem("theme") === "dark") body.classList.add("dark");
-if (localStorage.getItem("accent") === "mint") body.classList.add("accent-mint");
+
+const savedAccent = localStorage.getItem("accent");
+if (savedAccent === "mint") body.classList.add("accent-mint");
+if (savedAccent === "blue") body.classList.add("accent-blue");
+
 const savedScheme = localStorage.getItem("scheme");
 if (savedScheme && savedScheme !== "default") body.classList.add(`scheme-${savedScheme}`);
 

@@ -30,6 +30,9 @@ body.dark {
 body.accent-mint {
     --accent: #2dd4a7;
 }
+body.accent-blue {
+    --accent: #2771e9;
+}
 
 /* FULL SCHEMES - override everything regardless of .dark/.accent-mint */
 /* SUNSET - light */
