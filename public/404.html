@@ -53,9 +53,33 @@
             <a href="/#projects">Back to Portfolio</a>
         </nav>
 
-        <button id="theme-toggle" class="theme-toggle">
-            <i class="ri-moon-line"></i>
-        </button>
+        <div class="theme-selector">
+            <button id="theme-trigger" aria-label="Theme settings">
+                <i class="ri-palette-line"></i>
+            </button>
+
+            <div class="theme-dropdown" id="theme-dropdown">
+                <div class="theme-group">
+                    <span class="theme-group-label">Mode</span>
+                    <button class="theme-option" data-mode="light">Light</button>
+                    <button class="theme-option" data-mode="dark">Dark</button>
+                </div>
+
+                <div class="theme-group">
+                    <span class="theme-group-label">Accent</span>
+                    <button class="theme-option" data-accent="purple">Purple</button>
+                    <button class="theme-option" data-accent="mint">Mint</button>
+                </div>
+
+                <div class="theme-group">
+                    <span class="theme-group-label">Scheme</span>
+                    <button class="theme-option" data-scheme="default">Default</button>
+                    <button class="theme-option" data-scheme="sunset">Sunset</button>
+                    <button class="theme-option" data-scheme="ocean">Ocean</button>
+                </div>
+            </div>
+        </div>
+        
     </header>
 
     <main>

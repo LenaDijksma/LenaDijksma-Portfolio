@@ -8,48 +8,74 @@ AOS.init({
 });
 
 // =========================
-// THEME TOGGLE
+// THEME SELECTOR
 // =========================
 
-const toggleButton = document.getElementById("theme-toggle");
+const themeTrigger = document.getElementById("theme-trigger");
+const themeDropdown = document.getElementById("theme-dropdown");
 const body = document.body;
 
-const savedTheme = localStorage.getItem("theme");
+themeTrigger.addEventListener("click", (e) => {
+    e.stopPropagation();
+    themeDropdown.classList.toggle("open");
+});
 
-if (savedTheme === "dark") {
-    body.classList.add("dark");
-
-    if (toggleButton) {
-        toggleButton.innerHTML =
-            '<i class="ri-sun-line"></i>';
+document.addEventListener("click", (e) => {
+    if (!themeDropdown.contains(e.target) && e.target !== themeTrigger) {
+        themeDropdown.classList.remove("open");
     }
-}
+});
 
-if (toggleButton) {
-
-    toggleButton.addEventListener("click", () => {
-
-        body.classList.toggle("dark");
-
-        const isDark =
-            body.classList.contains("dark");
-
-        if (isDark) {
-
-            localStorage.setItem("theme", "dark");
-
-            toggleButton.innerHTML =
-                '<i class="ri-sun-line"></i>';
-
-        } else {
-
-            localStorage.setItem("theme", "light");
-
-            toggleButton.innerHTML =
-                '<i class="ri-moon-line"></i>';
-        }
+function setActiveButtons() {
+    document.querySelectorAll("[data-mode]").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.mode === (body.classList.contains("dark") ? "dark" : "light"));
+    });
+    document.querySelectorAll("[data-accent]").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.accent === (body.classList.contains("accent-mint") ? "mint" : "purple"));
+    });
+    document.querySelectorAll("[data-scheme]").forEach((btn) => {
+        const currentScheme = body.classList.contains("scheme-sunset") ? "sunset" : body.classList.contains("scheme-ocean") ? "ocean" : "default";
+        btn.classList.toggle("active", btn.dataset.scheme === currentScheme);
     });
 }
+
+// MODE
+document.querySelectorAll("[data-mode]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+        body.classList.toggle("dark", btn.dataset.mode === "dark");
+        localStorage.setItem("theme", btn.dataset.mode);
+        setActiveButtons();
+    });
+});
+
+// ACCENT
+document.querySelectorAll("[data-accent]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+        body.classList.toggle("accent-mint", btn.dataset.accent === "mint");
+        localStorage.setItem("accent", btn.dataset.accent);
+        setActiveButtons();
+    });
+});
+
+// SCHEME
+document.querySelectorAll("[data-scheme]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+        body.classList.remove("scheme-sunset", "scheme-ocean");
+        if (btn.dataset.scheme !== "default") {
+            body.classList.add(`scheme-${btn.dataset.scheme}`);
+        }
+        localStorage.setItem("scheme", btn.dataset.scheme);
+        setActiveButtons();
+    });
+});
+
+// INIT FROM LOCALSTORAGE
+if (localStorage.getItem("theme") === "dark") body.classList.add("dark");
+if (localStorage.getItem("accent") === "mint") body.classList.add("accent-mint");
+const savedScheme = localStorage.getItem("scheme");
+if (savedScheme && savedScheme !== "default") body.classList.add(`scheme-${savedScheme}`);
+
+setActiveButtons();
 
 // =========================
 // TYPING EFFECT
