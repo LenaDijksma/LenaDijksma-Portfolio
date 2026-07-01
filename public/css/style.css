@@ -4,7 +4,7 @@
 
 :root {
     --bg: #f6f7fb;
-    --offset: #b4c2fda1;
+    --offset: #804bfb24;
     --card: rgba(255, 255, 255, 0.7);
     --card-dark: rgba(212, 212, 212, 0.7);
     --text: #111827;
@@ -16,7 +16,7 @@
 
 body.dark {
     --bg: #0f1117;
-    --offset: #161b29a1;
+    --offset: #804bfb24;
     --card: rgba(22, 25, 34, 0.7);
     --card-dark: rgba(10, 12, 16, 0.7);
     --text: #f3f4f6;
@@ -29,19 +29,22 @@ body.dark {
 /* ACCENT OVERRIDES (mint) - works combined with light or dark */
 body.accent-mint {
     --accent: #2dd4a7;
+    --offset: #2dd4a724;
 }
 body.accent-blue {
     --accent: #2771e9;
+    --offset: #2771e924;
 }
 body.accent-yellow {
     --accent: #e9d227;
+    --offset: #e9d22724;
 }
 
 /* FULL SCHEMES - override everything regardless of .dark/.accent-mint */
 /* SUNSET - light */
 body.scheme-sunset {
     --bg: #fff1e6;
-    --offset: #ffd9b3a1;
+    --offset: #ff7a5924;
     --card: rgba(255, 255, 255, 0.7);
     --card-dark: rgba(255, 225, 200, 0.7);
     --text: #3a2418;
@@ -54,7 +57,7 @@ body.scheme-sunset {
 /* SUNSET - dark */
 body.dark.scheme-sunset {
     --bg: #1a0f1a;
-    --offset: #3a1f2aa1;
+    --offset: #ff7a5924;
     --card: rgba(40, 20, 30, 0.7);
     --card-dark: rgba(25, 12, 18, 0.7);
     --text: #fdf0e8;
@@ -67,7 +70,7 @@ body.dark.scheme-sunset {
 /* OCEAN - light */
 body.scheme-ocean {
     --bg: #eaf6fb;
-    --offset: #bfe8f7a1;
+    --offset: #2db4ff24;
     --card: rgba(255, 255, 255, 0.7);
     --card-dark: rgba(210, 235, 245, 0.7);
     --text: #0f2733;
@@ -80,7 +83,7 @@ body.scheme-ocean {
 /* OCEAN - dark */
 body.dark.scheme-ocean {
     --bg: #0a1620;
-    --offset: #16344aa1;
+    --offset: #2db4ff24;
     --card: rgba(15, 35, 50, 0.7);
     --card-dark: rgba(8, 20, 30, 0.7);
     --text: #e6f4f9;
