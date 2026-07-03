@@ -182,7 +182,7 @@ router.get('/placeholder', (req, res) => {
     );
 });
 
-router.get('/admin', (req, res) => {
+router.get('/admin43AE39', (req, res) => {
     res.sendFile(
         path.join(__dirname, 'public', 'admin.html')
     );
