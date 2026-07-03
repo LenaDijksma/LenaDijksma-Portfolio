@@ -6,7 +6,11 @@
         "link": "http://nerinezorg.nl",
         "color": "#c65a8a",
         "public": true,
-        "tech": ["HTML", "CSS", "JavaScript"],
+        "tech": [
+            "HTML",
+            "CSS",
+            "JavaScript"
+        ],
         "type": "website",
         "img": "/images/Nerinezorg.webp"
     },
@@ -17,7 +21,12 @@
         "link": "https://refrigeratoremblems.com/",
         "color": "#a9cfe6",
         "public": true,
-        "tech": ["HTML", "CSS", "JavaScript", "SQL"],
+        "tech": [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "SQL"
+        ],
         "type": "website",
         "img": "/images/fridge.webp"
     },
@@ -28,8 +37,23 @@
         "link": "/autonote",
         "color": "#8033c9",
         "public": false,
-        "tech": ["Bash"],
+        "tech": [
+            "Bash"
+        ],
         "type": "personal",
         "img": "/images/autonote.webp"
+    },
+    {
+        "title": "Network Tool",
+        "name": "NetScan",
+        "desc": "a small c program that scans your network for devices and open ports.",
+        "link": "/netscan",
+        "color": "#3ecf5b",
+        "public": false,
+        "tech": [
+            "C"
+        ],
+        "type": "personal",
+        "img": "/images/netscan.webp"
     }
 ]
