@@ -154,9 +154,8 @@
                 </div>
 
                 <p>
-                    NetScan is able to scan a network and check device hostnames ip address MAC open ports and vendor.
-                    It was created as a fun side project to learn some things about C programming and networking.
-                    There were many issues i had to overcome and it is still nowhere near perfect but it will most likely be left as is so I can persue other projects.
+                    NetScan is a command-line network scanner built from scratch in C. It auto-detects your local subnet, ping-sweeps it to find live hosts, and identifies each device through DNS, mDNS, NetBIOS, and SSDP lookups, falling back to a MAC vendor lookup when nothing else resolves. Open ports are found with a multi-threaded TCP connect-scan, with lightweight banner grabbing for identifying running services. Results can be exported to JSON or CSV, and a diff mode flags new or missing devices between scans.
+I built it to get hands-on with raw sockets, threading, and Linux networking internals in C — there's still plenty I'd like to add, but it's a solid, working tool as it stands.
                 </p>
 
             </div>
