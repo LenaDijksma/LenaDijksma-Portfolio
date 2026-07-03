@@ -48,7 +48,7 @@
         "name": "NetScan",
         "desc": "a small c program that scans your network for devices and open ports. it also displays hostname(if found) vendor and more.",
         "link": "/netscan",
-        "color": "#3ecf5b",
+        "color": "#43ae39",
         "public": false,
         "tech": [
             "C"
