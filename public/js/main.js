@@ -444,8 +444,25 @@ if (contactForm) {
                     formData.get("message"),
 
                 company:
-                    formData.get("company")
+                    formData.get("company"),
+
+                captcha:
+                    grecaptcha.getResponse()
             };
+
+            if (!data.captcha) {
+
+                showFeedback(
+                    "Please complete the captcha.",
+                    "error"
+                );
+
+                submitBtn.disabled = false;
+                submitBtn.classList.remove("loading");
+                submitBtn.innerHTML = "Send Message";
+
+                return;
+            }
 
             try {
 
@@ -474,6 +491,8 @@ if (contactForm) {
                     );
 
                     contactForm.reset();
+                    grecaptcha.reset();
+
 
                 } else {
 
@@ -481,6 +500,8 @@ if (contactForm) {
                         "Failed to send message. Please try again.",
                         "error"
                     );
+
+                    grecaptcha.reset();
                 }
 
             } catch (error) {

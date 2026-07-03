@@ -289,7 +289,8 @@ router.post('/send-email', async (req, res) => {
             email,
             subject,
             message,
-            company
+            company,
+            captcha
         } = req.body;
 
         // HONEYPOT SPAM CHECK
@@ -302,11 +303,33 @@ router.post('/send-email', async (req, res) => {
                 });
         }
 
+        const verifyResponse = await fetch(
+            "https://www.google.com/recaptcha/api/siteverify",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: new URLSearchParams({
+                    secret: process.env.RECAPTCHA_SECRET,
+                    response: captcha
+                })
+            }
+        );
+
+        const verifyData = await verifyResponse.json();
+
+        if (!verifyData.success) {
+            return res.status(400).json({
+                error: "Captcha verification failed"
+            });
+        }
+
         const data =
             await resend.emails.send({
 
                 from:
-                    'Portfolio Contact <onboarding@resend.dev>',
+                    'Portfolio Contact <noreply@lenadijksma.is-a.dev>',
 
                 to:
                     'lenadijksma08@gmail.com',
