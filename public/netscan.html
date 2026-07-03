@@ -1,0 +1,183 @@
+<!-- placeholder.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>NetScan | Lena Dijksma</title>
+
+    <link rel="shortcut icon" href="/images/logo.png" type="image/png">
+    <link rel="apple-touch-icon" href="/images/logo.png" sizes="180x180">
+    <link rel="manifest" href="/manifest.json">
+
+    <!-- AOS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+
+    <!-- Remix Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+
+    <!-- SAME CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- Extra Meta Tags -->
+    <meta name="theme-color" content="#7f4bfb">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Lena Dijksma | NetScan" />
+    <meta property="og:description"
+        content="NetScan a small c program that scans your network for devices and open ports. it also displays hostname(if found) vendor and more." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://lenadijksma.is-a.dev/netscan" />
+    <meta property="og:image" content="https://lenadijksma.is-a.dev/images/og-preview.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Lena Dijksma | NetScan" />
+    <meta name="twitter:description"
+        content="NetScan a small c program that scans your network for devices and open ports. it also displays hostname(if found) vendor and more." />
+    <meta name="twitter:image" content="https://lenadijksma.is-a.dev/images/og-preview.png" />
+
+    <script>
+        if (localStorage.getItem("theme") === "dark") {
+            document.documentElement.classList.add("dark");
+        }
+        document.documentElement.classList.add("no-transition");
+        window.addEventListener("load", () => {
+            document.documentElement.classList.remove("no-transition");
+        });
+    </script>
+</head>
+
+<body>
+    <div class="background-glow"></div>
+
+    <!-- SAME HEADER -->
+    <header class="header">
+        <div class="logo">
+            <img src="/images/logo.png" alt="Logo Lena" class="logo-img">
+            <div class="stacked">
+                <span>Lena</span>
+                <span class="stacked-btm">Dijksma</span>
+            </div>
+        </div>
+
+        <nav class="nav">
+            <a href="/#projects">Back to Portfolio</a>
+        </nav>
+
+        <div class="theme-selector">
+            <button id="theme-trigger" aria-label="Theme settings">
+                <i class="ri-palette-line"></i>
+            </button>
+
+            <div class="theme-dropdown" id="theme-dropdown">
+                <div class="theme-group">
+                    <span class="theme-group-label">Mode</span>
+                    <button class="theme-option" data-mode="light">Light</button>
+                    <button class="theme-option" data-mode="dark">Dark</button>
+                </div>
+
+                <div class="theme-group">
+                    <span class="theme-group-label">Accent</span>
+                    <button class="theme-option" data-accent="purple">Purple</button>
+                    <button class="theme-option" data-accent="mint">Mint</button>
+                    <button class="theme-option" data-accent="blue">Blue</button>
+                    <button class="theme-option" data-accent="yellow">Yellow</button>
+                </div>
+
+                <div class="theme-group">
+                    <span class="theme-group-label">Scheme</span>
+                    <button class="theme-option" data-scheme="default">Default</button>
+                    <button class="theme-option" data-scheme="sunset">Sunset</button>
+                    <button class="theme-option" data-scheme="ocean">Ocean</button>
+                    <button class="theme-option" data-scheme="monochrome">Monochrome</button>
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+    <main>
+
+        <!-- HERO -->
+        <section class="hero small-hero">
+
+            <div class="hero-content" data-aos="fade-up">
+
+                <p class="small-text">
+                    Private / Non-Commercial Project
+                </p>
+
+                <h1 class="page-title">
+                    NetScan
+                </h1>
+
+                <p class="description">
+                    This project was created as a test to see whether I could make a network scanner in C.
+                </p>
+
+                <a href="/#projects" class="primary-btn">
+                    Back To Portfolio
+                </a>
+
+            </div>
+
+        </section>
+
+        <!-- TECH STACK -->
+        <section class="tech-section">
+
+            <div class="section-title" data-aos="fade-up">
+                <p>Development</p>
+                <h2>Technologies</h2>
+            </div>
+
+            <div class="tech-list" data-aos="fade-up">
+
+                <a href="https://en.wikipedia.org/wiki/C_(programming_language)" target="_blank" rel="noopener noreferrer">
+                    C
+                </a>
+
+            </div>
+
+        </section>
+
+        <!-- ABOUT -->
+        <section class="about-project-section">
+
+            <div class="about-project-content" data-aos="fade-up">
+
+                <div class="section-title left-align">
+                    <p>About</p>
+                    <h2>NetScan</h2>
+                </div>
+
+                <p>
+                    NetScan is able to scan a network and check device hostnames ip address MAC open ports and vendor.
+                    It was created as a fun side project to learn some things about C programming and networking.
+                    There were many issues i had to overcome and it is still nowhere near perfect but it will most likely be left as is so I can persue other projects.
+                </p>
+
+            </div>
+
+        </section>
+
+        <section class="project-showcase">
+            <img src="images/netscan.webp" alt="netscan output showcase" class="project-image">
+            <p class="small-text">Running <strong>NetScan</strong> on 192.168.178.0/24</p>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <p>© 2026 Lena Dijksma</p>
+    </footer>
+
+    <!-- AOS -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
