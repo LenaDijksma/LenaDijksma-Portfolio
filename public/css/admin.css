@@ -1,5 +1,11 @@
 /* admin.css */
 
+/* Make sure the [hidden] attribute always wins, even when a class
+   on the same element sets its own `display` (e.g. the overlays). */
+[hidden] {
+    display: none !important;
+}
+
 .admin-body {
     min-height: 100vh;
     padding: 2rem 1.5rem 4rem;
