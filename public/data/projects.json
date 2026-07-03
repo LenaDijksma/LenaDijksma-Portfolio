@@ -69,7 +69,7 @@
     {
         "title": "test",
         "name": "test",
-        "desc": "testing project for page generator",
+        "desc": "testing project for page generator on admin console.\nlonger description is required for alignment",
         "link": "/test",
         "color": "#7f4bfb",
         "public": false,
