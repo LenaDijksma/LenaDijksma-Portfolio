@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const crypto = require('crypto');
 const { Resend } = require('resend');
+const rateLimit = require("express-rate-limit");
 
 const router = express.Router();
 
