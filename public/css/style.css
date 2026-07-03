@@ -644,6 +644,11 @@ body.dark .header.scrolled {
         background 0.3s ease;
 }
 
+.project-card {
+    display: flex;
+    flex-direction: column;
+}
+
 .project-card:hover,
 .social-card:hover,
 .about-card:hover {
@@ -652,11 +657,17 @@ body.dark .header.scrolled {
 
 .card-divider {
     width: calc(100% + 4rem);
-    height: 3px;
-    background-color: var(--card-dark);
-    margin-top: 25px;
     position: relative;
     left: -2rem;
+    margin-top: auto;
+    padding-top: 25px;
+}
+
+.card-divider::before {
+    content: "";
+    display: block;
+    height: 3px;
+    background-color: var(--card-dark);
 }
 
 /* =========================
@@ -705,7 +716,9 @@ body.dark .header.scrolled {
 ========================= */
 
 .cover-img {
-    max-width: 100%;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
     border-radius: 15px;
     margin-top: 20px;
     border: 5px solid var(--card-dark);
