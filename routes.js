@@ -12,6 +12,16 @@ const resend =
 const PROJECTS_PATH = path.join(__dirname, 'public', 'data', 'projects.json');
 const SESSION_MAX_AGE_MS = 12 * 60 * 60 * 1000; // 12 hours
 
+const contactLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 10 minutes
+    max: 3, // limit each IP to 3 requests per window
+    message: {
+        error: "Too many messages. Try again later."
+    },
+    standardHeaders: true,
+    legacyHeaders: false
+});
+
 // =========================
 // ADMIN AUTH HELPERS
 // =========================
@@ -280,7 +290,7 @@ router.post('/admin/api/projects', requireAuth, async (req, res) => {
 // SEND EMAIL
 // =========================
 
-router.post('/send-email', async (req, res) => {
+router.post("/send-email", contactLimiter, async (req, res) => {
 
     try {
 
