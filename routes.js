@@ -4,6 +4,7 @@ const fs = require('fs');
 const crypto = require('crypto');
 const { Resend } = require('resend');
 const rateLimit = require("express-rate-limit");
+const { renderProjectPage } = require('./templates');
 
 const router = express.Router();
 
@@ -388,6 +389,35 @@ router.post("/send-email", contactLimiter, async (req, res) => {
         res.status(500).json({
             error: 'Failed to send email'
         });
+    }
+});
+
+// =========================
+// AUTO-GENERATED PROJECT PAGES
+// =========================
+// Any private project with a "page" object in projects.json gets a page
+// rendered on the fly here, matching whatever it links to (e.g. "/netscan").
+// Explicit routes registered above (like /netscan, /autonote) always win,
+// so this only fires for slugs that don't already have a real route/file.
+
+router.get('/:slug', async (req, res, next) => {
+
+    const slug = req.params.slug;
+
+    try {
+        const raw = await fs.promises.readFile(PROJECTS_PATH, 'utf-8');
+        const projects = JSON.parse(raw);
+
+        const project = projects.find(
+            p => !p.public && p.page && p.link === `/${slug}`
+        );
+
+        if (!project) return next();
+
+        res.send(renderProjectPage(project, slug));
+    } catch (error) {
+        console.error(error);
+        next();
     }
 });
 

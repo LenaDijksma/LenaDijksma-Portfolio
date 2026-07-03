@@ -110,7 +110,8 @@
             <div class="admin-editor-grid">
                 <div class="form-group">
                     <label for="f-link">Link</label>
-                    <input type="text" id="f-link" required placeholder="https://... or /internal-path" />
+                    <input type="text" id="f-link" required placeholder="https://... or /netscan" />
+                    <span class="admin-hint">For a generated page, use a path like <code>/netscan</code> — that becomes the URL.</span>
                 </div>
 
                 <div class="form-group">
@@ -144,6 +145,49 @@
                 Public project (link opens externally, shown in the public grid)
             </label>
 
+            <label class="admin-checkbox-row" id="f-generate-page-row">
+                <input type="checkbox" id="f-generate-page" />
+                Generate a project page at the link above (private projects only)
+            </label>
+
+            <div id="page-fields" class="admin-page-fields" hidden>
+
+                <div class="admin-editor-grid">
+                    <div class="form-group">
+                        <label for="f-page-tag">Tag line</label>
+                        <input type="text" id="f-page-tag" placeholder="Private / Non-Commercial Project" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="f-page-about-title">About section title</label>
+                        <input type="text" id="f-page-about-title" placeholder="Defaults to the project name" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="f-page-hero-desc">Hero description</label>
+                    <textarea id="f-page-hero-desc" rows="2" placeholder="Defaults to the description above"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="f-page-about">About section (blank line = new paragraph)</label>
+                    <textarea id="f-page-about" rows="6"></textarea>
+                </div>
+
+                <div class="admin-editor-grid">
+                    <div class="form-group">
+                        <label for="f-page-showcase-img">Showcase image path (optional)</label>
+                        <input type="text" id="f-page-showcase-img" placeholder="/images/example-showcase.webp" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="f-page-showcase-caption">Showcase caption (optional)</label>
+                        <input type="text" id="f-page-showcase-caption" />
+                    </div>
+                </div>
+
+            </div>
+
             <div class="admin-editor-actions">
                 <button type="button" id="editor-cancel" class="admin-secondary-btn">Cancel</button>
                 <button type="submit" class="primary-btn">
@@ -151,6 +195,8 @@
                     Save project
                 </button>
             </div>
+
+            <p id="editor-error" class="admin-error" hidden></p>
         </form>
     </div>
 

@@ -25,6 +25,8 @@ const confirmText = document.getElementById("confirm-text");
 const confirmCancel = document.getElementById("confirm-cancel");
 const confirmDelete = document.getElementById("confirm-delete");
 
+const editorError = document.getElementById("editor-error");
+
 let projects = [];
 let editingIndex = null; // null = adding a new project
 let pendingDeleteIndex = null;
@@ -198,16 +200,38 @@ const fImg = document.getElementById("f-img");
 const fTech = document.getElementById("f-tech");
 const fPublic = document.getElementById("f-public");
 
+const fGeneratePage = document.getElementById("f-generate-page");
+const generatePageRow = document.getElementById("f-generate-page-row");
+const pageFields = document.getElementById("page-fields");
+const fPageTag = document.getElementById("f-page-tag");
+const fPageAboutTitle = document.getElementById("f-page-about-title");
+const fPageHeroDesc = document.getElementById("f-page-hero-desc");
+const fPageAbout = document.getElementById("f-page-about");
+const fPageShowcaseImg = document.getElementById("f-page-showcase-img");
+const fPageShowcaseCaption = document.getElementById("f-page-showcase-caption");
+
+function syncPageFieldsVisibility() {
+    // A generated page only makes sense for private projects
+    generatePageRow.style.display = fPublic.checked ? "none" : "flex";
+    if (fPublic.checked) fGeneratePage.checked = false;
+    pageFields.hidden = !fGeneratePage.checked || fPublic.checked;
+}
+
+fPublic.addEventListener("change", syncPageFieldsVisibility);
+fGeneratePage.addEventListener("change", syncPageFieldsVisibility);
+
 addProjectBtn.addEventListener("click", () => openEditor(null));
 
 function openEditor(index) {
     editingIndex = index;
+    editorError.hidden = true;
 
     if (index === null) {
         editorTitle.textContent = "Add project";
         editorForm.reset();
         fColor.value = "#7f4bfb";
         fColorPicker.value = "#7f4bfb";
+        fGeneratePage.checked = false;
     } else {
         const project = projects[index];
         editorTitle.textContent = "Edit project";
@@ -222,8 +246,18 @@ function openEditor(index) {
         fImg.value = project.img || "";
         fTech.value = (project.tech || []).join(", ");
         fPublic.checked = !!project.public;
+
+        const page = project.page || null;
+        fGeneratePage.checked = !!page;
+        fPageTag.value = page?.tag || "";
+        fPageAboutTitle.value = page?.aboutTitle || "";
+        fPageHeroDesc.value = page?.heroDesc || "";
+        fPageAbout.value = (page?.aboutParagraphs || []).join("\n\n");
+        fPageShowcaseImg.value = page?.showcaseImg || "";
+        fPageShowcaseCaption.value = page?.showcaseCaption || "";
     }
 
+    syncPageFieldsVisibility();
     editorOverlay.hidden = false;
 }
 
@@ -241,6 +275,7 @@ editorOverlay.addEventListener("click", (e) => {
 
 editorForm.addEventListener("submit", async (e) => {
     e.preventDefault();
+    editorError.hidden = true;
 
     const projectData = {
         title: fTitle.value.trim(),
@@ -253,6 +288,26 @@ editorForm.addEventListener("submit", async (e) => {
         type: fType.value.trim(),
         img: fImg.value.trim()
     };
+
+    if (fGeneratePage.checked && !fPublic.checked) {
+        if (!/^\/[a-z0-9-]+$/i.test(projectData.link)) {
+            editorError.textContent = 'For a generated page, "Link" needs to be a simple path like /netscan (letters, numbers, dashes only).';
+            editorError.hidden = false;
+            return;
+        }
+
+        projectData.page = {
+            tag: fPageTag.value.trim(),
+            heroDesc: fPageHeroDesc.value.trim(),
+            aboutTitle: fPageAboutTitle.value.trim(),
+            aboutParagraphs: fPageAbout.value
+                .split(/\n\s*\n/)
+                .map(p => p.trim())
+                .filter(Boolean),
+            showcaseImg: fPageShowcaseImg.value.trim(),
+            showcaseCaption: fPageShowcaseCaption.value.trim()
+        };
+    }
 
     if (editingIndex === null) {
         projects.push(projectData);

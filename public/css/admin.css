@@ -333,6 +333,27 @@
     cursor: pointer;
 }
 
+.admin-hint {
+    font-size: 0.78rem;
+    color: var(--text-light);
+}
+
+.admin-hint code {
+    background: rgba(127, 75, 251, 0.12);
+    padding: 0.1rem 0.35rem;
+    border-radius: 6px;
+}
+
+.admin-page-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    padding: 1.1rem;
+    border: 1px dashed var(--border);
+    border-radius: 16px;
+    background: rgba(127, 75, 251, 0.04);
+}
+
 .admin-checkbox-row {
     display: flex;
     align-items: center;
