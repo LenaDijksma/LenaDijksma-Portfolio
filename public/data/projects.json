@@ -44,7 +44,7 @@
         "img": "/images/autonote.webp"
     },
     {
-        "title": "Network Tool",
+        "title": "Tool",
         "name": "NetScan",
         "desc": "a small c program that scans your network for devices and open ports. it also displays hostname(if found) vendor and more.",
         "link": "/netscan",
