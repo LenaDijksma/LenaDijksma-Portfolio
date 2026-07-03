@@ -1,0 +1,335 @@
+// admin.js
+
+const loginView = document.getElementById("login-view");
+const dashboardView = document.getElementById("dashboard-view");
+
+const loginForm = document.getElementById("login-form");
+const loginError = document.getElementById("login-error");
+const loginBtn = document.getElementById("login-btn");
+
+const logoutBtn = document.getElementById("logout-btn");
+
+const projectsList = document.getElementById("projects-list");
+const projectCount = document.getElementById("project-count");
+const addProjectBtn = document.getElementById("add-project-btn");
+
+const statusBanner = document.getElementById("status-banner");
+
+const editorOverlay = document.getElementById("editor-overlay");
+const editorForm = document.getElementById("editor-form");
+const editorTitle = document.getElementById("editor-title");
+const editorCancel = document.getElementById("editor-cancel");
+
+const confirmOverlay = document.getElementById("confirm-overlay");
+const confirmText = document.getElementById("confirm-text");
+const confirmCancel = document.getElementById("confirm-cancel");
+const confirmDelete = document.getElementById("confirm-delete");
+
+let projects = [];
+let editingIndex = null; // null = adding a new project
+let pendingDeleteIndex = null;
+
+// =========================
+// STATUS BANNER
+// =========================
+
+function showStatus(message, type = "success") {
+    statusBanner.textContent = message;
+    statusBanner.className = `admin-status-banner ${type}`;
+    statusBanner.hidden = false;
+
+    if (type === "success") {
+        setTimeout(() => {
+            statusBanner.hidden = true;
+        }, 4000);
+    }
+}
+
+// =========================
+// AUTH
+// =========================
+
+async function checkSession() {
+    try {
+        const res = await fetch("/admin/api/session");
+        if (res.ok) {
+            showDashboard();
+        } else {
+            showLogin();
+        }
+    } catch (error) {
+        showLogin();
+    }
+}
+
+function showLogin() {
+    loginView.hidden = false;
+    dashboardView.hidden = true;
+}
+
+function showDashboard() {
+    loginView.hidden = true;
+    dashboardView.hidden = false;
+    loadProjects();
+}
+
+loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    loginError.hidden = true;
+    loginBtn.disabled = true;
+
+    const password = document.getElementById("password").value;
+
+    try {
+        const res = await fetch("/admin/api/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ password })
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+            document.getElementById("password").value = "";
+            showDashboard();
+        } else {
+            loginError.textContent = data.error || "Login failed";
+            loginError.hidden = false;
+        }
+    } catch (error) {
+        loginError.textContent = "Could not reach the server";
+        loginError.hidden = false;
+    } finally {
+        loginBtn.disabled = false;
+    }
+});
+
+logoutBtn.addEventListener("click", async () => {
+    await fetch("/admin/api/logout", { method: "POST" });
+    showLogin();
+});
+
+// =========================
+// LOAD + RENDER PROJECTS
+// =========================
+
+async function loadProjects() {
+    projectsList.innerHTML = "";
+    projectCount.textContent = "Loading projects…";
+
+    try {
+        const res = await fetch("/admin/api/projects");
+
+        if (res.status === 401) {
+            showLogin();
+            return;
+        }
+
+        projects = await res.json();
+        renderProjects();
+    } catch (error) {
+        showStatus("Failed to load projects from the server.", "error");
+    }
+}
+
+function renderProjects() {
+    projectCount.textContent = `${projects.length} project${projects.length === 1 ? "" : "s"}`;
+
+    if (projects.length === 0) {
+        projectsList.innerHTML = `<div class="admin-empty-state">No projects yet. Add your first one.</div>`;
+        return;
+    }
+
+    projectsList.innerHTML = projects.map((project, index) => `
+        <div class="admin-project-row">
+            <div class="admin-project-swatch" style="background:${escapeAttr(project.color || "#7f4bfb")}"></div>
+            <div class="admin-project-info">
+                <h3>
+                    ${escapeHtml(project.name || "Untitled")}
+                    <span class="admin-visibility-tag ${project.public ? "public" : "private"}">
+                        ${project.public ? "Public" : "Private"}
+                    </span>
+                </h3>
+                <p>${escapeHtml(project.title || "")} · ${escapeHtml(project.link || "")}</p>
+            </div>
+            <div class="admin-project-actions">
+                <button type="button" class="admin-secondary-btn" data-edit="${index}" title="Edit">
+                    <i class="ri-pencil-line"></i>
+                </button>
+                <button type="button" class="admin-danger-btn" data-delete="${index}" title="Delete">
+                    <i class="ri-delete-bin-line"></i>
+                </button>
+            </div>
+        </div>
+    `).join("");
+
+    projectsList.querySelectorAll("[data-edit]").forEach(btn => {
+        btn.addEventListener("click", () => openEditor(Number(btn.dataset.edit)));
+    });
+
+    projectsList.querySelectorAll("[data-delete]").forEach(btn => {
+        btn.addEventListener("click", () => openDeleteConfirm(Number(btn.dataset.delete)));
+    });
+}
+
+function escapeHtml(str) {
+    const div = document.createElement("div");
+    div.textContent = str;
+    return div.innerHTML;
+}
+
+function escapeAttr(str) {
+    return String(str).replace(/"/g, "&quot;");
+}
+
+// =========================
+// EDITOR MODAL (ADD / EDIT)
+// =========================
+
+const fTitle = document.getElementById("f-title");
+const fName = document.getElementById("f-name");
+const fDesc = document.getElementById("f-desc");
+const fLink = document.getElementById("f-link");
+const fType = document.getElementById("f-type");
+const fColor = document.getElementById("f-color");
+const fColorPicker = document.getElementById("f-color-picker");
+const fImg = document.getElementById("f-img");
+const fTech = document.getElementById("f-tech");
+const fPublic = document.getElementById("f-public");
+
+addProjectBtn.addEventListener("click", () => openEditor(null));
+
+function openEditor(index) {
+    editingIndex = index;
+
+    if (index === null) {
+        editorTitle.textContent = "Add project";
+        editorForm.reset();
+        fColor.value = "#7f4bfb";
+        fColorPicker.value = "#7f4bfb";
+    } else {
+        const project = projects[index];
+        editorTitle.textContent = "Edit project";
+
+        fTitle.value = project.title || "";
+        fName.value = project.name || "";
+        fDesc.value = project.desc || "";
+        fLink.value = project.link || "";
+        fType.value = project.type || "";
+        fColor.value = project.color || "#7f4bfb";
+        fColorPicker.value = /^#[0-9a-f]{6}$/i.test(project.color) ? project.color : "#7f4bfb";
+        fImg.value = project.img || "";
+        fTech.value = (project.tech || []).join(", ");
+        fPublic.checked = !!project.public;
+    }
+
+    editorOverlay.hidden = false;
+}
+
+fColorPicker.addEventListener("input", () => {
+    fColor.value = fColorPicker.value;
+});
+
+editorCancel.addEventListener("click", () => {
+    editorOverlay.hidden = true;
+});
+
+editorOverlay.addEventListener("click", (e) => {
+    if (e.target === editorOverlay) editorOverlay.hidden = true;
+});
+
+editorForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const projectData = {
+        title: fTitle.value.trim(),
+        name: fName.value.trim(),
+        desc: fDesc.value.trim(),
+        link: fLink.value.trim(),
+        color: fColor.value.trim() || "#7f4bfb",
+        public: fPublic.checked,
+        tech: fTech.value.split(",").map(t => t.trim()).filter(Boolean),
+        type: fType.value.trim(),
+        img: fImg.value.trim()
+    };
+
+    if (editingIndex === null) {
+        projects.push(projectData);
+    } else {
+        projects[editingIndex] = projectData;
+    }
+
+    editorOverlay.hidden = true;
+    await saveProjects();
+});
+
+// =========================
+// DELETE CONFIRM
+// =========================
+
+function openDeleteConfirm(index) {
+    pendingDeleteIndex = index;
+    confirmText.textContent = `"${projects[index].name}" will be permanently removed.`;
+    confirmOverlay.hidden = false;
+}
+
+confirmCancel.addEventListener("click", () => {
+    confirmOverlay.hidden = true;
+    pendingDeleteIndex = null;
+});
+
+confirmOverlay.addEventListener("click", (e) => {
+    if (e.target === confirmOverlay) confirmOverlay.hidden = true;
+});
+
+confirmDelete.addEventListener("click", async () => {
+    if (pendingDeleteIndex === null) return;
+    projects.splice(pendingDeleteIndex, 1);
+    pendingDeleteIndex = null;
+    confirmOverlay.hidden = true;
+    await saveProjects();
+});
+
+// =========================
+// SAVE (PERSIST + COMMIT)
+// =========================
+
+async function saveProjects() {
+    renderProjects();
+    showStatus("Saving…", "warning");
+
+    try {
+        const res = await fetch("/admin/api/projects", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(projects)
+        });
+
+        if (res.status === 401) {
+            showLogin();
+            return;
+        }
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            showStatus(data.error || "Failed to save changes.", "error");
+            return;
+        }
+
+        if (data.committed) {
+            showStatus("Saved and committed to GitHub. Render will redeploy shortly.", "success");
+        } else {
+            showStatus(data.warning || "Saved on the server, but the GitHub commit failed.", "warning");
+        }
+    } catch (error) {
+        showStatus("Could not reach the server to save changes.", "error");
+    }
+}
+
+// =========================
+// INIT
+// =========================
+
+checkSession();
