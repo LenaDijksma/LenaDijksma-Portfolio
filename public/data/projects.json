@@ -65,30 +65,5 @@
             "showcaseImg": "/images/netscan.webp",
             "showcaseCaption": ""
         }
-    },
-    {
-        "title": "test",
-        "name": "test",
-        "desc": "testing project for page generator on admin console.",
-        "link": "/test",
-        "color": "#7f4bfb",
-        "public": false,
-        "tech": [
-            "HTML",
-            "CSS",
-            "JS"
-        ],
-        "type": "test",
-        "img": "/images/og-preview.png",
-        "page": {
-            "tag": "Private / Non-Commercial Project",
-            "heroDesc": "",
-            "aboutTitle": "testing project page generation",
-            "aboutParagraphs": [
-                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti repellendus incidunt sed nobis\n                    voluptate, at esse eaque sit. Nemo suscipit odio pariatur repellat assumenda asperiores atque dicta\n                    amet, laudantium obcaecati."
-            ],
-            "showcaseImg": "/images/og-preview.png",
-            "showcaseCaption": "testing with og-preview.png"
-        }
     }
 ]
