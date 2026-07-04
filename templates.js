@@ -12,10 +12,21 @@ function escapeHtml(str) {
         .replace(/'/g, '&#39;');
 }
 
+// Escapes first (so no raw HTML can ever get through), then converts a small,
+// safe set of markdown-style inline formatting into real tags:
+//   **bold**      -> <strong>bold</strong>
+//   *italic*      -> <em>italic</em>
+//   _italic_      -> <em>italic</em>
+function formatInline(str) {
+    return escapeHtml(str)
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/(?:\*(.+?)\*|_(.+?)_)/g, (match, a, b) => `<em>${a ?? b}</em>`);
+}
+
 function paragraphsToHtml(paragraphs) {
     return (paragraphs || [])
         .filter(p => p && p.trim())
-        .map(p => `                <p>\n                    ${escapeHtml(p.trim())}\n                </p>`)
+        .map(p => `                <p>\n                    ${formatInline(p.trim())}\n                </p>`)
         .join('\n\n');
 }
 
@@ -31,7 +42,7 @@ function renderProjectPage(project, slug) {
 
     const title = escapeHtml(project.name);
     const tag = escapeHtml(page.tag || 'Private / Non-Commercial Project');
-    const heroDesc = escapeHtml(page.heroDesc || project.desc || '');
+    const heroDesc = formatInline(page.heroDesc || project.desc || '');
     const aboutTitle = escapeHtml(page.aboutTitle || project.name);
     const aboutParagraphsHtml = paragraphsToHtml(
         page.aboutParagraphs && page.aboutParagraphs.length
@@ -41,7 +52,7 @@ function renderProjectPage(project, slug) {
     const techHtml = techTagsToHtml(project.tech);
 
     const showcaseImg = page.showcaseImg || project.img || '';
-    const showcaseCaption = escapeHtml(page.showcaseCaption || '');
+    const showcaseCaption = formatInline(page.showcaseCaption || '');
 
     const ogDesc = escapeHtml(project.desc || '');
     const url = `https://lenadijksma.is-a.dev/${slug}`;
