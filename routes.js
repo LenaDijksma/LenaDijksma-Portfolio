@@ -194,12 +194,6 @@ router.get('/autonote', (req, res) => {
     );
 });
 
-router.get('/netscan', (req, res) => {
-    res.sendFile(
-        path.join(__dirname, 'public', 'netscan.html')
-    );
-});
-
 router.get('/placeholder', (req, res) => {
     res.sendFile(
         path.join(__dirname, 'public', 'placeholder.html')
