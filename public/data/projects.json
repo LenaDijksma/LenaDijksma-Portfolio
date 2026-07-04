@@ -32,29 +32,6 @@
     },
     {
         "title": "Tool",
-        "name": "NetScan",
-        "desc": "a small c program that scans your network for devices and open ports. it also displays hostname(if found) vendor and more.",
-        "link": "/netscan",
-        "color": "#43ae39",
-        "public": false,
-        "tech": [
-            "C"
-        ],
-        "type": "personal",
-        "img": "/images/netscan.webp",
-        "page": {
-            "tag": "Private / Non-Commercial Project",
-            "heroDesc": "",
-            "aboutTitle": "This project was created as a test to see whether I could make a network scanner in C.",
-            "aboutParagraphs": [
-                "NetScan is a command-line network scanner built from scratch in C. It auto-detects your local\n                    subnet, ping-sweeps it to find live hosts, and identifies each device through DNS, mDNS, NetBIOS,\n                    and SSDP lookups, falling back to a MAC vendor lookup when nothing else resolves. Open ports are\n                    found with a multi-threaded TCP connect-scan, with lightweight banner grabbing for identifying\n                    running services. Results can be exported to JSON or CSV, and a diff mode flags new or missing\n                    devices between scans.\n                    I built it to get hands-on with raw sockets, threading, and Linux networking internals in C —\n                    there's still plenty I'd like to add, but it's a solid, working tool as it stands."
-            ],
-            "showcaseImg": "/images/netscan.webp",
-            "showcaseCaption": "Running <strong>NetScan</strong> on 192.168.178.0/24"
-        }
-    },
-    {
-        "title": "Tool",
         "name": "Autonote Systems",
         "desc": "The autonote tool and associated tools were made to track days weeks months and eventually years.",
         "link": "/autonote",
