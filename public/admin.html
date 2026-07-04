@@ -215,15 +215,15 @@
     </div>
 
     <!-- ========================= -->
-    <!-- DELETE CONFIRM MODAL -->
+    <!-- CONFIRM MODAL (reused for delete + discard) -->
     <!-- ========================= -->
     <div id="confirm-overlay" class="admin-overlay" hidden>
         <div class="admin-card admin-confirm">
-            <h2>Delete this project?</h2>
+            <h2 id="confirm-title">Delete this project?</h2>
             <p class="admin-subtle" id="confirm-text"></p>
             <div class="admin-editor-actions">
                 <button type="button" id="confirm-cancel" class="admin-secondary-btn">Cancel</button>
-                <button type="button" id="confirm-delete" class="admin-danger-btn">
+                <button type="button" id="confirm-ok" class="admin-danger-btn">
                     <i class="ri-delete-bin-line"></i>
                     Delete
                 </button>

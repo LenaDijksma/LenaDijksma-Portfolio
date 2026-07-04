@@ -21,15 +21,18 @@ const editorTitle = document.getElementById("editor-title");
 const editorCancel = document.getElementById("editor-cancel");
 
 const confirmOverlay = document.getElementById("confirm-overlay");
+const confirmTitle = document.getElementById("confirm-title");
 const confirmText = document.getElementById("confirm-text");
 const confirmCancel = document.getElementById("confirm-cancel");
-const confirmDelete = document.getElementById("confirm-delete");
+const confirmOk = document.getElementById("confirm-ok");
 
 const editorError = document.getElementById("editor-error");
 
 let projects = [];
 let editingIndex = null; // null = adding a new project
-let pendingDeleteIndex = null;
+let confirmCallback = null;
+let dragSourceIndex = null;
+let initialEditorSnapshot = "";
 
 // =========================
 // STATUS BANNER
@@ -144,7 +147,8 @@ function renderProjects() {
     }
 
     projectsList.innerHTML = projects.map((project, index) => `
-        <div class="admin-project-row">
+        <div class="admin-project-row" draggable="true" data-index="${index}">
+            <i class="ri-draggable admin-drag-handle" title="Drag to reorder"></i>
             <div class="admin-project-swatch" style="background:${escapeAttr(project.color || "#7f4bfb")}"></div>
             <div class="admin-project-info">
                 <h3>
@@ -172,6 +176,49 @@ function renderProjects() {
 
     projectsList.querySelectorAll("[data-delete]").forEach(btn => {
         btn.addEventListener("click", () => openDeleteConfirm(Number(btn.dataset.delete)));
+    });
+
+    wireDragReorder();
+}
+
+function wireDragReorder() {
+    const rows = projectsList.querySelectorAll(".admin-project-row");
+
+    rows.forEach(row => {
+        row.addEventListener("dragstart", () => {
+            dragSourceIndex = Number(row.dataset.index);
+            row.classList.add("dragging");
+        });
+
+        row.addEventListener("dragend", () => {
+            row.classList.remove("dragging");
+            rows.forEach(r => r.classList.remove("drag-over"));
+            dragSourceIndex = null;
+        });
+
+        row.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            if (dragSourceIndex === null) return;
+            row.classList.add("drag-over");
+        });
+
+        row.addEventListener("dragleave", () => {
+            row.classList.remove("drag-over");
+        });
+
+        row.addEventListener("drop", async (e) => {
+            e.preventDefault();
+            row.classList.remove("drag-over");
+
+            const targetIndex = Number(row.dataset.index);
+            if (dragSourceIndex === null || dragSourceIndex === targetIndex) return;
+
+            const [moved] = projects.splice(dragSourceIndex, 1);
+            projects.splice(targetIndex, 0, moved);
+            dragSourceIndex = null;
+
+            await saveProjects();
+        });
     });
 }
 
@@ -219,6 +266,27 @@ function syncPageFieldsVisibility() {
 
 fPublic.addEventListener("change", syncPageFieldsVisibility);
 fGeneratePage.addEventListener("change", syncPageFieldsVisibility);
+
+function getEditorSnapshot() {
+    return JSON.stringify({
+        title: fTitle.value,
+        name: fName.value,
+        desc: fDesc.value,
+        link: fLink.value,
+        type: fType.value,
+        color: fColor.value,
+        img: fImg.value,
+        tech: fTech.value,
+        public: fPublic.checked,
+        generatePage: fGeneratePage.checked,
+        pageTag: fPageTag.value,
+        pageAboutTitle: fPageAboutTitle.value,
+        pageHeroDesc: fPageHeroDesc.value,
+        pageAbout: fPageAbout.value,
+        pageShowcaseImg: fPageShowcaseImg.value,
+        pageShowcaseCaption: fPageShowcaseCaption.value
+    });
+}
 
 // =========================
 // IMAGE UPLOAD
@@ -327,6 +395,7 @@ function openEditor(index) {
     }
 
     syncPageFieldsVisibility();
+    initialEditorSnapshot = getEditorSnapshot();
     editorOverlay.hidden = false;
 }
 
@@ -334,12 +403,27 @@ fColorPicker.addEventListener("input", () => {
     fColor.value = fColorPicker.value;
 });
 
-editorCancel.addEventListener("click", () => {
-    editorOverlay.hidden = true;
-});
+function attemptCloseEditor() {
+    if (getEditorSnapshot() === initialEditorSnapshot) {
+        editorOverlay.hidden = true;
+        return;
+    }
+
+    openConfirm({
+        title: "Discard changes?",
+        text: "Your edits to this project haven't been saved.",
+        okLabel: "Discard",
+        danger: true,
+        onConfirm: () => {
+            editorOverlay.hidden = true;
+        }
+    });
+}
+
+editorCancel.addEventListener("click", attemptCloseEditor);
 
 editorOverlay.addEventListener("click", (e) => {
-    if (e.target === editorOverlay) editorOverlay.hidden = true;
+    if (e.target === editorOverlay) attemptCloseEditor();
 });
 
 editorForm.addEventListener("submit", async (e) => {
@@ -389,31 +473,48 @@ editorForm.addEventListener("submit", async (e) => {
 });
 
 // =========================
-// DELETE CONFIRM
+// CONFIRM MODAL (generic)
 // =========================
 
-function openDeleteConfirm(index) {
-    pendingDeleteIndex = index;
-    confirmText.textContent = `"${projects[index].name}" will be permanently removed.`;
+function openConfirm({ title, text, okLabel = "Confirm", danger = true, onConfirm }) {
+    confirmTitle.textContent = title;
+    confirmText.textContent = text;
+    confirmOk.className = danger ? "admin-danger-btn" : "primary-btn";
+    confirmOk.innerHTML = `<i class="${danger ? "ri-delete-bin-line" : "ri-check-line"}"></i> ${okLabel}`;
+    confirmCallback = onConfirm;
     confirmOverlay.hidden = false;
 }
 
-confirmCancel.addEventListener("click", () => {
+function closeConfirm() {
     confirmOverlay.hidden = true;
-    pendingDeleteIndex = null;
-});
+    confirmCallback = null;
+}
+
+confirmCancel.addEventListener("click", closeConfirm);
 
 confirmOverlay.addEventListener("click", (e) => {
-    if (e.target === confirmOverlay) confirmOverlay.hidden = true;
+    if (e.target === confirmOverlay) closeConfirm();
 });
 
-confirmDelete.addEventListener("click", async () => {
-    if (pendingDeleteIndex === null) return;
-    projects.splice(pendingDeleteIndex, 1);
-    pendingDeleteIndex = null;
-    confirmOverlay.hidden = true;
-    await saveProjects();
+confirmOk.addEventListener("click", async () => {
+    const callback = confirmCallback;
+    closeConfirm();
+    if (callback) await callback();
 });
+
+function openDeleteConfirm(index) {
+    openConfirm({
+        title: "Delete this project?",
+        text: `"${projects[index].name}" will be permanently removed.`,
+        okLabel: "Delete",
+        danger: true,
+        onConfirm: async () => {
+            projects.splice(index, 1);
+            renderProjects();
+            await saveProjects();
+        }
+    });
+}
 
 // =========================
 // SAVE (PERSIST + COMMIT)

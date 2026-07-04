@@ -183,6 +183,27 @@
     border-radius: 18px;
     background: var(--card);
     border: 1px solid var(--border);
+    transition: opacity 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.admin-project-row.dragging {
+    opacity: 0.45;
+}
+
+.admin-project-row.drag-over {
+    border-color: var(--accent);
+    background: rgba(127, 75, 251, 0.06);
+}
+
+.admin-drag-handle {
+    cursor: grab;
+    color: var(--text-light);
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.admin-drag-handle:active {
+    cursor: grabbing;
 }
 
 .admin-project-swatch {
