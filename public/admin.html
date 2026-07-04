@@ -131,7 +131,14 @@
 
                 <div class="form-group">
                     <label for="f-img">Image path</label>
-                    <input type="text" id="f-img" placeholder="/images/example.webp" />
+                    <div class="admin-image-row">
+                        <input type="text" id="f-img" placeholder="/images/example.webp" />
+                        <button type="button" class="admin-secondary-btn admin-upload-btn" id="f-img-upload-btn" title="Upload image">
+                            <i class="ri-upload-2-line"></i>
+                        </button>
+                        <input type="file" id="f-img-file" accept="image/png,image/jpeg,image/webp,image/gif,image/svg+xml" hidden />
+                    </div>
+                    <span class="admin-hint" id="f-img-status"></span>
                 </div>
             </div>
 
@@ -177,7 +184,14 @@
                 <div class="admin-editor-grid">
                     <div class="form-group">
                         <label for="f-page-showcase-img">Showcase image path (optional)</label>
-                        <input type="text" id="f-page-showcase-img" placeholder="/images/example-showcase.webp" />
+                        <div class="admin-image-row">
+                            <input type="text" id="f-page-showcase-img" placeholder="/images/example-showcase.webp" />
+                            <button type="button" class="admin-secondary-btn admin-upload-btn" id="f-page-showcase-img-upload-btn" title="Upload image">
+                                <i class="ri-upload-2-line"></i>
+                            </button>
+                            <input type="file" id="f-page-showcase-img-file" accept="image/png,image/jpeg,image/webp,image/gif,image/svg+xml" hidden />
+                        </div>
+                        <span class="admin-hint" id="f-page-showcase-img-status"></span>
                     </div>
 
                     <div class="form-group">

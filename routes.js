@@ -120,40 +120,38 @@ function clearAttempts(ip) {
 // GITHUB COMMIT HELPER
 // =========================
 
-async function commitProjectsToGitHub(projects) {
+async function commitFileToGitHub(repoFilePath, base64Content, message) {
     const token = process.env.GITHUB_TOKEN;
     const repo = process.env.GITHUB_REPO; // "owner/repo"
     const branch = process.env.GITHUB_BRANCH || 'main';
-    const filePath = process.env.GITHUB_FILE_PATH || 'public/data/projects.json';
 
     if (!token || !repo) {
         throw new Error('GitHub integration is not configured (missing GITHUB_TOKEN or GITHUB_REPO)');
     }
 
-    const apiUrl = `https://api.github.com/repos/${repo}/contents/${filePath}`;
+    const apiUrl = `https://api.github.com/repos/${repo}/contents/${repoFilePath}`;
     const headers = {
         Authorization: `Bearer ${token}`,
         'User-Agent': 'lenadijksma-portfolio-admin',
         Accept: 'application/vnd.github+json'
     };
 
+    // Look up the current sha if the file already exists (needed to update rather than create)
+    let sha;
     const getRes = await fetch(`${apiUrl}?ref=${branch}`, { headers });
-    if (!getRes.ok) {
+    if (getRes.ok) {
+        sha = (await getRes.json()).sha;
+    } else if (getRes.status !== 404) {
         throw new Error(`Could not read current file from GitHub (${getRes.status})`);
     }
-    const current = await getRes.json();
-
-    const content = Buffer
-        .from(JSON.stringify(projects, null, 4) + '\n')
-        .toString('base64');
 
     const putRes = await fetch(apiUrl, {
         method: 'PUT',
         headers: { ...headers, 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            message: 'Update projects.json via admin panel',
-            content,
-            sha: current.sha,
+            message,
+            content: base64Content,
+            ...(sha ? { sha } : {}),
             branch
         })
     });
@@ -164,6 +162,20 @@ async function commitProjectsToGitHub(projects) {
     }
 
     return putRes.json();
+}
+
+async function commitProjectsToGitHub(projects) {
+    const filePath = process.env.GITHUB_FILE_PATH || 'public/data/projects.json';
+    const content = Buffer
+        .from(JSON.stringify(projects, null, 4) + '\n')
+        .toString('base64');
+
+    return commitFileToGitHub(filePath, content, 'Update projects.json via admin panel');
+}
+
+async function commitImageToGitHub(imageRelativePath, base64Content) {
+    // imageRelativePath e.g. "public/images/netscan-showcase.webp"
+    return commitFileToGitHub(imageRelativePath, base64Content, `Add ${imageRelativePath} via admin panel`);
 }
 
 // =========================
@@ -282,6 +294,67 @@ router.post('/admin/api/projects', requireAuth, async (req, res) => {
         console.error(error);
         res.json({
             success: true,
+            committed: false,
+            warning: `Saved on the live server, but the GitHub commit failed: ${error.message}`
+        });
+    }
+});
+
+const ALLOWED_IMAGE_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.webp', '.gif', '.svg'];
+const MAX_IMAGE_BYTES = 5 * 1024 * 1024; // 5MB
+
+function sanitizeImageFilename(name) {
+    const ext = path.extname(String(name || '')).toLowerCase();
+    if (!ALLOWED_IMAGE_EXTENSIONS.includes(ext)) return null;
+
+    const base = path.basename(String(name || ''), ext)
+        .toLowerCase()
+        .replace(/[^a-z0-9-_]/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '');
+
+    return `${Date.now()}-${base || 'image'}${ext}`;
+}
+
+router.post('/admin/api/upload-image', requireAuth, express.json({ limit: '8mb' }), async (req, res) => {
+
+    const { filename, data } = req.body || {};
+
+    if (!filename || !data) {
+        return res.status(400).json({ error: 'Missing filename or image data' });
+    }
+
+    const safeName = sanitizeImageFilename(filename);
+    if (!safeName) {
+        return res.status(400).json({ error: 'Unsupported file type. Use png, jpg, jpeg, webp, gif, or svg.' });
+    }
+
+    const base64 = data.includes(',') ? data.split(',')[1] : data;
+    const buffer = Buffer.from(base64, 'base64');
+
+    if (buffer.length > MAX_IMAGE_BYTES) {
+        return res.status(400).json({ error: 'Image is too large. Max size is 5MB.' });
+    }
+
+    const localPath = path.join(__dirname, 'public', 'images', safeName);
+
+    try {
+        await fs.promises.writeFile(localPath, buffer);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Failed to save the image on the server' });
+    }
+
+    const publicPath = `/images/${safeName}`;
+
+    try {
+        await commitImageToGitHub(`public/images/${safeName}`, base64);
+        res.json({ success: true, path: publicPath, committed: true });
+    } catch (error) {
+        console.error(error);
+        res.json({
+            success: true,
+            path: publicPath,
             committed: false,
             warning: `Saved on the live server, but the GitHub commit failed: ${error.message}`
         });

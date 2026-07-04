@@ -220,11 +220,80 @@ function syncPageFieldsVisibility() {
 fPublic.addEventListener("change", syncPageFieldsVisibility);
 fGeneratePage.addEventListener("change", syncPageFieldsVisibility);
 
+// =========================
+// IMAGE UPLOAD
+// =========================
+
+function wireImageUpload(textInputId, fileInputId, buttonId, statusId) {
+    const textInput = document.getElementById(textInputId);
+    const fileInput = document.getElementById(fileInputId);
+    const button = document.getElementById(buttonId);
+    const status = document.getElementById(statusId);
+
+    button.addEventListener("click", () => fileInput.click());
+
+    fileInput.addEventListener("change", async () => {
+        const file = fileInput.files[0];
+        if (!file) return;
+
+        status.textContent = "Uploading…";
+        status.className = "admin-hint";
+
+        try {
+            const dataUrl = await new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = () => reject(new Error("Could not read the file"));
+                reader.readAsDataURL(file);
+            });
+
+            const res = await fetch("/admin/api/upload-image", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ filename: file.name, data: dataUrl })
+            });
+
+            if (res.status === 401) {
+                showLogin();
+                return;
+            }
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                status.textContent = data.error || "Upload failed";
+                status.className = "admin-hint error";
+                return;
+            }
+
+            textInput.value = data.path;
+
+            if (data.committed) {
+                status.textContent = "Uploaded and committed to GitHub.";
+                status.className = "admin-hint success";
+            } else {
+                status.textContent = data.warning || "Uploaded, but the GitHub commit failed.";
+                status.className = "admin-hint error";
+            }
+        } catch (error) {
+            status.textContent = "Could not reach the server to upload the image.";
+            status.className = "admin-hint error";
+        } finally {
+            fileInput.value = "";
+        }
+    });
+}
+
+wireImageUpload("f-img", "f-img-file", "f-img-upload-btn", "f-img-status");
+wireImageUpload("f-page-showcase-img", "f-page-showcase-img-file", "f-page-showcase-img-upload-btn", "f-page-showcase-img-status");
+
 addProjectBtn.addEventListener("click", () => openEditor(null));
 
 function openEditor(index) {
     editingIndex = index;
     editorError.hidden = true;
+    document.getElementById("f-img-status").textContent = "";
+    document.getElementById("f-page-showcase-img-status").textContent = "";
 
     if (index === null) {
         editorTitle.textContent = "Add project";

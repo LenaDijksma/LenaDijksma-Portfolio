@@ -333,6 +333,31 @@
     cursor: pointer;
 }
 
+.admin-image-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: stretch;
+}
+
+.admin-image-row input[type="text"] {
+    flex: 1;
+    min-width: 0;
+}
+
+.admin-upload-btn {
+    flex-shrink: 0;
+    width: 48px;
+    padding: 0;
+}
+
+.admin-hint.error {
+    color: #ff6b6b;
+}
+
+.admin-hint.success {
+    color: #1f9d78;
+}
+
 .admin-hint {
     font-size: 0.78rem;
     color: var(--text-light);
