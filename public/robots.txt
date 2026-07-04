@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /admin43AE39
 
 Sitemap: https://lenadijksma.is-a.dev/sitemap.xml
