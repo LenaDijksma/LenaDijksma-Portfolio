@@ -32,19 +32,6 @@
     },
     {
         "title": "Tool",
-        "name": "Autonote Systems",
-        "desc": "The autonote tool and associated tools were made to track days weeks months and eventually years.",
-        "link": "/autonote",
-        "color": "#8033c9",
-        "public": false,
-        "tech": [
-            "Bash"
-        ],
-        "type": "personal",
-        "img": "/images/autonote.webp"
-    },
-    {
-        "title": "Tool",
         "name": "NetScan",
         "desc": "a small c program that scans your network for devices and open ports. it also displays hostname(if found) vendor and more.",
         "link": "/netscan",
@@ -65,5 +52,18 @@
             "showcaseImg": "/images/netscan.webp",
             "showcaseCaption": ""
         }
+    },
+    {
+        "title": "Tool",
+        "name": "Autonote Systems",
+        "desc": "The autonote tool and associated tools were made to track days weeks months and eventually years.",
+        "link": "/autonote",
+        "color": "#8033c9",
+        "public": false,
+        "tech": [
+            "Bash"
+        ],
+        "type": "personal",
+        "img": "/images/autonote.webp"
     }
 ]
