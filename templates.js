@@ -113,7 +113,6 @@ function renderProjectPage(project, slug) {
     <!-- SAME HEADER -->
     <header class="header">
         <div class="logo">
-            <span class="logo-img" role="img" aria-label="Logo"></span>
             <div class="stacked">
                 <span>Lena</span>
                 <span class="stacked-btm">Dijksma</span>

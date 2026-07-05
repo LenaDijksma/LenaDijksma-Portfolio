@@ -1,20 +1,4 @@
 // =========================
-// LOGO (inline SVG, theme-adaptive)
-// =========================
-// Injected via JS instead of duplicated across every page, so the outline
-// color can use var(--border) and flip with light/dark mode automatically.
-
-const LOGO_SVG = `
-<svg viewBox="0 0 180 180" class="logo-mark" xmlns="http://www.w3.org/2000/svg">
-    <polygon points="81,8 42,12 18,178 57,174" class="logo-mark-shape" />
-    <polygon points="174,133 67,145 63,174 169,165" class="logo-mark-shape" />
-</svg>`;
-
-document.querySelectorAll(".logo-img").forEach((el) => {
-    el.innerHTML = LOGO_SVG;
-});
-
-// =========================
 // AOS
 // =========================
 
