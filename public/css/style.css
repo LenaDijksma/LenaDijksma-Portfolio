@@ -304,8 +304,7 @@ img.logo-img {
 ========================= */
 
 .small-text {
-    display: inline-flex;
-    align-items: center;
+    display: inline-block;
 
     font-family: var(--font-mono);
     color: var(--ink);
