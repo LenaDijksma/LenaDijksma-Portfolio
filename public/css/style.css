@@ -10,6 +10,7 @@
     --ink: #16150f;
     --ink-light: #6b6459;
     --text: #16150f;
+    --text-dark: #16150f;
     --text-light: #6b6459;
     --border: #16150f;
     --accent: #6fd0f2;
@@ -28,6 +29,7 @@ body.dark {
     --ink: #16150f;
     --ink-light: #6b6459;
     --text: #f1f0ea;
+    --text-dark: #16150f;
     --text-light: #a8a196;
     --border: #f1f0ea;
     --accent: #6fd0f2;
@@ -1205,7 +1207,7 @@ body.dark .form-feedback.error {
 
 .no-deco-link {
     text-decoration: none;
-    color: var(--bg);
+    color: var(--text-dark);
 }
 
 .icon {
