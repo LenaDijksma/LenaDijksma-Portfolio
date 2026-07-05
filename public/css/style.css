@@ -1212,6 +1212,7 @@ body.dark .form-feedback.error {
 
 .icon {
     margin-right: 10px;
+    color: var(--text-dark);
 }
 
 /* =========================
