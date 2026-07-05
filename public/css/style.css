@@ -1240,6 +1240,11 @@ body.dark .form-feedback.error {
         grid-template-columns: 1fr;
     }
 
+    .contact-grid {
+        display: flex;
+        flex-direction: column;
+    }
+
     .links-div {
         display: flex;
         flex-direction: column;
