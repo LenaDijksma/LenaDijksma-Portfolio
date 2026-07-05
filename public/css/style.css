@@ -1205,7 +1205,7 @@ body.dark .form-feedback.error {
 
 .no-deco-link {
     text-decoration: none;
-    color: var(--accent-text);
+    color: var(--bg);
 }
 
 .icon {
