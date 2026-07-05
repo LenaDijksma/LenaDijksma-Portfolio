@@ -1,4 +1,20 @@
 // =========================
+// LOGO (inline SVG, theme-adaptive)
+// =========================
+// Injected via JS instead of duplicated across every page, so the outline
+// color can use var(--border) and flip with light/dark mode automatically.
+
+const LOGO_SVG = `
+<svg viewBox="0 0 180 180" class="logo-mark" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="81,8 42,12 18,178 57,174" class="logo-mark-shape" />
+    <polygon points="174,133 67,145 63,174 169,165" class="logo-mark-shape" />
+</svg>`;
+
+document.querySelectorAll(".logo-img").forEach((el) => {
+    el.innerHTML = LOGO_SVG;
+});
+
+// =========================
 // AOS
 // =========================
 
@@ -8,99 +24,27 @@ AOS.init({
 });
 
 // =========================
-// THEME SELECTOR
+// THEME TOGGLE (light/dark only)
 // =========================
 
 const themeTrigger = document.getElementById("theme-trigger");
-const themeDropdown = document.getElementById("theme-dropdown");
 const body = document.body;
 
-themeTrigger.addEventListener("click", (e) => {
-    e.stopPropagation();
-    themeDropdown.classList.toggle("open");
-});
-
-document.addEventListener("click", (e) => {
-    if (!themeDropdown.contains(e.target) && e.target !== themeTrigger) {
-        themeDropdown.classList.remove("open");
-    }
-});
-
-function getCurrentAccent() {
-    if (body.classList.contains("accent-mint")) return "mint";
-    if (body.classList.contains("accent-blue")) return "blue";
-    if (body.classList.contains("accent-yellow")) return "yellow";
-    return "purple";
+function updateThemeIcon() {
+    const icon = themeTrigger.querySelector("i");
+    if (!icon) return;
+    icon.className = body.classList.contains("dark") ? "ri-sun-line" : "ri-moon-line";
 }
 
-function getCurrentScheme() {
-    if (body.classList.contains("scheme-sunset")) return "sunset";
-    if (body.classList.contains("scheme-ocean")) return "ocean";
-    if (body.classList.contains("scheme-monochrome")) return "monochrome";
-    return "default";
-}
-
-function setActiveButtons() {
-    document.querySelectorAll("[data-mode]").forEach((btn) => {
-        btn.classList.toggle("active", btn.dataset.mode === (body.classList.contains("dark") ? "dark" : "light"));
-    });
-    document.querySelectorAll("[data-accent]").forEach((btn) => {
-        btn.classList.toggle("active", btn.dataset.accent === getCurrentAccent());
-    });
-    document.querySelectorAll("[data-scheme]").forEach((btn) => {
-        btn.classList.toggle("active", btn.dataset.scheme === getCurrentScheme());
-    });
-}
-
-// MODE
-document.querySelectorAll("[data-mode]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-        body.classList.toggle("dark", btn.dataset.mode === "dark");
-        localStorage.setItem("theme", btn.dataset.mode);
-        setActiveButtons();
-    });
-});
-
-// ACCENT
-document.querySelectorAll("[data-accent]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-        body.classList.remove("accent-mint", "accent-blue", "accent-yellow");
-        if (btn.dataset.accent === "mint") {
-            body.classList.add("accent-mint");
-        } else if (btn.dataset.accent === "blue") {
-            body.classList.add("accent-blue");
-        } else if (btn.dataset.accent === "yellow") {
-            body.classList.add("accent-yellow");
-        }
-        localStorage.setItem("accent", btn.dataset.accent);
-        setActiveButtons();
-    });
-});
-
-// SCHEME
-document.querySelectorAll("[data-scheme]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-        body.classList.remove("scheme-sunset", "scheme-ocean", "scheme-monochrome");
-        if (btn.dataset.scheme !== "default") {
-            body.classList.add(`scheme-${btn.dataset.scheme}`);
-        }
-        localStorage.setItem("scheme", btn.dataset.scheme);
-        setActiveButtons();
-    });
+themeTrigger.addEventListener("click", () => {
+    body.classList.toggle("dark");
+    localStorage.setItem("theme", body.classList.contains("dark") ? "dark" : "light");
+    updateThemeIcon();
 });
 
 // INIT FROM LOCALSTORAGE
 if (localStorage.getItem("theme") === "dark") body.classList.add("dark");
-
-const savedAccent = localStorage.getItem("accent");
-if (savedAccent === "mint") body.classList.add("accent-mint");
-if (savedAccent === "blue") body.classList.add("accent-blue");
-if (savedAccent === "yellow") body.classList.add("accent-yellow");
-
-const savedScheme = localStorage.getItem("scheme");
-if (savedScheme && savedScheme !== "default") body.classList.add(`scheme-${savedScheme}`);
-
-setActiveButtons();
+updateThemeIcon();
 
 // =========================
 // TYPING EFFECT
@@ -297,6 +241,7 @@ function createProjectCard(project, index) {
     return `
         <div
             class="project-card"
+            style="--card-accent: ${project.color}"
             data-aos="fade-up"
             data-aos-delay="${index * 100}"
         >

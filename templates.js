@@ -82,7 +82,7 @@ function renderProjectPage(project, slug) {
     <link rel="stylesheet" href="/css/style.css" />
 
     <!-- Extra Meta Tags -->
-    <meta name="theme-color" content="${escapeHtml(project.color || '#7f4bfb')}">
+    <meta name="theme-color" content="${escapeHtml(project.color || '#6fd0f2')}">
     <meta name="robots" content="noindex, follow">
 
     <!-- Open Graph -->
@@ -113,7 +113,7 @@ function renderProjectPage(project, slug) {
     <!-- SAME HEADER -->
     <header class="header">
         <div class="logo">
-            <img src="/images/logo.png" alt="Logo Lena" class="logo-img">
+            <span class="logo-img" role="img" aria-label="Logo"></span>
             <div class="stacked">
                 <span>Lena</span>
                 <span class="stacked-btm">Dijksma</span>
@@ -125,33 +125,9 @@ function renderProjectPage(project, slug) {
         </nav>
 
         <div class="theme-selector">
-            <button id="theme-trigger" aria-label="Theme settings">
-                <i class="ri-palette-line"></i>
+            <button id="theme-trigger" aria-label="Toggle light/dark mode">
+                <i class="ri-moon-line"></i>
             </button>
-
-            <div class="theme-dropdown" id="theme-dropdown">
-                <div class="theme-group">
-                    <span class="theme-group-label">Mode</span>
-                    <button class="theme-option" data-mode="light">Light</button>
-                    <button class="theme-option" data-mode="dark">Dark</button>
-                </div>
-
-                <div class="theme-group">
-                    <span class="theme-group-label">Accent</span>
-                    <button class="theme-option" data-accent="purple">Purple</button>
-                    <button class="theme-option" data-accent="mint">Mint</button>
-                    <button class="theme-option" data-accent="blue">Blue</button>
-                    <button class="theme-option" data-accent="yellow">Yellow</button>
-                </div>
-
-                <div class="theme-group">
-                    <span class="theme-group-label">Scheme</span>
-                    <button class="theme-option" data-scheme="default">Default</button>
-                    <button class="theme-option" data-scheme="sunset">Sunset</button>
-                    <button class="theme-option" data-scheme="ocean">Ocean</button>
-                    <button class="theme-option" data-scheme="monochrome">Monochrome</button>
-                </div>
-            </div>
         </div>
 
     </header>

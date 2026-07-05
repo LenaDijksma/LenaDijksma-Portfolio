@@ -17,11 +17,3 @@ https://lenadijksma.is-a.dev/
 
 ## Environment Variables
 RESEND_API_KEY=
-
-GITHUB_REPO=
-
-GITHUB_TOKEN=
-
-RECAPTCHA_SECRET=
-
-ADMIN_PASSWORD=
