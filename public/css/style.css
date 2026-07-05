@@ -1196,7 +1196,7 @@ body.dark .form-feedback.error {
     border-radius: 0;
     background: var(--card);
     border: 2px solid var(--border);
-    color: var(--ink);
+    color: var(--bg);
     font-family: var(--font-mono);
     font-weight: 500;
     font-size: 0.9rem;
