@@ -274,7 +274,8 @@ img.logo-img {
 ========================= */
 
 .hero {
-    min-height: 100vh;
+    height: 110vh;
+    max-height: 110vh;
 
     display: flex;
     flex-direction: column;
@@ -343,32 +344,21 @@ img.logo-img {
     font-weight: 700;
 
     font-size: clamp(3rem, 8vw, 6rem);
-
     line-height: 0.95;
-
     letter-spacing: -0.02em;
 
-    margin-bottom: 0.5rem;
-
     width: 100%;
+    
+    min-height: 1.2em;
 
-    display: flex;
-
-    align-items: center;
-    justify-content: flex-start;
+    display: block;
 
     text-align: left;
-
-    overflow: hidden;
-
-    transition: height 0.2s ease;
 }
 
 #typed-text {
-    display: block;
-
+    display: inline-block;
     width: 100%;
-
     max-width: 900px;
 }
 
@@ -396,7 +386,6 @@ img.logo-img {
     position: relative;
 
     max-width: 480px;
-    margin: 1rem 0;
 
     background: var(--card);
     color: var(--ink);
@@ -411,6 +400,8 @@ img.logo-img {
     line-height: 1.7;
 
     transform: rotate(0.8deg);
+
+    top: -75px;
 }
 
 .description::before {
@@ -1039,44 +1030,38 @@ body.dark .form-feedback.error {
 
 .tech-list {
     display: flex;
-
     flex-wrap: wrap;
-
     gap: 1rem;
-
     justify-content: center;
 }
 
-.tech-list a {
+.tech-item {
+    display: inline-block;
+}
+
+.tech-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
     padding: 0.8rem 1.2rem;
 
-    border-radius: 0;
-
-    background: var(--card);
-
     border: 2px solid var(--border);
-
-    text-decoration: none;
-
+    background: var(--card);
     color: var(--ink);
 
+    text-decoration: none;
     font-family: var(--font-mono);
     font-weight: 500;
     font-size: 0.9rem;
 
     box-shadow: 4px 4px 0 var(--shadow-hard);
 
-    transition:
-        transform 0.15s ease,
-        box-shadow 0.15s ease;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.tech-list a:nth-child(3n+1) { transform: rotate(-1deg); }
-.tech-list a:nth-child(3n+2) { transform: rotate(0.8deg); }
-.tech-list a:nth-child(3n)   { transform: rotate(-0.5deg); }
-
-.tech-list a:hover {
-    transform: translate(-2px, -2px) rotate(0deg);
+.tech-pill:hover {
+    transform: translate(-2px, -2px);
     box-shadow: 6px 6px 0 var(--shadow-hard);
 }
 
@@ -1159,11 +1144,13 @@ body.dark .form-feedback.error {
     font-size: 0.75rem;
     font-weight: 500;
     color: var(--text);
-    transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+    box-shadow: 3px 3px 0 var(--shadow-hard);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.2s ease, color 0.2s ease;
 }
 
 .tech-tag:hover {
-    transform: translateY(-3px);
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 var(--shadow-onaccent);
     background-color: var(--accent);
     color: var(--ink);
 }
@@ -1233,6 +1220,11 @@ body.dark .form-feedback.error {
     .hero {
         min-height: 85vh;
         padding-top: 8rem;
+    }
+
+    .description {
+        top: 0px;
+        margin-top: 25px;
     }
 
     .projects-grid,
