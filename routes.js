@@ -489,6 +489,110 @@ router.get('/:slug', async (req, res, next) => {
 });
 
 // =========================
+// GITHUB CONTRIBUTIONS
+// =========================
+
+router.get('/api/github/contributions', async (req, res) => {
+    try {
+        const username = process.env.GITHUB_USERNAME;
+
+        if (!username) {
+            return res.status(500).json({
+                error: "GitHub username not configured"
+            });
+        }
+
+        const query = `
+            query($userName:String!) {
+                user(login: $userName) {
+                    contributionsCollection {
+                        contributionCalendar {
+                            totalContributions
+                            weeks {
+                                contributionDays {
+                                    date
+                                    contributionCount
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        `;
+
+        const response = await fetch("https://api.github.com/graphql", {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${process.env.GITHUB_TOKEN}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                query,
+                variables: {
+                    userName: username
+                }
+            })
+        });
+
+        const result = await response.json();
+
+        if (result.errors) {
+            console.error(result.errors);
+
+            return res.status(500).json({
+                error: "GitHub API error"
+            });
+        }
+
+        const calendar =
+            result.data.user.contributionsCollection.contributionCalendar;
+
+
+        const days = [];
+
+        calendar.weeks.forEach(week => {
+            week.contributionDays.forEach(day => {
+
+                let level = 0;
+
+                if (day.contributionCount > 0)
+                    level = 1;
+
+                if (day.contributionCount >= 3)
+                    level = 2;
+
+                if (day.contributionCount >= 6)
+                    level = 3;
+
+                if (day.contributionCount >= 10)
+                    level = 4;
+
+
+                days.push({
+                    date: day.date,
+                    count: day.contributionCount,
+                    level
+                });
+            });
+        });
+
+
+        res.json({
+            totalContributions: calendar.totalContributions,
+            days
+        });
+
+
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            error: "Failed to load GitHub contributions"
+        });
+    }
+});
+
+// =========================
 // 404 (must stay last)
 // =========================
 

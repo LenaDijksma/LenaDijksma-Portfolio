@@ -478,7 +478,8 @@ img.logo-img {
 .socials-section,
 .links-section,
 .about-section,
-.contact-section {
+.contact-section,
+.git-section {
     width: 100%;
 
     margin: auto;
