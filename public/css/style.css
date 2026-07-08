@@ -6,6 +6,7 @@
     --bg: #f2efe6;
     --bg-alt: #e8e2d1;
     --card: #fdfbf5;
+    --card-dark: #dad5c9;
     --card-line: #d8d2c0;
     --ink: #16150f;
     --ink-light: #6b6459;
@@ -25,6 +26,7 @@ body.dark {
     --bg: #0d0d0d;
     --bg-alt: #161616;
     --card: #ded6bf;
+    --card-dark: #cbc2aa;
     --card-line: #d8d2c0;
     --ink: #16150f;
     --ink-light: #6b6459;
