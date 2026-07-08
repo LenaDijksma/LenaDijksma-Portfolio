@@ -21,6 +21,14 @@ class GitContributionCalendar {
         }
     }
 
+    getLastYear(days) {
+        const sorted = [...days].sort(
+            (a, b) => new Date(a.date) - new Date(b.date)
+        );
+
+        return sorted.slice(-365);
+    }
+
     render(data) {
         this.element.innerHTML = "";
 
@@ -33,14 +41,15 @@ class GitContributionCalendar {
 
         wrapper.appendChild(title);
 
-        // Scroll container for mobile
         const scroll = document.createElement("div");
         scroll.className = "git-calendar-scroll";
 
         const grid = document.createElement("div");
         grid.className = "git-calendar-grid";
 
-        data.days.forEach(day => {
+        const days = this.getLastYear(data.days);
+
+        days.forEach(day => {
             const cell = document.createElement("div");
 
             cell.className = `level-${day.level}`;
