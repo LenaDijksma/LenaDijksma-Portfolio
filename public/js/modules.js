@@ -7,6 +7,11 @@ class GitContributionCalendar {
     async load() {
         try {
             const response = await fetch(this.endpoint);
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+
             const data = await response.json();
 
             this.render(data);
@@ -28,6 +33,10 @@ class GitContributionCalendar {
 
         wrapper.appendChild(title);
 
+        // Scroll container for mobile
+        const scroll = document.createElement("div");
+        scroll.className = "git-calendar-scroll";
+
         const grid = document.createElement("div");
         grid.className = "git-calendar-grid";
 
@@ -36,13 +45,15 @@ class GitContributionCalendar {
 
             cell.className = `level-${day.level}`;
 
-            cell.title = `${day.date}
+            cell.title =
+`${day.date}
 ${day.count} contribution${day.count !== 1 ? "s" : ""}`;
 
             grid.appendChild(cell);
         });
 
-        wrapper.appendChild(grid);
+        scroll.appendChild(grid);
+        wrapper.appendChild(scroll);
 
         this.element.appendChild(wrapper);
     }

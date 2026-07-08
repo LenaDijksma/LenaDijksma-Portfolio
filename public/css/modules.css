@@ -17,29 +17,37 @@
     box-shadow: 8px 8px 0 var(--shadow-hard);
 
     transform: rotate(-0.4deg);
-}
 
+    overflow: visible;
+}
 
 .git-calendar-title {
     font-family: var(--font-display);
-
     font-size: 1.3rem;
     font-weight: 700;
-
-    display: flex;
-    align-items: center;
-
-    gap: 0.5rem;
 }
 
 .git-calendar-title::before {
-    content: "//";
-
+    content: "// ";
     font-family: var(--font-mono);
-
     color: var(--accent-text);
 }
 
+.git-calendar-scroll {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    scrollbar-width: thin;
+}
+
+.git-calendar-scroll::-webkit-scrollbar {
+    height: 8px;
+}
+
+.git-calendar-scroll::-webkit-scrollbar-thumb {
+    background: var(--border);
+}
 
 .git-calendar-grid {
     display: grid;
@@ -49,6 +57,8 @@
 
     gap: 5px;
 
+    width: max-content;
+
     padding: 1rem;
 
     background: var(--bg);
@@ -56,47 +66,32 @@
     border: 2px solid var(--border);
 
     box-shadow: 4px 4px 0 var(--shadow-hard);
-
-    overflow-x: auto;
 }
-
 
 .git-calendar-grid div {
     width: 12px;
     height: 12px;
 
-    border-radius: 0;
-
     border: 1px solid var(--border);
 
-    transition:
-        transform 0.15s ease,
-        background 0.15s ease;
+    transition: transform .15s ease;
 }
-
 
 .git-calendar-grid div:hover {
     transform: translate(-2px, -2px);
-
     box-shadow: 2px 2px 0 var(--shadow-hard);
 }
-
-
-/* Empty days */
 
 .level-0 {
     background: var(--bg-alt);
 }
-
-
-/* Activity levels */
 
 .level-1 {
     background: #b9e8f8;
 }
 
 .level-2 {
-    background: #6fd0f2;
+    background: var(--accent);
 }
 
 .level-3 {
@@ -104,11 +99,8 @@
 }
 
 .level-4 {
-    background: #0f7a9e;
+    background: var(--accent-text);
 }
-
-
-/* Dark mode adjustments */
 
 body.dark .level-0 {
     background: #242424;
@@ -130,22 +122,47 @@ body.dark .level-4 {
     background: #6fd0f2;
 }
 
+@media (max-width: 768px) {
 
-/* Mobile scrolling */
+    .git-section {
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+    }
 
-@media (max-width:768px) {
+    .git-commits {
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+    }
 
     .git-calendar {
-        padding: 1.25rem;
-
         width: 100%;
+        max-width: 100%;
+        transform: none;
+    }
+
+    .git-calendar-scroll {
+        width: 100%;
+        max-width: 100%;
+
+        overflow-x: scroll;
+        overflow-y: hidden;
+
+        display: block;
     }
 
     .git-calendar-grid {
-        justify-content: flex-start;
+        width: max-content;
 
-        overflow-x: auto;
+        grid-template-columns: repeat(53, 10px);
+        grid-template-rows: repeat(7, 10px);
 
-        padding: 0.75rem;
+        gap: 4px;
+    }
+
+    .git-calendar-grid div {
+        width: 10px;
+        height: 10px;
     }
 }
