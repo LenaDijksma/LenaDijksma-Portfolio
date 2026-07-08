@@ -487,6 +487,7 @@ router.get('/:slug', async (req, res, next) => {
 // =========================
 
 router.get('/api/github/contributions', async (req, res) => {
+    res.set('Cache-Control', 'no-store');
     try {
         const username = process.env.GITHUB_USERNAME;
 
