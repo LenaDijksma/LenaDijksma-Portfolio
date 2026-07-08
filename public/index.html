@@ -35,6 +35,25 @@
         content="Hi, I'm Lena! I'm an 18-year-old trans software development student from the Netherlands. I care a lot about clean design and good code, and I've already shipped two live client sites with more personal projects in the works." />
     <meta name="twitter:image" content="https://lenadijksma.is-a.dev/images/og-preview.png" />
 
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Lena Dijksma",
+        "url": "https://lenadijksma.is-a.dev",
+        "jobTitle": "Software Developer Student",
+        "email": "mailto:lenadijksma08@gmail.com",
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "NL"
+        },
+        "sameAs": [
+            "https://github.com/LenaDijksma"
+        ]
+    }
+    </script>
+
     <script>
         if (localStorage.getItem("theme") === "dark") {
             document.documentElement.classList.add("dark");
@@ -193,10 +212,6 @@
                     <span class="link">
                         <i class="ri-mail-line icon"></i><a href="mailto:lenadijksma08@gmail.com"
                             class="no-deco-link">lenadijksma08@gmail.com</a>
-                    </span>
-                    <span class="link" style="display: none;">
-                        <i class="ri-linkedin-fill icon"></i><a href="https://github.com/LenaDijksma"
-                            class="no-deco-link" target="_blank">Linkedin</a>
                     </span>
                 </div>
 

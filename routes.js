@@ -194,12 +194,6 @@ router.get('/autonote', (req, res) => {
     );
 });
 
-router.get('/placeholder', (req, res) => {
-    res.sendFile(
-        path.join(__dirname, 'public', 'placeholder.html')
-    );
-});
-
 router.get('/admin43AE39', (req, res) => {
     res.sendFile(
         path.join(__dirname, 'public', 'admin.html')
