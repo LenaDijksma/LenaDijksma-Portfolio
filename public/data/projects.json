@@ -65,5 +65,46 @@
             "showcaseImg": "/images/netscan.webp",
             "showcaseCaption": "Running **NetScan** on 192.168.178.0/24"
         }
+    },
+    {
+        "title": "Pi Project",
+        "name": "Raspberry Pi Wi-Fi to Ethernet Router",
+        "desc": "Configured a Raspberry Pi 3B as a Wi-Fi-to-Ethernet router using NetworkManager, dnsmasq, and nftables.",
+        "link": "/pi3b-router",
+        "color": "#e01b24",
+        "public": false,
+        "tech": [
+            "bash"
+        ],
+        "type": "Tool",
+        "img": "/images/1783579594030-pi3b.webp",
+        "page": {
+            "tag": "Private/Non-commercial Project",
+            "heroDesc": "",
+            "aboutTitle": "",
+            "aboutParagraphs": [
+                "Overview",
+                "This project turns a Raspberry Pi 3B into a functional router that bridges a Wi-Fi internet connection to a wired Ethernet network. Devices plugged into the Pi -- directly or through a switch -- receive DHCP-assigned IPs and route their traffic out through the Pi's Wi-Fi interface, with no dependency on the host network's own router.",
+                "Internet\n   |\nWi-Fi\n   |\nRaspberry Pi 3B\n   |\nEthernet\n   |\nSwitch / Laptop",
+                "Stack",
+                "- Raspberry Pi OS Lite (32-bit) -- minimal base OS, no desktop overhead\n- NetworkManager (nmcli) -- interface configuration, replacing the legacy dhcpcd approach used in older Pi OS releases\n- dnsmasq -- DHCP server for the Ethernet-side clients\n- nftables -- NAT/masquerade rules and firewalling\n- sysctl -- kernel-level IP forwarding\n- Tailscale -- pre-existing VPN mesh on the Pi, which also touches nftables and had to be accounted for rather than conflict with",
+                "Network design",
+                "- Pi's Ethernet interface (eth0): static IP 10.10.10.1/24, acting as gateway\n- DHCP range for clients: 10.10.10.100 - 10.10.10.200\n- DNS handed out to clients: 1.1.1.1 and 8.8.8.8\n- NAT: eth0 traffic masqueraded out through wlan0",
+                "Key problems solved",
+                "IP forwarding wasn't where expected. /etc/sysctl.conf was empty because current Pi OS expects drop-in files under /etc/sysctl.d/. Fixed by adding net.ipv4.ip_forward=1 in a new 99-ipforward.conf and applying with sysctl --system.",
+                "No dhcpcd.service. Bookworm replaced dhcpcd with NetworkManager entirely, so the old restart-the-daemon workflow didn't apply. All interface config went through nmcli connection modify instead.",
+                "Static IP on eth0. Configured directly via NetworkManager rather than editing interface files by hand, then verified with ip addr.",
+                "dnsmasq failed on startup with \"unknown interface eth0,\" because it was starting before the interface existed and was bound too strictly. Switching bind-interfaces to bind-dynamic let dnsmasq wait for the interface instead of failing immediately.",
+                "Client didn't reconnect after a cable pull. NetworkManager didn't re-activate the profile automatically; fixed per-incident with nmcli connection up, and permanently with connection.autoconnect yes.",
+                "No dhclient on the client laptop. Modern NetworkManager-based distros don't ship the ISC DHCP client by default -- this is expected, not a bug, so the fix was just using nmcli connection down/up instead of reaching for dhclient.",
+                "Tailscale nftables warnings. Tailscale manages its own NAT table via iptables-nft and logs a warning about it. This is benign -- confirmed the custom masquerade rule for wlan0 was still intact alongside it.",
+                "Verification",
+                "Interfaces and routes were checked with ip addr / ip route, forwarding confirmed via /proc/sys/net/ipv4/ip_forward, dnsmasq status via systemctl status dnsmasq, active NAT rules via nft list ruleset, and issued leases via /var/lib/misc/dnsmasq.leases.",
+                "Result",
+                "The laptop received an IP from the Pi, used it as its default gateway, and retained full internet access with its own Wi-Fi disabled -- confirming the Pi was successfully routing all traffic."
+            ],
+            "showcaseImg": "/images/1783579594030-pi3b.webp",
+            "showcaseCaption": ""
+        }
     }
 ]
