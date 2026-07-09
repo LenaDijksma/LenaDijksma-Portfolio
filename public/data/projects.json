@@ -67,7 +67,7 @@
         }
     },
     {
-        "title": "Pi Project",
+        "title": "tool",
         "name": "Raspberry Pi Wi-Fi to Ethernet Router",
         "desc": "Configured a Raspberry Pi 3B as a Wi-Fi-to-Ethernet router using NetworkManager, dnsmasq, and nftables.",
         "link": "/pi3b-router",
