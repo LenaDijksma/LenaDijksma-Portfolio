@@ -74,7 +74,8 @@
         "color": "#e01b24",
         "public": false,
         "tech": [
-            "bash"
+            "bash",
+            "Raspberry Pi"
         ],
         "type": "Tool",
         "img": "/images/1783579594030-pi3b.webp",
