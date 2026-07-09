@@ -17,3 +17,30 @@ https://lenadijksma.is-a.dev/
 
 ## Environment Variables
 RESEND_API_KEY=
+### PORT is set automatically by Render, only needed locally
+PORT=
+
+### email recaptcha
+RECAPTCHA_SECRET=
+
+### =========================
+### ADMIN PANEL (/admin)
+### =========================
+
+### Password to log into /admin
+ADMIN_PASSWORD=
+
+### GitHub Personal Access Token with "Contents: Read and write" permission
+### on this repo, used so saved changes are committed and persist across deploys
+GITHUB_TOKEN=
+
+### "owner/repo", e.g. LenaDijksma/LenaDijksma-Portfolio
+GITHUB_REPO=
+
+### git-calendar
+GITHUB_USER=
+
+### Optional, defaults shown
+GITHUB_BRANCH=main
+GITHUB_FILE_PATH=public/data/projects.json
+
