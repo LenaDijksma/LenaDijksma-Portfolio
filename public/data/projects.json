@@ -80,8 +80,7 @@
             "NetworkManager",
             "dnsmasq",
             "nftables",
-            "Tailscale",
-            "Networking"
+            "Tailscale"
         ],
         "type": "Networking Tool",
         "img": "/images/1783579594030-pi3b.webp",
