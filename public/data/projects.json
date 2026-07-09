@@ -40,7 +40,7 @@
         "tech": [
             "Bash"
         ],
-        "type": "personal",
+        "type": "Daytracking Tool",
         "img": "/images/autonote.webp"
     },
     {
@@ -53,7 +53,7 @@
         "tech": [
             "C"
         ],
-        "type": "personal",
+        "type": "Networking Tool",
         "img": "/images/netscan.webp",
         "page": {
             "tag": "Private / Non-Commercial Project",
@@ -74,10 +74,16 @@
         "color": "#e01b24",
         "public": false,
         "tech": [
-            "bash",
-            "Raspberry Pi"
+            "Linux",
+            "Bash",
+            "Raspberry Pi",
+            "NetworkManager",
+            "dnsmasq",
+            "nftables",
+            "Tailscale",
+            "Networking"
         ],
-        "type": "Tool",
+        "type": "Networking Tool",
         "img": "/images/1783579594030-pi3b.webp",
         "page": {
             "tag": "Private/Non-commercial Project",
