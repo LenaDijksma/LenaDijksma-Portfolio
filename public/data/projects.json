@@ -72,7 +72,7 @@
     {
         "title": "tool",
         "name": "Localhost Port Scanner (portscan)",
-        "desc": "A C command-line tool that scans a given port range on localhost and identifies which process, if any, is listening on each port, including a live watch mode that reports changes as they happen.",
+        "desc": "A C command-line tool that scans a given port range on localhost and identifies which process is listening on each port.",
         "link": "/portscan",
         "color": "#26a269",
         "public": false,

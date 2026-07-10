@@ -173,6 +173,55 @@ async function commitProjectsToGitHub(projects) {
     return commitFileToGitHub(filePath, content, 'Update projects.json via admin panel');
 }
 
+// Reads projects.json straight from GitHub (the real source of truth once
+// GITHUB_TOKEN/GITHUB_REPO are set). This matters on serverless platforms
+// like Vercel, where the local copy on disk is whatever was bundled at the
+// last deploy and can't reflect a save made since then. Returns null if
+// GitHub isn't configured or the read fails, so callers can fall back to disk.
+async function getProjectsFromGitHub() {
+    const token = process.env.GITHUB_TOKEN;
+    const repo = process.env.GITHUB_REPO;
+    if (!token || !repo) return null;
+
+    const branch = process.env.GITHUB_BRANCH || 'main';
+    const filePath = process.env.GITHUB_FILE_PATH || 'public/data/projects.json';
+    const apiUrl = `https://api.github.com/repos/${repo}/contents/${filePath}?ref=${branch}`;
+
+    try {
+        const res = await fetch(apiUrl, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'User-Agent': 'lenadijksma-portfolio-admin',
+                Accept: 'application/vnd.github+json'
+            }
+        });
+        if (!res.ok) return null;
+        const json = await res.json();
+        return JSON.parse(Buffer.from(json.content, 'base64').toString('utf-8'));
+    } catch (error) {
+        console.warn('Could not read projects.json from GitHub:', error.message);
+        return null;
+    }
+}
+
+// Writing to disk is best-effort: it works locally and on traditional hosts,
+// but serverless platforms like Vercel have a read-only filesystem at
+// runtime, so this fails there — which is fine, since GitHub is the durable
+// copy. Callers should only treat persistence as failed if the GitHub commit
+// *also* fails.
+async function persistProjectsLocal(projects) {
+    try {
+        await fs.promises.writeFile(
+            PROJECTS_PATH,
+            JSON.stringify(projects, null, 4) + '\n'
+        );
+        return true;
+    } catch (error) {
+        console.warn('Local projects.json write skipped (read-only filesystem?):', error.message);
+        return false;
+    }
+}
+
 async function commitImageToGitHub(imageRelativePath, base64Content) {
     // imageRelativePath e.g. "public/images/netscan-showcase.webp"
     return commitFileToGitHub(imageRelativePath, base64Content, `Add ${imageRelativePath} via admin panel`);
@@ -242,6 +291,9 @@ router.get('/admin/api/session', requireAuth, (req, res) => {
 });
 
 router.get('/admin/api/projects', requireAuth, async (req, res) => {
+    const fromGitHub = await getProjectsFromGitHub();
+    if (fromGitHub) return res.json(fromGitHub);
+
     try {
         const raw = await fs.promises.readFile(PROJECTS_PATH, 'utf-8');
         res.json(JSON.parse(raw));
@@ -265,24 +317,22 @@ router.post('/admin/api/projects', requireAuth, async (req, res) => {
         }
     }
 
-    try {
-        await fs.promises.writeFile(
-            PROJECTS_PATH,
-            JSON.stringify(projects, null, 4) + '\n'
-        );
-    } catch (error) {
-        console.error(error);
-        return res.status(500).json({ error: 'Failed to save projects.json on the server' });
-    }
+    const localSaved = await persistProjectsLocal(projects);
 
     try {
         await commitProjectsToGitHub(projects);
-        res.json({ success: true, committed: true });
+        res.json({ success: true, committed: true, localSaved });
     } catch (error) {
         console.error(error);
+        if (!localSaved) {
+            // Neither the local write nor the GitHub commit worked - nothing
+            // was actually persisted.
+            return res.status(500).json({ error: `Failed to save projects: ${error.message}` });
+        }
         res.json({
             success: true,
             committed: false,
+            localSaved,
             warning: `Saved on the live server, but the GitHub commit failed: ${error.message}`
         });
     }
@@ -326,24 +376,30 @@ router.post('/admin/api/upload-image', requireAuth, express.json({ limit: '8mb' 
 
     const localPath = path.join(__dirname, 'public', 'images', safeName);
 
+    let localSaved = false;
     try {
         await fs.promises.writeFile(localPath, buffer);
+        localSaved = true;
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({ error: 'Failed to save the image on the server' });
+        // Read-only filesystem (e.g. Vercel) — not fatal, GitHub is the durable copy.
+        console.warn('Local image write skipped (read-only filesystem?):', error.message);
     }
 
     const publicPath = `/images/${safeName}`;
 
     try {
         await commitImageToGitHub(`public/images/${safeName}`, base64);
-        res.json({ success: true, path: publicPath, committed: true });
+        res.json({ success: true, path: publicPath, committed: true, localSaved });
     } catch (error) {
         console.error(error);
+        if (!localSaved) {
+            return res.status(500).json({ error: `Failed to save image: ${error.message}` });
+        }
         res.json({
             success: true,
             path: publicPath,
             committed: false,
+            localSaved,
             warning: `Saved on the live server, but the GitHub commit failed: ${error.message}`
         });
     }
