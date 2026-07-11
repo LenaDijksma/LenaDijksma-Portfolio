@@ -212,6 +212,14 @@ const privateProjectsGrid =
         "private-projects"
     );
 
+function escapeAttr(str) {
+    return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/"/g, "&quot;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+}
+
 function createProjectCard(project, index) {
 
     const techTags = project.tech
@@ -238,7 +246,7 @@ function createProjectCard(project, index) {
 
             <h3>${project.name}</h3>
             <p>${project.desc}</p>
-            <img src="${project.img}" class="cover-img">
+            <img src="${project.img}" alt="${escapeAttr(project.name)} — ${escapeAttr(project.desc)}" class="cover-img" loading="lazy">
 
             <div class="card-divider"></div>
 
@@ -477,3 +485,56 @@ document.querySelectorAll(".copy-email-btn").forEach((btn) => {
         }
     });
 });
+
+// =========================
+// HEADER INBOX BADGE
+// =========================
+// Shows a message icon + unread count in the header on every page when the
+// visitor is signed in to /messages as a client. Most visitors aren't
+// signed in, so the icon stays hidden unless a session actually exists.
+
+(function () {
+    const inboxBtn = document.getElementById("header-inbox-btn");
+    const inboxBadge = document.getElementById("header-inbox-badge");
+    if (!inboxBtn || !inboxBadge) return;
+
+    async function refreshInbox() {
+        try {
+            const sessionRes = await fetch("/messages/api/session");
+            if (!sessionRes.ok) {
+                inboxBtn.hidden = true;
+                return;
+            }
+
+            inboxBtn.hidden = false;
+
+            const countRes = await fetch("/messages/api/unread-count");
+            if (!countRes.ok) return;
+
+            const data = await countRes.json();
+            if (data.count > 0) {
+                inboxBadge.textContent = data.count > 9 ? "9+" : String(data.count);
+                inboxBadge.hidden = false;
+            } else {
+                inboxBadge.hidden = true;
+            }
+        } catch (error) {
+            // silent - the badge just won't update this time
+        }
+    }
+
+    refreshInbox();
+    setInterval(refreshInbox, 20000);
+
+    document.addEventListener("visibilitychange", () => {
+        if (!document.hidden) refreshInbox();
+    });
+
+    // Back/forward navigation is often served from the browser's bfcache,
+    // which skips re-running this script entirely - so without this, a
+    // badge cleared by reading the thread on /messages can still show as
+    // unread if you hit the back button to get here.
+    window.addEventListener("pageshow", (event) => {
+        if (event.persisted) refreshInbox();
+    });
+})();
