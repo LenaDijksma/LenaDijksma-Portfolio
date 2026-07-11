@@ -61,33 +61,50 @@ if (typedText && typingTitle) {
     // then lock the container to that value
     // so the page never shifts during typing.
 
-    const measurer = document.createElement("span");
+    function measureTallestPhrase() {
+        const measurer = document.createElement("span");
 
-    measurer.style.cssText = `
-        position: absolute;
-        visibility: hidden;
-        pointer-events: none;
-        white-space: normal;
-        width: ${typingTitle.offsetWidth}px;
-        font-size: ${getComputedStyle(typingTitle).fontSize};
-        font-family: ${getComputedStyle(typingTitle).fontFamily};
-        font-weight: ${getComputedStyle(typingTitle).fontWeight};
-        line-height: ${getComputedStyle(typingTitle).lineHeight};
-        max-width: 900px;
-    `;
+        measurer.style.cssText = `
+            position: absolute;
+            visibility: hidden;
+            pointer-events: none;
+            white-space: normal;
+            width: ${typingTitle.offsetWidth}px;
+            font-size: ${getComputedStyle(typingTitle).fontSize};
+            font-family: ${getComputedStyle(typingTitle).fontFamily};
+            font-weight: ${getComputedStyle(typingTitle).fontWeight};
+            line-height: ${getComputedStyle(typingTitle).lineHeight};
+            max-width: 900px;
+        `;
 
-    document.body.appendChild(measurer);
+        // Write every phrase into its own hidden span, all in a single
+        // batched DOM mutation, BEFORE reading any layout back. Reading
+        // offsetHeight right after each write (in the same loop) forces
+        // the browser to synchronously recompute layout on every single
+        // iteration - measuring 8 phrases meant 8 forced reflows back
+        // to back during the hero's initial paint. Splitting it into a
+        // write pass then a read pass collapses that down to one.
+        const fragment = document.createDocumentFragment();
+        const spans = texts.map(text => {
+            const el = measurer.cloneNode();
+            el.textContent = text;
+            fragment.appendChild(el);
+            return el;
+        });
 
-    let maxHeight = 0;
+        document.body.appendChild(fragment);
 
-    texts.forEach(text => {
-        measurer.textContent = text;
-        maxHeight = Math.max(maxHeight, measurer.offsetHeight);
-    });
+        let maxHeight = 0;
+        spans.forEach(el => {
+            maxHeight = Math.max(maxHeight, el.offsetHeight);
+        });
 
-    document.body.removeChild(measurer);
+        spans.forEach(el => el.remove());
 
-    typingTitle.style.height = maxHeight + "px";
+        return maxHeight;
+    }
+
+    typingTitle.style.height = measureTallestPhrase() + "px";
 
     // RE-MEASURE ON RESIZE (viewport changes
     // affect clamp font-size, so heights shift)
@@ -97,24 +114,7 @@ if (typedText && typingTitle) {
     window.addEventListener("resize", () => {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => {
-            const m = document.createElement("span");
-            m.style.cssText = `
-                position: absolute;
-                visibility: hidden;
-                pointer-events: none;
-                white-space: normal;
-                width: ${typingTitle.offsetWidth}px;
-                font-size: ${getComputedStyle(typingTitle).fontSize};
-                font-family: ${getComputedStyle(typingTitle).fontFamily};
-                font-weight: ${getComputedStyle(typingTitle).fontWeight};
-                line-height: ${getComputedStyle(typingTitle).lineHeight};
-                max-width: 900px;
-            `;
-            document.body.appendChild(m);
-            let h = 0;
-            texts.forEach(t => { m.textContent = t; h = Math.max(h, m.offsetHeight); });
-            document.body.removeChild(m);
-            typingTitle.style.height = h + "px";
+            typingTitle.style.height = measureTallestPhrase() + "px";
         }, 150);
     });
 
@@ -486,55 +486,3 @@ document.querySelectorAll(".copy-email-btn").forEach((btn) => {
     });
 });
 
-// =========================
-// HEADER INBOX BADGE
-// =========================
-// Shows a message icon + unread count in the header on every page when the
-// visitor is signed in to /messages as a client. Most visitors aren't
-// signed in, so the icon stays hidden unless a session actually exists.
-
-(function () {
-    const inboxBtn = document.getElementById("header-inbox-btn");
-    const inboxBadge = document.getElementById("header-inbox-badge");
-    if (!inboxBtn || !inboxBadge) return;
-
-    async function refreshInbox() {
-        try {
-            const sessionRes = await fetch("/messages/api/session");
-            if (!sessionRes.ok) {
-                inboxBtn.hidden = true;
-                return;
-            }
-
-            inboxBtn.hidden = false;
-
-            const countRes = await fetch("/messages/api/unread-count");
-            if (!countRes.ok) return;
-
-            const data = await countRes.json();
-            if (data.count > 0) {
-                inboxBadge.textContent = data.count > 9 ? "9+" : String(data.count);
-                inboxBadge.hidden = false;
-            } else {
-                inboxBadge.hidden = true;
-            }
-        } catch (error) {
-            // silent - the badge just won't update this time
-        }
-    }
-
-    refreshInbox();
-    setInterval(refreshInbox, 20000);
-
-    document.addEventListener("visibilitychange", () => {
-        if (!document.hidden) refreshInbox();
-    });
-
-    // Back/forward navigation is often served from the browser's bfcache,
-    // which skips re-running this script entirely - so without this, a
-    // badge cleared by reading the thread on /messages can still show as
-    // unread if you hit the back button to get here.
-    window.addEventListener("pageshow", (event) => {
-        if (event.persisted) refreshInbox();
-    });
-})();

@@ -66,3 +66,23 @@ GITHUB_USERNAME=
 GITHUB_BRANCH=main
 GITHUB_FILE_PATH=public/data/projects.json
 
+## Client messaging (/messages)
+
+Lets a returning client sign in with just their email (a magic link, no
+password) and message you directly instead of a long email thread. You
+reply from a "Messages" tab in the admin panel. Requires:
+
+1. Add **Neon Postgres** to the project via the Vercel Marketplace
+   (Project → Storage → Create Database → Neon). This sets `DATABASE_URL`
+   automatically. Tables are created on first use, no manual migration step.
+2. Set `SESSION_SECRET` to a long random string (`openssl rand -hex 32`) —
+   used to sign client session cookies. Must differ from `ADMIN_PASSWORD`.
+3. Set `SITE_ORIGIN` to your live URL (e.g. `https://lenadijksma.is-a.dev`),
+   used to build links in emails.
+
+```
+DATABASE_URL=
+SESSION_SECRET=
+SITE_ORIGIN=https://lenadijksma.is-a.dev
+```
+

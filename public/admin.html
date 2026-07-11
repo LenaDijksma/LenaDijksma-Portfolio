@@ -9,7 +9,7 @@
     <meta name="robots" content="noindex, nofollow" />
     <link rel="shortcut icon" href="/images/logo.png" type="image/png">
 
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="vendor/remixicon/remixicon.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/admin.css" />
@@ -72,15 +72,17 @@
 
         <div id="status-banner" class="admin-status-banner" hidden></div>
 
-        <div class="admin-toolbar">
-            <p class="admin-subtle" id="project-count">Loading projects…</p>
-            <button id="add-project-btn" class="primary-btn">
-                <i class="ri-add-line"></i>
-                Add project
-            </button>
-        </div>
+        <div id="projects-panel" class="admin-panel">
+            <div class="admin-toolbar">
+                <p class="admin-subtle" id="project-count">Loading projects…</p>
+                <button id="add-project-btn" class="primary-btn">
+                    <i class="ri-add-line"></i>
+                    Add project
+                </button>
+            </div>
 
-        <div id="projects-list" class="admin-projects-list"></div>
+            <div id="projects-list" class="admin-projects-list"></div>
+        </div>
     </main>
 
     <!-- ========================= -->
