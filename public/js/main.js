@@ -350,6 +350,46 @@ function showFeedback(message, type) {
     }
 }
 
+// =========================
+// LAZY-LOAD RECAPTCHA
+// =========================
+// reCAPTCHA's script does its own layout/sizing work once it runs, which
+// is expensive under mobile CPU throttling and was flagged as part of
+// the "Forced reflow" / render-blocking cost on every single page view -
+// even for visitors who never reach the contact form. Load it only once
+// the form is about to scroll into view instead.
+
+let recaptchaLoadPromise = null;
+
+function loadRecaptcha() {
+    if (recaptchaLoadPromise) return recaptchaLoadPromise;
+
+    recaptchaLoadPromise = new Promise((resolve) => {
+        const script = document.createElement("script");
+        script.src = "https://www.google.com/recaptcha/api.js";
+        script.async = true;
+        script.onload = resolve;
+        document.head.appendChild(script);
+    });
+
+    return recaptchaLoadPromise;
+}
+
+if (contactForm) {
+    if ("IntersectionObserver" in window) {
+        const recaptchaObserver = new IntersectionObserver((entries) => {
+            if (entries.some(entry => entry.isIntersecting)) {
+                loadRecaptcha();
+                recaptchaObserver.disconnect();
+            }
+        }, { rootMargin: "600px" });
+
+        recaptchaObserver.observe(contactForm);
+    } else {
+        loadRecaptcha();
+    }
+}
+
 if (contactForm) {
 
     contactForm.addEventListener(
@@ -362,6 +402,11 @@ if (contactForm) {
             submitBtn.disabled = true;
             submitBtn.classList.add("loading");
             submitBtn.innerHTML = `<i class="ri-loader-4-line"></i>`;
+
+            // Safety net: normally already loaded via the IntersectionObserver
+            // above by the time someone's ready to submit, but this covers
+            // edge cases (e.g. keyboard navigation without a scroll event).
+            await loadRecaptcha();
 
             const formData =
                 new FormData(contactForm);
