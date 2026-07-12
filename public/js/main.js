@@ -12,23 +12,34 @@ AOS.init({
 // =========================
 
 const themeTrigger = document.getElementById("theme-trigger");
-const body = document.body;
+const root = document.documentElement;
+const darkMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
 function updateThemeIcon() {
     const icon = themeTrigger.querySelector("i");
     if (!icon) return;
-    icon.className = body.classList.contains("dark") ? "ri-sun-line" : "ri-moon-line";
+    icon.className = root.classList.contains("dark") ? "ri-sun-line" : "ri-moon-line";
 }
 
 themeTrigger.addEventListener("click", () => {
-    body.classList.toggle("dark");
-    localStorage.setItem("theme", body.classList.contains("dark") ? "dark" : "light");
+    root.classList.toggle("dark");
+    localStorage.setItem("theme", root.classList.contains("dark") ? "dark" : "light");
     updateThemeIcon();
 });
 
-// INIT FROM LOCALSTORAGE
-if (localStorage.getItem("theme") === "dark") body.classList.add("dark");
+// INIT: explicit saved choice wins; otherwise follow the OS/browser's
+// dark-mode setting (already applied pre-paint by the inline script in
+// <head>, this just keeps the toggle icon and JS state in sync with it).
 updateThemeIcon();
+
+// If the visitor never explicitly picked a theme, keep following the
+// system setting live (e.g. their OS switches to dark mode at sunset).
+if (!localStorage.getItem("theme")) {
+    darkMediaQuery.addEventListener("change", (e) => {
+        root.classList.toggle("dark", e.matches);
+        updateThemeIcon();
+    });
+}
 
 // =========================
 // TYPING EFFECT

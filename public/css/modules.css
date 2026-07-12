@@ -102,23 +102,23 @@
     background: var(--accent-text);
 }
 
-body.dark .level-0 {
+html.dark .level-0 {
     background: #a79689;
 }
 
-body.dark .level-1 {
+html.dark .level-1 {
     background: #274b5a;
 }
 
-body.dark .level-2 {
+html.dark .level-2 {
     background: #3fa8cc;
 }
 
-body.dark .level-3 {
+html.dark .level-3 {
     background: #1f8bad;
 }
 
-body.dark .level-4 {
+html.dark .level-4 {
     background: #6fd0f2;
 }
 

@@ -97,7 +97,9 @@ function renderProjectPage(project, slug) {
     <meta name="twitter:image" content="https://lenadijksma.is-a.dev/images/og-preview.png" />
 
     <script>
-        if (localStorage.getItem("theme") === "dark") {
+        var savedTheme = localStorage.getItem("theme");
+        var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
             document.documentElement.classList.add("dark");
         }
         document.documentElement.classList.add("no-transition");

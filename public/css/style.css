@@ -22,7 +22,7 @@
     --font-mono: 'JetBrains Mono', monospace;
 }
 
-body.dark {
+html.dark {
     --bg: #0d0d0d;
     --bg-alt: #161616;
     --card: #ded6bf;
@@ -87,7 +87,7 @@ body {
     z-index: -1;
 }
 
-body.dark .background-glow {
+html.dark .background-glow {
     background-image:
         linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
@@ -959,7 +959,7 @@ img.logo-img {
     color: #16a34a;
 }
 
-body.dark .form-feedback.success {
+html.dark .form-feedback.success {
     color: #4ade80;
 }
 
@@ -968,7 +968,7 @@ body.dark .form-feedback.success {
     color: #dc2626;
 }
 
-body.dark .form-feedback.error {
+html.dark .form-feedback.error {
     color: #f87171;
 }
 
