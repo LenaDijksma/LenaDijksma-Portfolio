@@ -20,6 +20,8 @@
     --shadow-onaccent: #16150f;
     --font-display: 'Space Grotesk', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
+    --pub-theme-res: #00bafe;
+    --priv-theme-res: #00fc2e;
 }
 
 html.dark {
@@ -38,6 +40,8 @@ html.dark {
     --accent-text: #6fd0f2;
     --shadow-hard: #6fd0f2;
     --shadow-onaccent: #f1f0ea;
+    --pub-theme-res: #00739d;
+    --priv-theme-res: #009d1d;
 }
 
 * {
