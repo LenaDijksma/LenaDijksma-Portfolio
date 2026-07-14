@@ -70,6 +70,10 @@
     font-size: 0.9rem;
 }
 
+.admin-title {
+    color: var(--text-dark);
+}
+
 /* ========================= */
 /* DASHBOARD HEADER */
 /* ========================= */
