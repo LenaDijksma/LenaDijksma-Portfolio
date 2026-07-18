@@ -49,10 +49,6 @@ const texts = [
     "Building modern frontends.",
     "Developing backend systems.",
     "Creating applications in C#.",
-    "Building terminal-based tools and apps.",
-    "Designing clean and accessible interfaces.",
-    "Focused on minimal and functional design.",
-    "Building polished software experiences.",
     "Creating modern full stack projects.",
 ];
 
