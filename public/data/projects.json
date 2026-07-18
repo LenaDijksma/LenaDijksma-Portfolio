@@ -138,7 +138,7 @@
     {
         "title": "Tool Website",
         "name": "Moduloro",
-        "desc": "a simple website to host tools on, it loads js from '/tools' and loads them in the sidebar. when clickecked render(container) is ran and your page will load.",
+        "desc": "a simple website to host tools on, it loads js from '/tools' and loads them in the sidebar. when clicked render(container) is ran and your page will load.",
         "link": "/moduloro",
         "color": "#57e389",
         "public": false,
