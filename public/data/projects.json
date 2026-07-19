@@ -2,10 +2,10 @@
     {
         "title": "Healthcare Website",
         "name": "NerineZorg",
-        "desc": "Modern website for a Dutch ZZP outpatient care company focused on accessibility, trust, and clean presentation.",
+        "desc": "Modern website for a Dutch ZZP outpatient care company with a lighthouse rating of 99-100. Made to be personal and clear.",
         "link": "http://nerinezorg.nl",
         "color": "#c65a8a",
-        "public": true,
+        "isPublic": true,
         "tech": [
             "HTML",
             "CSS",
@@ -20,7 +20,7 @@
         "desc": "Website showcasing the world's biggest fridge emblem collection with a modern and organized gallery layout.",
         "link": "https://refrigeratoremblems.com/",
         "color": "#a9cfe6",
-        "public": true,
+        "isPublic": true,
         "tech": [
             "HTML",
             "CSS",
@@ -36,10 +36,11 @@
         "desc": "The autonote tool and associated tools were made to track days weeks months and eventually years.",
         "link": "/autonote",
         "color": "#8033c9",
-        "public": false,
+        "isPublic": false,
         "tech": [
             "Bash"
         ],
+        "srcLink": "https://github.com/LenaDijksma/Autonote",
         "type": "Daytracking Tool",
         "img": "/images/autonote.webp"
     },
@@ -49,10 +50,11 @@
         "desc": "a small c program that scans your network for devices and open ports. it also displays hostname(if found) vendor and more.",
         "link": "/netscan",
         "color": "#43ae39",
-        "public": false,
+        "isPublic": false,
         "tech": [
             "C"
         ],
+        "srcLink": "https://github.com/LenaDijksma/NetScan",
         "type": "Networking Tool",
         "img": "/images/netscan.webp",
         "page": {
@@ -75,12 +77,13 @@
         "desc": "A C command-line tool that scans a given port range on localhost and identifies which process is listening on each port.",
         "link": "/portscan",
         "color": "#26a269",
-        "public": false,
+        "isPublic": false,
         "tech": [
             "C",
             "Linux",
             "/proc filesystem"
         ],
+        "srcLink": "https://github.com/LenaDijksma/portscan",
         "type": "Network Tool",
         "img": "/images/1783600742210-portscan.webp",
         "page": {
@@ -106,7 +109,7 @@
         "desc": "Configured a Raspberry Pi 3B as a Wi-Fi-to-Ethernet router using NetworkManager, dnsmasq, and nftables.",
         "link": "/pi3b-router",
         "color": "#e01b24",
-        "public": false,
+        "isPublic": false,
         "tech": [
             "Linux",
             "Bash",
@@ -141,12 +144,13 @@
         "desc": "a simple website to host tools on, it loads js from '/tools' and loads them in the sidebar. when clicked render(container) is ran and your page will load.",
         "link": "/moduloro",
         "color": "#57e389",
-        "public": false,
+        "isPublic": false,
         "tech": [
             "HTML",
             "CSS",
             "JS"
         ],
+        "srcLink": "https://github.com/LenaDijksma/Moduloro",
         "type": "website",
         "img": "/images/1784265645608-screenshot-2026-07-17-at-07-20-36-moduloro.png",
         "page": {
@@ -160,8 +164,7 @@
                 "The frontend loads tools on demand with dynamic import(), passing each one a fresh DOM container to own outright. That constraint — a tool gets a <div> and nothing else — kept every module self-contained and forced consistent patterns for state and re-rendering (each tool keeps its own state in closure and calls a local draw() function to re-render, rather than reaching for a framework's diffing).",
                 "The Kanban board was the most involved piece: drag-and-drop columns, inline search that had to survive re-renders without losing input focus, and a detail modal (title, due date, description, timestamp) built without any UI library — just DOM events, contenteditable/form inputs, and manual focus management.",
                 "Styling went through a deliberate refactor pass too: rather than scattering hex values and pixel numbers through the CSS, I pulled everything — color, spacing, radius, shadows, transitions — into CSS custom properties in :root, so the whole dark theme can be retuned from one place without touching component rules.",
-                "Everything persists client-side via localStorage; there's no backend database, keeping the whole thing a static-file-adjacent app with just enough server logic to make development friction-free.",
-                "You can fork the project for free at https://github.com/LenaDijksma/Moduloro"
+                "Everything persists client-side via localStorage; there's no backend database, keeping the whole thing a static-file-adjacent app with just enough server logic to make development friction-free."
             ],
             "showcaseImg": "/images/1784265645608-screenshot-2026-07-17-at-07-20-36-moduloro.png",
             "showcaseCaption": "Moduloro clock module"

@@ -237,6 +237,10 @@ function createProjectCard(project, index) {
         : project.type === "program" ? "View Program"
             : "View Project Page";
 
+    const srcCodeLink = (!project.isPublic && project.srcLink)
+        ? `<a href="${project.srcLink}" target="_blank">Open source code<i class="ri-arrow-right-up-line" style="margin-left: 5px"></i></a>`
+        : "";
+
     return `
         <div
             class="project-card"
@@ -259,7 +263,9 @@ function createProjectCard(project, index) {
 
             ${techTags ? `<div class="tech-tags">${techTags}</div>` : ""}
 
-            <a href="${project.link}" ${project.public ? 'target="_blank"' : ""} rel="noopener noreferrer">
+            ${srcCodeLink}
+
+            <a href="${project.link}" ${project.isPublic ? 'target="_blank"' : ""} rel="noopener noreferrer">
                 ${linkLabel}<i class="ri-arrow-right-up-line" style="margin-left: 5px"></i>
             </a>
         </div>
@@ -282,7 +288,7 @@ fetch("/data/projects.json")
 
             const publicProjects =
                 projects.filter(
-                    project => project.public
+                    project => project.isPublic
                 );
 
             publicProjects.forEach(
@@ -305,7 +311,7 @@ fetch("/data/projects.json")
 
             const privateProjects =
                 projects.filter(
-                    project => !project.public
+                    project => !project.isPublic
                 );
 
             privateProjects.forEach(
