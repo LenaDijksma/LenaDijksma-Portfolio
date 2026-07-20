@@ -681,6 +681,27 @@ img.logo-img {
     border: 2px solid var(--border);
 }
 
+.sub-img-text {
+    display: inline-block;
+
+    font-family: var(--font-mono);
+    color: var(--ink);
+    background: var(--card);
+
+    border: 2px solid var(--border);
+    box-shadow: 4px 4px 0 var(--shadow-hard);
+
+    padding: 0.5rem 1rem;
+
+    font-weight: 500;
+    font-size: 0.85rem;
+
+    transform: rotate(-1.2deg);
+
+    position: relative;
+    top: 25px;
+}
+
 /* =========================
    PROJECT LINKS
 ========================= */
@@ -1023,8 +1044,6 @@ html.dark .form-feedback.error {
     line-height: 0.95;
 
     letter-spacing: -0.02em;
-
-    margin-bottom: 150px
 }
 
 /* =========================
@@ -1126,7 +1145,7 @@ html.dark .form-feedback.error {
     padding: 2rem 0 4rem;
 }
 
-.project-showcase .small-text {
+.project-showcase .tag-text {
     margin-top: 1.5rem;
     transform: rotate(1deg);
 }

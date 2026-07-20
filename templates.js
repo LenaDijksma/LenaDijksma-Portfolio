@@ -140,7 +140,7 @@ function renderProjectPage(project, slug) {
 
             <div class="hero-content" data-aos="fade-up">
 
-                <p class="small-text">
+                <p class="tag-text">
                     ${tag}
                 </p>
 
@@ -192,7 +192,7 @@ ${aboutParagraphsHtml}
 
         ${showcaseImg ? `<section class="project-showcase">
             <img src="${escapeHtml(showcaseImg)}" alt="${title} showcase" class="project-image">
-            ${showcaseCaption ? `<p class="small-text">${showcaseCaption}</p>` : ''}
+            ${showcaseCaption ? `<p class="sub-img-text">${showcaseCaption}</p>` : ''}
         </section>` : ''}
 
     </main>
