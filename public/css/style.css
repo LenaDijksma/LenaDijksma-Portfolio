@@ -1150,6 +1150,24 @@ html.dark .form-feedback.error {
     transform: rotate(1deg);
 }
 
+.tag-text {
+    display: inline-block;
+
+    font-family: var(--font-mono);
+    color: var(--ink);
+    background: var(--card);
+
+    border: 2px solid var(--border);
+    box-shadow: 4px 4px 0 var(--shadow-hard);
+
+    padding: 0.5rem 1rem;
+
+    font-weight: 500;
+    font-size: 0.85rem;
+
+    transform: rotate(-1.2deg);
+}
+
 /* =========================
    LEFT ALIGN TITLE
 ========================= */
