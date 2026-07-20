@@ -169,5 +169,33 @@
             "showcaseImg": "/images/1784265645608-screenshot-2026-07-17-at-07-20-36-moduloro.png",
             "showcaseCaption": "Moduloro clock module"
         }
+    },
+    {
+        "title": "css framework",
+        "name": "ldcss",
+        "desc": "A custom css framework with css and js. techy style but with escape hatches for more fluid styles",
+        "link": "/ldcss",
+        "color": "#99c1f1",
+        "public": false,
+        "tech": [
+            "CSS",
+            "JS"
+        ],
+        "type": "css framework",
+        "img": "/images/1784530855327-screenshot-2026-07-20-at-09-00-45-ldcss-lena-dijksma-css.png",
+        "page": {
+            "tag": "Private/Non-commercial Project",
+            "heroDesc": "",
+            "aboutTitle": "",
+            "aboutParagraphs": [
+                "**LDCSS** is a CSS framework with built-in JavaScript designed to provide a consistent, feature-rich foundation for building modern websites and web applications. It combines a collection of reusable components, utility classes, and custom HTML attributes to reduce boilerplate code while keeping projects organized and easy to maintain.",
+                "The framework extends standard HTML with its own naming conventions, using `ld-*` classes for styling and `data-ld-*` attributes for JavaScript-powered functionality. This approach allows interactive features to be enabled directly in your markup with minimal configuration, making common UI patterns quick to implement without requiring large amounts of custom JavaScript.",
+                "Out of the box, LDCSS features a distinctive developer-focused aesthetic inspired by terminal interfaces and technical dashboards. It uses monospaced typography, sharp corners, defined borders, and a clean, high-contrast design language to create a modern \"tech\" appearance. At the same time, the framework is intentionally designed with flexibility in mind. Every aspect of its appearance can be customized or overridden, allowing developers to create softer, more rounded, or completely unique designs without fighting the framework's defaults.",
+                "LDCSS includes a growing collection of components and utilities for building responsive user interfaces. Features include interactive elements such as accordions, pagination, and other JavaScript-powered components, alongside layout helpers, utility classes, and consistent styling for common HTML elements. The goal is to provide sensible defaults while remaining lightweight, predictable, and easy to extend.",
+                "The project is under active development and is continuously evolving with new components, utilities, attributes, and quality-of-life improvements. As the framework grows, new features are added with a focus on reducing repetitive code, improving developer experience, maintaining consistency across projects, and making it easier to build polished interfaces without relying on multiple external libraries."
+            ],
+            "showcaseImg": "/images/1784530855327-screenshot-2026-07-20-at-09-00-45-ldcss-lena-dijksma-css.png",
+            "showcaseCaption": "demo page for ldcss"
+        }
     }
 ]
