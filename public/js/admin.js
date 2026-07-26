@@ -153,11 +153,16 @@ function renderProjects() {
             <div class="admin-project-info">
                 <h3>
                     ${escapeHtml(project.name || "Untitled")}
-                    <span class="admin-visibility-tag ${project.public ? "public" : "private"}">
-                        ${project.public ? "Public" : "Private"}
+                    <span class="admin-visibility-tag ${project.isPublic ? "public" : "private"}">
+                        ${project.isPublic ? "Public" : "Private"}
                     </span>
                 </h3>
                 <p>${escapeHtml(project.title || "")} · ${escapeHtml(project.link || "")}</p>
+                ${!project.isPublic && project.srcLink ? `
+                    <a href="${escapeAttr(project.srcLink)}" target="_blank" rel="noopener noreferrer" class="admin-srclink" title="View source">
+                        <i class="ri-github-fill"></i> Source
+                    </a>
+                ` : ""}
             </div>
             <div class="admin-project-actions">
                 <button type="button" class="admin-secondary-btn" data-edit="${index}" title="Edit">
@@ -246,6 +251,8 @@ const fColorPicker = document.getElementById("f-color-picker");
 const fImg = document.getElementById("f-img");
 const fTech = document.getElementById("f-tech");
 const fPublic = document.getElementById("f-public");
+const fSrcLink = document.getElementById("f-srclink");
+const srcLinkRow = document.getElementById("f-srclink-row");
 
 const fGeneratePage = document.getElementById("f-generate-page");
 const generatePageRow = document.getElementById("f-generate-page-row");
@@ -258,8 +265,9 @@ const fPageShowcaseImg = document.getElementById("f-page-showcase-img");
 const fPageShowcaseCaption = document.getElementById("f-page-showcase-caption");
 
 function syncPageFieldsVisibility() {
-    // A generated page only makes sense for private projects
+    // A generated page and a source code link only make sense for private projects
     generatePageRow.style.display = fPublic.checked ? "none" : "flex";
+    srcLinkRow.style.display = fPublic.checked ? "none" : "";
     if (fPublic.checked) fGeneratePage.checked = false;
     pageFields.hidden = !fGeneratePage.checked || fPublic.checked;
 }
@@ -277,7 +285,8 @@ function getEditorSnapshot() {
         color: fColor.value,
         img: fImg.value,
         tech: fTech.value,
-        public: fPublic.checked,
+        isPublic: fPublic.checked,
+        srcLink: fSrcLink.value,
         generatePage: fGeneratePage.checked,
         pageTag: fPageTag.value,
         pageAboutTitle: fPageAboutTitle.value,
@@ -382,7 +391,8 @@ function openEditor(index) {
         fColorPicker.value = /^#[0-9a-f]{6}$/i.test(project.color) ? project.color : "#7f4bfb";
         fImg.value = project.img || "";
         fTech.value = (project.tech || []).join(", ");
-        fPublic.checked = !!project.public;
+        fPublic.checked = !!project.isPublic;
+        fSrcLink.value = project.srcLink || "";
 
         const page = project.page || null;
         fGeneratePage.checked = !!page;
@@ -436,11 +446,15 @@ editorForm.addEventListener("submit", async (e) => {
         desc: fDesc.value.trim(),
         link: fLink.value.trim(),
         color: fColor.value.trim() || "#7f4bfb",
-        public: fPublic.checked,
+        isPublic: fPublic.checked,
         tech: fTech.value.split(",").map(t => t.trim()).filter(Boolean),
         type: fType.value.trim(),
         img: fImg.value.trim()
     };
+
+    if (!fPublic.checked && fSrcLink.value.trim()) {
+        projectData.srcLink = fSrcLink.value.trim();
+    }
 
     if (fGeneratePage.checked && !fPublic.checked) {
         if (!/^\/[a-z0-9-]+$/i.test(projectData.link)) {

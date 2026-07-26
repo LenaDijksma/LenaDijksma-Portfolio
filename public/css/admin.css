@@ -261,6 +261,21 @@
     color: var(--priv-theme-res);
 }
 
+.admin-srclink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-top: 0.3rem;
+    font-size: 0.82rem;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.admin-srclink:hover {
+    text-decoration: underline;
+}
+
 .admin-project-actions {
     display: flex;
     gap: 0.5rem;
