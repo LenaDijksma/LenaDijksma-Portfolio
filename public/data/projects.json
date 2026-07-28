@@ -198,5 +198,36 @@
             "showcaseImg": "/images/1784530855327-screenshot-2026-07-20-at-09-00-45-ldcss-lena-dijksma-css.png",
             "showcaseCaption": "demo page for ldcss"
         }
+    },
+    {
+        "title": "utlity",
+        "name": "ld-graphs",
+        "desc": "A simple graph system for html that slots nicely into the pre-existing ldcss framework.",
+        "link": "/ldgraphs",
+        "color": "#813d9c",
+        "isPublic": false,
+        "tech": [
+            "HTML",
+            "CSS",
+            "JS"
+        ],
+        "type": "framework",
+        "img": "/images/1785235444971-screenshot-2026-07-28-at-12-42-27-ld-graph-demo.png",
+        "srcLink": "https://github.com/LenaDijksma/ld-graphs",
+        "page": {
+            "tag": "Private/Non-commercial Project",
+            "heroDesc": "",
+            "aboutTitle": "",
+            "aboutParagraphs": [
+                "ld-graph exists because most charting libraries are the wrong size for what a lot of pages actually need. You either reach for something like Chart.js or D3 and pull in a dependency, a build step, and an API surface built for dashboards — or you hand-roll SVG paths every time you want to show a trend line. ld-graph is meant to sit in the gap: small enough to vendor as two files, but structured enough that you're not fighting it once you need a second or third chart on a page.",
+                "The core idea is that a chart is just data plus a shape. You write ld-graph-data=\"1, 3, 5, 8\" and ld-graph-type=\"smooth\", and the library reads those two attributes off any element — it doesn't register a real custom element (<graph> isn't valid as one, since autonomous custom elements need a hyphen in the tag name), it just scans the DOM for anything carrying ld-graph-data and builds an SVG into it. That means you can use <graph>, a <div>, a <span>, whatever fits your markup, and it behaves identically. A MutationObserver watches for new elements and attribute changes, so charts stay in sync if you're injecting content dynamically, without you having to remember to call a re-init function every time — though window.ldGraph.refresh() is there if you want to trigger it manually.",
+                "Styling deliberately has almost no JS-side configuration. Colors, stroke width, bar radius, point size, spacing between a chart and its labels or legend — all of it routes through CSS custom properties. That's a conscious trade-off: it means you can reskin every graph on a page from one :root block, override a single instance with an inline style=\"\", and never have to touch ld-graph.js at all for anything visual. The one exception is per-series color for comparison charts, which cycles through --ld-graph-color-1 through --ld-graph-color-6 automatically, so a two- or three-series graph is colored sensibly out of the box without you specifying anything, but every slot is still just a variable you can override.",
+                "Comparison charts work by letting ld-graph-data take multiple series separated by semicolons. Line-family types (smooth, straight, step, dots) overlay the series on a shared scale; bars either group side-by-side or stack, depending on whether you set ld-graph-stack. All series in a graph share one min/max range unless you override it, which matters for comparison charts specifically — you want \"this week\" and \"last week\" plotted on axes that mean the same thing, not each auto-scaled to its own bounds. A ld-graph-legend attribute renders a simple swatch key using ld-graph-series-labels, and those same labels feed into a generated aria-label so screen readers get a real summary of what's being compared, not just \"image.\"",
+                "A few smaller decisions worth knowing about: internal layout uses a fixed 600×200 viewBox scaled by CSS, so charts stay crisp and responsive without recalculating coordinates on resize. The smooth line type uses a Catmull-Rom-to-Bezier conversion rather than a charting library's spline implementation, which keeps the file dependency-free but means very jagged data can produce slight overshoot in the curve — straight or step are the better choice if that matters for your data. Animated draw-ins respect prefers-reduced-motion automatically. And because everything renders as real SVG rather than canvas, individual bars, lines, and points are addressable and stylable with normal CSS selectors if you want to go further than the built-in variables.",
+                "It's built to sit next to ldcss without requiring it — same naming convention, same \"few dependency-free files you can vendor and forget\" philosophy, but nothing in ld-graph reaches into ldcss's token system or components. You can use one without the other."
+            ],
+            "showcaseImg": "/images/1785235444971-screenshot-2026-07-28-at-12-42-27-ld-graph-demo.png",
+            "showcaseCaption": ""
+        }
     }
 ]
