@@ -52,6 +52,8 @@
 .git-calendar-grid {
     display: grid;
 
+    grid-auto-flow: column;
+
     grid-template-columns: repeat(53, 12px);
     grid-template-rows: repeat(7, 12px);
 
@@ -154,6 +156,8 @@ html.dark .level-4 {
 
     .git-calendar-grid {
         width: max-content;
+
+        grid-auto-flow: column;
 
         grid-template-columns: repeat(53, 10px);
         grid-template-rows: repeat(7, 10px);
