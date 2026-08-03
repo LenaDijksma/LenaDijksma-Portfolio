@@ -3,8 +3,8 @@
     "short_name": "Lena Dijksma",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#0d0d12",
-    "theme_color": "#7f4bfb",
+    "background_color": "#b0d6cb",
+    "theme_color": "#59213f",
     "icons": [
         {
             "src": "/images/logo.png",
