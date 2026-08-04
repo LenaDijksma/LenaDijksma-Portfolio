@@ -47,9 +47,9 @@ if (!localStorage.getItem("theme")) {
 
 const texts = [
     "Building modern frontends.",
-    "Developing backend systems.",
-    "Creating applications in C#.",
-    "Creating modern full stack projects.",
+    "Engineering reliable backends.",
+    "Crafting applications in C#.",
+    "Shipping full-stack projects.",
 ];
 
 const typedText =
