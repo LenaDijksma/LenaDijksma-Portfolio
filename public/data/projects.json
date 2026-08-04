@@ -229,5 +229,38 @@
             "showcaseImg": "/images/1785235444971-screenshot-2026-07-28-at-12-42-27-ld-graph-demo.png",
             "showcaseCaption": ""
         }
+    },
+    {
+        "title": "media-player",
+        "name": "LDMP",
+        "desc": "LDMP — a terminal music player with a cava-style real-time spectrum visualizer, built from scratch in C11. No runtime dependencies beyond ncurses and standard Linux audio.",
+        "link": "/ldmp",
+        "color": "#58ffc3",
+        "isPublic": false,
+        "tech": [
+            "C"
+        ],
+        "type": "media-player",
+        "img": "/images/1785856943744-ldmp.png",
+        "srcLink": "https://github.com/LenaDijksma/ldmp---music-player",
+        "page": {
+            "tag": "Private / Non-Commercial Project",
+            "heroDesc": "",
+            "aboutTitle": "",
+            "aboutParagraphs": [
+                "Card (short):",
+                "LDMP — a terminal music player with a cava-style real-time spectrum visualizer, built from scratch in C11. No runtime dependencies beyond ncurses and standard Linux audio.",
+                "Page (full description):",
+                "LDMP (Lena Dijksma Music Player) is a terminal-based music player written in plain C11, with a real-time spectrum visualizer inspired by cava. It was built to have zero runtime dependencies beyond a standard Linux audio stack and libncursesw — no Python, no external services, no bloated frameworks.",
+                "Playback runs on miniaudio, vendored as a single header directly in the source, decoding and playing MP3, WAV, and FLAC files through ALSA, PulseAudio, or PipeWire-pulse — whichever the system has available. The audio backend is loaded at runtime via dlopen, so the player doesn't even need audio dev packages to build.",
+                "The visualizer is powered by a hand-written radix-2 FFT run directly on the PCM samples as they're mixed to the output device, the same technique cava uses. Log-spaced frequency bands with auto-gain keep the display responsive across quiet and loud tracks alike, and bars are rendered with Unicode sub-character blocks so they animate smoothly instead of snapping between whole terminal rows.",
+                "Beyond playback, LDMP includes:",
+                "File-manager-style browsing — navigate your music folder by folder, with subfolders and tracks sorted alphabetically and grouped separately.\nLibrary-wide search that works from anywhere in the browsing tree.\nPlaylists stored as lightweight JSON files that reference track paths rather than copying audio, so they stay in sync with your library.\nA built-in ID3v2 reader for MP3 title/artist tags.\nMPRIS2 support (built automatically when libdbus-1-dev is present), so LDMP shows up in desktop \"now playing\" widgets like waybar or eww and responds to media keys.",
+                "The whole UI runs through ncursesw, with full keyboard control: play/pause, seek, volume, shuffle, repeat, and playlist management, all without leaving the keyboard.",
+                "Stack: C11, ncursesw, miniaudio, custom FFT implementation, JSON-based playlists, optional D-Bus/MPRIS2 integration."
+            ],
+            "showcaseImg": "/images/1785856943744-ldmp.png",
+            "showcaseCaption": ""
+        }
     }
 ]
