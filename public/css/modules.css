@@ -10,13 +10,12 @@
     background: var(--card);
     color: var(--ink);
 
-    border: 2px solid var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
 
     padding: 2rem;
 
-    box-shadow: 8px 8px 0 var(--shadow-hard);
-
-    transform: rotate(-0.4deg);
+    box-shadow: 0 24px 50px -32px var(--shadow-color-strong);
 
     overflow: visible;
 }
@@ -24,13 +23,11 @@
 .git-calendar-title {
     font-family: var(--font-display);
     font-size: 1.3rem;
-    font-weight: 700;
+    font-weight: 500;
 }
 
 .git-calendar-title::before {
-    content: "// ";
-    font-family: var(--font-mono);
-    color: var(--accent-text);
+    content: "";
 }
 
 .git-calendar-scroll {
@@ -47,6 +44,7 @@
 
 .git-calendar-scroll::-webkit-scrollbar-thumb {
     background: var(--border);
+    border-radius: 999px;
 }
 
 .git-calendar-grid {
@@ -64,24 +62,23 @@
     padding: 1rem;
 
     background: var(--card-dark);
+    border-radius: var(--radius-sm);
 
-    border: 2px solid black;
-
-    box-shadow: 4px 4px 0 var(--shadow-hard);
+    border: 1px solid var(--border);
 }
 
 .git-calendar-grid div {
     width: 12px;
     height: 12px;
 
-    border: 1px solid black;
+    border-radius: 3px;
+    border: 1px solid var(--border);
 
-    transition: transform .15s ease;
+    transition: transform .15s var(--ease);
 }
 
 .git-calendar-grid div:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 2px 2px 0 var(--shadow-hard);
+    transform: scale(1.2);
 }
 
 .level-0 {
@@ -89,39 +86,19 @@
 }
 
 .level-1 {
-    background: #b9e8f8;
+    background: color-mix(in srgb, var(--accent) 25%, var(--card));
 }
 
 .level-2 {
-    background: var(--accent);
+    background: color-mix(in srgb, var(--accent) 55%, var(--card));
 }
 
 .level-3 {
-    background: #28afd9;
+    background: color-mix(in srgb, var(--accent) 80%, var(--card));
 }
 
 .level-4 {
-    background: var(--accent-text);
-}
-
-html.dark .level-0 {
-    background: #a79689;
-}
-
-html.dark .level-1 {
-    background: #274b5a;
-}
-
-html.dark .level-2 {
-    background: #3fa8cc;
-}
-
-html.dark .level-3 {
-    background: #1f8bad;
-}
-
-html.dark .level-4 {
-    background: #6fd0f2;
+    background: var(--accent);
 }
 
 @media (max-width: 768px) {
@@ -141,7 +118,6 @@ html.dark .level-4 {
     .git-calendar {
         width: 100%;
         max-width: 100%;
-        transform: none;
     }
 
     .git-calendar-scroll {
