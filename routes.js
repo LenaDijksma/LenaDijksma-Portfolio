@@ -553,6 +553,21 @@ router.get('/api/github/contributions', async (req, res) => {
             });
         }
 
+        // GitHub's GraphQL API only folds private/internal repo activity into
+        // contributionsCollection when the token carries the "read:user" scope
+        // (see docs.github.com/en/graphql/reference/users#contributionscollection).
+        // That's a much broader grant than the fine-grained, single-repo token
+        // used for the admin panel commits above, so this route deliberately
+        // uses its own token (GITHUB_CONTRIB_TOKEN) rather than widening
+        // GITHUB_TOKEN. Falls back to GITHUB_TOKEN if a dedicated one isn't set.
+        const contribToken = process.env.GITHUB_CONTRIB_TOKEN || process.env.GITHUB_TOKEN;
+
+        if (!contribToken) {
+            return res.status(500).json({
+                error: "GitHub token not configured"
+            });
+        }
+
         const query = `
             query($userName:String!) {
                 user(login: $userName) {
@@ -574,7 +589,7 @@ router.get('/api/github/contributions', async (req, res) => {
         const response = await fetch("https://api.github.com/graphql", {
             method: "POST",
             headers: {
-                "Authorization": `Bearer ${process.env.GITHUB_TOKEN}`,
+                "Authorization": `Bearer ${contribToken}`,
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
