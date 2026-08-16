@@ -262,5 +262,19 @@
             "showcaseImg": "/images/1785856943744-ldmp.png",
             "showcaseCaption": ""
         }
+    },
+    {
+        "title": "Website",
+        "name": "BizEase",
+        "desc": "BizEase supports entrepreneurs who want to grow but don't want to get bogged down in administration. No standard package, but help tailored to how you work.",
+        "link": "https://www.bizease.nl/",
+        "color": "#123734",
+        "isPublic": true,
+        "tech": [
+            "HTML",
+            "CSS"
+        ],
+        "type": "website",
+        "img": "/images/1786866386775-screenshot-2026-08-16-at-09-44-01-bizease-solutions.png"
     }
 ]
