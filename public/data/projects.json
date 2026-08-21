@@ -268,7 +268,7 @@
         "name": "BizEase",
         "desc": "BizEase supports entrepreneurs who want to grow but don't want to get bogged down in administration. No standard package, but help tailored to how you work.",
         "link": "https://www.bizease.nl/",
-        "color": "#123734",
+        "color": "#2bb8bb",
         "isPublic": true,
         "tech": [
             "HTML",
