@@ -276,5 +276,33 @@
         ],
         "type": "website",
         "img": "/images/1787331760096-screenshot-2026-08-21-at-19-02-26-bizease-solutions.png"
+    },
+    {
+        "title": "server tool",
+        "name": "Deployd",
+        "desc": "A simple deploy tool with TUI for deploying websites",
+        "link": "/deployd",
+        "color": "#62a0ea",
+        "isPublic": false,
+        "tech": [
+            "C",
+            "Python",
+            "Shell"
+        ],
+        "type": "tool",
+        "img": "/images/1787760139269-20260826180158.png",
+        "srcLink": "https://github.com/LenaDijksma/deployd",
+        "page": {
+            "tag": "Private / Non-Commercial Project",
+            "heroDesc": "",
+            "aboutTitle": "",
+            "aboutParagraphs": [
+                "deployd is a lightweight deployment daemon built for personal servers and homelabs. It watches a server-side deployment directory for changes, automatically builds and launches projects from a simple .deployconfig.json, and can manage Nginx configuration for both static websites and reverse-proxied applications.",
+                "Projects are deployed by simply pushing them with rsync, removing the need for a CI/CD pipeline, Docker, or manually SSHing into the server for every update. It supports any runtime that can be started from the command line, including Node.js and ASP.NET Core/Razor Pages.",
+                "deployd also includes a lightweight status API and a C/ncurses terminal dashboard for remotely monitoring processes, viewing logs, managing deployments, and connecting to projects over SSH. The system is designed to stay simple and practical for the \"one server, several projects\" use case."
+            ],
+            "showcaseImg": "/images/1787760139269-20260826180158.png",
+            "showcaseCaption": "My current deployd TUI view"
+        }
     }
 ]
