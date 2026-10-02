@@ -212,7 +212,7 @@
             "JS"
         ],
         "type": "framework",
-        "img": "/images/1785235444971-screenshot-2026-07-28-at-12-42-27-ld-graph-demo.png",
+        "img": "/images/1790973347209-screenshot-2026-10-02-at-22-35-22-ld-graph-demo.png",
         "srcLink": "https://github.com/LenaDijksma/ld-graphs",
         "page": {
             "tag": "Private/Non-commercial Project",
@@ -226,7 +226,7 @@
                 "A few smaller decisions worth knowing about: internal layout uses a fixed 600×200 viewBox scaled by CSS, so charts stay crisp and responsive without recalculating coordinates on resize. The smooth line type uses a Catmull-Rom-to-Bezier conversion rather than a charting library's spline implementation, which keeps the file dependency-free but means very jagged data can produce slight overshoot in the curve — straight or step are the better choice if that matters for your data. Animated draw-ins respect prefers-reduced-motion automatically. And because everything renders as real SVG rather than canvas, individual bars, lines, and points are addressable and stylable with normal CSS selectors if you want to go further than the built-in variables.",
                 "It's built to sit next to ldcss without requiring it — same naming convention, same \"few dependency-free files you can vendor and forget\" philosophy, but nothing in ld-graph reaches into ldcss's token system or components. You can use one without the other."
             ],
-            "showcaseImg": "/images/1785235444971-screenshot-2026-07-28-at-12-42-27-ld-graph-demo.png",
+            "showcaseImg": "/images/1790973347209-screenshot-2026-10-02-at-22-35-22-ld-graph-demo.png",
             "showcaseCaption": ""
         }
     },
