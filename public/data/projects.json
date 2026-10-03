@@ -176,14 +176,14 @@
         "desc": "A custom css framework with css and js. techy style but with escape hatches for more fluid styles",
         "link": "/ldcss",
         "color": "#99c1f1",
-        "public": false,
+        "isPublic": false,
         "tech": [
             "CSS",
             "JS"
         ],
-        "srcLink": "https://github.com/LenaDijksma/ldcss",
         "type": "css framework",
-        "img": "/images/1784530855327-screenshot-2026-07-20-at-09-00-45-ldcss-lena-dijksma-css.png",
+        "img": "/images/1790973331783-screenshot-2026-10-02-at-22-35-03-ldcss-lena-dijksma-css.png",
+        "srcLink": "https://github.com/LenaDijksma/ldcss",
         "page": {
             "tag": "Private/Non-commercial Project",
             "heroDesc": "",
@@ -195,7 +195,7 @@
                 "The component library covers most of what a real interface needs: navigation (navbar collapse, breadcrumbs, scrollspy), overlays (modals, offcanvas panels, dropdowns, popovers, a command palette with ⌘K), forms (floating labels, validation states, comboboxes, tag inputs, dropzones, rating inputs, range sliders), data display (sortable and sticky-header tables, pagination, timelines, steppers, carousels), and feedback (toasts, skeletons, progress bars). Layout is handled by both an even-split grid and a full 12-column responsive grid, backed by a wide utility-class system — spacing, typography, flexbox, and breakpoint-aware variants down to order, display, and text alignment. Accessibility isn't an afterthought either: focus trapping and return, ARIA wiring, roving tabindex, reduced-motion and forced-colors support, and RTL-aware logical properties are built into the components themselves.",
                 "The project is under active, versioned development — currently at v2.3.0 — with a public changelog tracking every addition, fix, and (rare, clearly-flagged) breaking change. New releases keep the same priorities: reducing repetitive code, tightening consistency across projects, and making it possible to build a polished, accessible interface without reaching for several external libraries at once."
             ],
-            "showcaseImg": "/images/1784530855327-screenshot-2026-07-20-at-09-00-45-ldcss-lena-dijksma-css.png",
+            "showcaseImg": "/images/1790973331783-screenshot-2026-10-02-at-22-35-03-ldcss-lena-dijksma-css.png",
             "showcaseCaption": "demo page for ldcss"
         }
     },
@@ -212,7 +212,7 @@
             "JS"
         ],
         "type": "framework",
-        "img": "/images/1785235444971-screenshot-2026-07-28-at-12-42-27-ld-graph-demo.png",
+        "img": "/images/1790973347209-screenshot-2026-10-02-at-22-35-22-ld-graph-demo.png",
         "srcLink": "https://github.com/LenaDijksma/ld-graphs",
         "page": {
             "tag": "Private/Non-commercial Project",
@@ -226,7 +226,7 @@
                 "A few smaller decisions worth knowing about: internal layout uses a fixed 600×200 viewBox scaled by CSS, so charts stay crisp and responsive without recalculating coordinates on resize. The smooth line type uses a Catmull-Rom-to-Bezier conversion rather than a charting library's spline implementation, which keeps the file dependency-free but means very jagged data can produce slight overshoot in the curve — straight or step are the better choice if that matters for your data. Animated draw-ins respect prefers-reduced-motion automatically. And because everything renders as real SVG rather than canvas, individual bars, lines, and points are addressable and stylable with normal CSS selectors if you want to go further than the built-in variables.",
                 "It's built to sit next to ldcss without requiring it — same naming convention, same \"few dependency-free files you can vendor and forget\" philosophy, but nothing in ld-graph reaches into ldcss's token system or components. You can use one without the other."
             ],
-            "showcaseImg": "/images/1785235444971-screenshot-2026-07-28-at-12-42-27-ld-graph-demo.png",
+            "showcaseImg": "/images/1790973347209-screenshot-2026-10-02-at-22-35-22-ld-graph-demo.png",
             "showcaseCaption": ""
         }
     },
