@@ -31,6 +31,20 @@
         "img": "/images/fridge.webp"
     },
     {
+        "title": "Website",
+        "name": "BizEase",
+        "desc": "BizEase supports entrepreneurs who want to grow but don't want to get bogged down in administration. No standard package, but help tailored to how you work.",
+        "link": "https://www.bizease.nl/",
+        "color": "#2bb8bb",
+        "isPublic": true,
+        "tech": [
+            "HTML",
+            "CSS"
+        ],
+        "type": "website",
+        "img": "/images/1787331760096-screenshot-2026-08-21-at-19-02-26-bizease-solutions.png"
+    },
+    {
         "title": "Tool",
         "name": "Autonote Systems",
         "desc": "The autonote tool and associated tools were made to track days weeks months and eventually years.",
@@ -262,20 +276,6 @@
             "showcaseImg": "/images/1785856943744-ldmp.png",
             "showcaseCaption": ""
         }
-    },
-    {
-        "title": "Website",
-        "name": "BizEase",
-        "desc": "BizEase supports entrepreneurs who want to grow but don't want to get bogged down in administration. No standard package, but help tailored to how you work.",
-        "link": "https://www.bizease.nl/",
-        "color": "#2bb8bb",
-        "isPublic": true,
-        "tech": [
-            "HTML",
-            "CSS"
-        ],
-        "type": "website",
-        "img": "/images/1787331760096-screenshot-2026-08-21-at-19-02-26-bizease-solutions.png"
     },
     {
         "title": "server tool",
