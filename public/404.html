@@ -1,104 +1,52 @@
-<!-- placeholder.html -->
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <title>404 Page | Lena Dijksma</title>
-
     <link rel="shortcut icon" href="/images/logo.png" type="image/png">
     <link rel="apple-touch-icon" href="/images/logo.png" sizes="180x180">
     <link rel="manifest" href="/manifest.json">
-
-    <!-- AOS -->
-    <link rel="stylesheet" href="/vendor/aos/aos.css" />
-
-    <!-- Remix Icons -->
-    <link href="/vendor/remixicon/remixicon.css" rel="stylesheet" />
-
-    <!-- SAME CSS -->
-    <link rel="stylesheet" href="css/style.css" />
-
-    <!-- Extra Meta Tags -->
-    <meta name="theme-color" content="#59213f">
-
+    <meta name="theme-color" content="#080808">
+    <meta name="robots" content="noindex, follow">
+    <link rel="stylesheet" href="/vendor/ldcss/ldcss.min.css">
+    <link rel="stylesheet" href="/css/site.css">
+    <meta property="og:title" content="Lena Dijksma | 404 Page" />
+    <meta property="og:description" content="Page not found." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://lenadijksma.is-a.dev/404" />
+    <meta property="og:image" content="https://lenadijksma.is-a.dev/images/og-preview.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Lena Dijksma | 404 Page" />
+    <meta name="twitter:description" content="Page not found." />
+    <meta name="twitter:image" content="https://lenadijksma.is-a.dev/images/og-preview.png" />
     <script>
-        var savedTheme = localStorage.getItem("theme");
-        var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
-            document.documentElement.classList.add("dark");
-        }
-        document.documentElement.classList.add("no-transition");
-        window.addEventListener("load", () => {
-            document.documentElement.classList.remove("no-transition");
-        });
+        (function(){var t=null;try{t=localStorage.getItem("ld-theme")}catch(e){}
+        if(!t&&window.matchMedia("(prefers-color-scheme: dark)").matches)t="dark";
+        if(t)document.documentElement.setAttribute("data-ld-theme",t)})();
     </script>
 </head>
-
 <body>
-    <div class="background-glow"></div>
-
-    <!-- SAME HEADER -->
-    <header class="header">
-        <div class="logo">
-            <div class="stacked">
-                <span>Lena</span>
-                <span class="stacked-btm">Dijksma</span>
-            </div>
+    <a class="ld-skip-link" href="#main">Skip to content</a>
+    <nav class="ld-nav ld-glass site-nav" aria-label="Main">
+        <a href="/" class="ld-nav-brand" data-ld-mark="$">Lena Dijksma</a>
+        <div class="ld-row">
+            <a href="/#projects" class="ld-btn" data-ld-size="sm" data-ld-variant="ghost">← Portfolio</a>
+            <button class="ld-btn" data-ld-size="sm" data-ld-toggle="theme" aria-label="Toggle light/dark theme">theme</button>
         </div>
+    </nav>
+    <main id="main">
 
-        <nav class="nav">
-            <a href="/#projects">Back to Portfolio</a>
-        </nav>
-
-        <div class="theme-selector">
-            <button id="theme-trigger" aria-label="Toggle light/dark mode">
-                <i class="ri-moon-line"></i>
-            </button>
-        </div>
-
-    </header>
-
-    <main>
-
-        <!-- HERO -->
-        <section class="hero small-hero">
-
-            <div class="hero-content" data-aos="fade-up">
-
-                <p class="small-text">
-                    Error page
-                </p>
-
-                <h1 class="page-title">
-                    404 page not found
-                </h1>
-
-                <p class="description">
-                    The page you're looking for doesn't exist, or the link may be outdated.
-                </p>
-
-                <a href="/#projects" class="primary-btn">
-                    Back To Portfolio
-                </a>
-
+        <header class="site-hero">
+            <div class="ld-container ld-container-sm" data-ld-animate="fade-up">
+                <p class="site-eyebrow">Error page</p>
+                <h1>404 <em>page not found</em></h1>
+                <p class="site-lead">The page you're looking for doesn't exist, or the link may be outdated.</p>
+                <div class="ld-row ld-mar-t-5"><a href="/" class="ld-btn" data-ld-variant="primary" data-ld-size="lg">Back to portfolio</a></div>
             </div>
-
-        </section>
-
+        </header>
     </main>
-
-    <footer class="footer">
-        <p>© 2026 Lena Dijksma</p>
-    </footer>
-
-    <!-- AOS -->
-    <script src="/vendor/aos/aos.js"></script>
-
-    <script src="js/main.js"></script>
+    <footer class="ld-footer"><p class="ld-mar-b-0 ld-text-muted ld-text-sm">© 2026 Lena Dijksma · built with <a href="/ldcss">ldcss</a></p></footer>
+    <script src="/vendor/ldcss/ldcss.min.js"></script>
 </body>
-
 </html>

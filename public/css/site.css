@@ -1,0 +1,35 @@
+/* site.css — the few things ldcss doesn't ship. Unlayered, so it beats ldcss without !important. */
+html{scroll-behavior:smooth;scroll-padding-top:5rem}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.site-nav{position:sticky;top:0;z-index:var(--ld-z-dropdown)}
+.site-hero{position:relative;overflow:hidden;padding:var(--ld-space-8) 0}
+.site-hero::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:radial-gradient(60% 70% at 85% 0%,color-mix(in srgb,var(--ld-accent) 18%,transparent),transparent 70%),
+  linear-gradient(var(--ld-border-soft) 1px,transparent 1px) 0 0/48px 48px,
+  linear-gradient(90deg,var(--ld-border-soft) 1px,transparent 1px) 0 0/48px 48px;
+  -webkit-mask-image:linear-gradient(#000 40%,transparent);mask-image:linear-gradient(#000 40%,transparent)}
+.site-hero h1{font-size:clamp(2.25rem,6vw,var(--ld-text-4xl));letter-spacing:-.02em;margin-bottom:var(--ld-space-4)}
+.site-hero h1 em{font-style:normal;color:var(--ld-accent)}
+.site-lead{max-width:52ch;color:var(--ld-text-muted);font-size:var(--ld-text-lg)}
+.caret{display:inline-block;width:.6ch;height:1.1em;margin-left:2px;vertical-align:text-bottom;background:var(--ld-accent);animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.site-term .ld-terminal-body{min-height:11.5rem;line-height:1.9}
+.site-eyebrow{font-family:var(--ld-font-mono);font-size:var(--ld-text-xs);letter-spacing:.1em;text-transform:uppercase;color:var(--ld-accent)}
+.project{display:flex;flex-direction:column;gap:var(--ld-space-2);border-top:3px solid var(--c,var(--ld-accent))}
+.project img{border-radius:calc(var(--ld-radius)/1.5);border:1px solid var(--ld-border-soft);margin-bottom:var(--ld-space-2)}
+.project .ld-card-footer{margin-top:auto}
+.project .ld-card-body{flex:0 1 auto}
+.project-tags{display:flex;flex-wrap:wrap;gap:var(--ld-space-1);margin-top:var(--ld-space-1)}
+.git-scroll{overflow-x:auto;padding-bottom:var(--ld-space-2)}
+.git-grid{display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,11px);grid-auto-columns:11px;gap:3px;width:max-content}
+.git-grid i{border-radius:2px;background:var(--ld-surface-raised);border:1px solid var(--ld-border-soft)}
+.git-grid .l1{background:color-mix(in srgb,var(--ld-accent) 25%,var(--ld-surface))}
+.git-grid .l2{background:color-mix(in srgb,var(--ld-accent) 50%,var(--ld-surface))}
+.git-grid .l3{background:color-mix(in srgb,var(--ld-accent) 78%,var(--ld-surface))}
+.git-grid .l4{background:var(--ld-accent)}
+.tech-link{text-decoration:none;color:var(--ld-text)}
+.tech-link:hover{border-color:var(--ld-accent)}
+.project-shot img{display:block;width:100%;height:auto}
+.prose p{color:var(--ld-text-muted);max-width:70ch}
+/* inputs sit inside a card (same surface), so give them the page background to read as fields */
+.ld-card .ld-input,.ld-card .ld-textarea{background:var(--ld-bg);border-color:var(--ld-border)}

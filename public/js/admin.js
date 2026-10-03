@@ -148,28 +148,28 @@ function renderProjects() {
 
     projectsList.innerHTML = projects.map((project, index) => `
         <div class="admin-project-row" draggable="true" data-index="${index}">
-            <i class="ri-draggable admin-drag-handle" title="Drag to reorder"></i>
+            <span class="admin-drag-handle" title="Drag to reorder" aria-hidden="true">⠿</span>
             <div class="admin-project-swatch" style="background:${escapeAttr(project.color || "#7f4bfb")}"></div>
             <div class="admin-project-info">
                 <h3>
                     ${escapeHtml(project.name || "Untitled")}
-                    <span class="admin-visibility-tag ${project.isPublic ? "public" : "private"}">
+                    <span class="ld-badge" ${project.isPublic ? 'data-ld-variant="primary"' : ""}>
                         ${project.isPublic ? "Public" : "Private"}
                     </span>
                 </h3>
                 <p>${escapeHtml(project.title || "")} · ${escapeHtml(project.link || "")}</p>
                 ${!project.isPublic && project.srcLink ? `
                     <a href="${escapeAttr(project.srcLink)}" target="_blank" rel="noopener noreferrer" class="admin-srclink" title="View source">
-                        <i class="ri-github-fill"></i> Source
+                        Source ↗
                     </a>
                 ` : ""}
             </div>
             <div class="admin-project-actions">
-                <button type="button" class="admin-secondary-btn" data-edit="${index}" title="Edit">
-                    <i class="ri-pencil-line"></i>
+                <button type="button" class="ld-btn" data-ld-size="sm" data-edit="${index}" title="Edit">
+                    Edit
                 </button>
-                <button type="button" class="admin-danger-btn" data-delete="${index}" title="Delete">
-                    <i class="ri-delete-bin-line"></i>
+                <button type="button" class="ld-btn" data-ld-variant="danger" data-ld-size="sm" data-delete="${index}" title="Delete">
+                    Delete
                 </button>
             </div>
         </div>
@@ -314,7 +314,7 @@ function wireImageUpload(textInputId, fileInputId, buttonId, statusId) {
         if (!file) return;
 
         status.textContent = "Uploading…";
-        status.className = "admin-hint";
+        status.className = "ld-form-hint";
 
         try {
             const dataUrl = await new Promise((resolve, reject) => {
@@ -339,7 +339,7 @@ function wireImageUpload(textInputId, fileInputId, buttonId, statusId) {
 
             if (!res.ok) {
                 status.textContent = data.error || "Upload failed";
-                status.className = "admin-hint error";
+                status.className = "ld-form-hint error";
                 return;
             }
 
@@ -347,14 +347,14 @@ function wireImageUpload(textInputId, fileInputId, buttonId, statusId) {
 
             if (data.committed) {
                 status.textContent = "Uploaded and committed to GitHub.";
-                status.className = "admin-hint success";
+                status.className = "ld-form-hint success";
             } else {
                 status.textContent = data.warning || "Uploaded, but the GitHub commit failed.";
-                status.className = "admin-hint error";
+                status.className = "ld-form-hint error";
             }
         } catch (error) {
             status.textContent = "Could not reach the server to upload the image.";
-            status.className = "admin-hint error";
+            status.className = "ld-form-hint error";
         } finally {
             fileInput.value = "";
         }
@@ -493,8 +493,9 @@ editorForm.addEventListener("submit", async (e) => {
 function openConfirm({ title, text, okLabel = "Confirm", danger = true, onConfirm }) {
     confirmTitle.textContent = title;
     confirmText.textContent = text;
-    confirmOk.className = danger ? "admin-danger-btn" : "primary-btn";
-    confirmOk.innerHTML = `<i class="${danger ? "ri-delete-bin-line" : "ri-check-line"}"></i> ${okLabel}`;
+    confirmOk.className = "ld-btn";
+    confirmOk.setAttribute("data-ld-variant", danger ? "danger" : "primary");
+    confirmOk.textContent = okLabel;
     confirmCallback = onConfirm;
     confirmOverlay.hidden = false;
 }

@@ -1,379 +1,185 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lena Dijksma | Portfolio</title>
-    <link rel="shortcut icon" href="/images/logo.png" type="image/png">
-    <link rel="apple-touch-icon" href="/images/logo.png" sizes="180x180">
-    <link rel="manifest" href="/manifest.json">
-
-    <!-- AOS -->
-    <link rel="stylesheet" href="vendor/aos/aos.css" />
-
-    <!-- Remix Icons -->
-    <link href="vendor/remixicon/remixicon.css" rel="stylesheet" />
-
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/modules.css">
-
-    <!-- Extra Meta Tags -->
-    <meta name="theme-color" content="#59213f">
-
-    <!-- Open Graph -->
-    <meta property="og:title" content="Lena Dijksma | Portfolio" />
-    <meta property="og:description"
-        content="Lena Dijksma is a software development student from the Netherlands, focused on clean design and dependable code. Two live client sites shipped so far, with more personal projects underway." />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://lenadijksma.is-a.dev" />
-    <meta property="og:image" content="https://lenadijksma.is-a.dev/images/og-preview.png" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Lena Dijksma | Portfolio" />
-    <meta name="twitter:description"
-        content="Lena Dijksma is a software development student from the Netherlands, focused on clean design and dependable code. Two live client sites shipped so far, with more personal projects underway." />
-    <meta name="twitter:image" content="https://lenadijksma.is-a.dev/images/og-preview.png" />
-
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Lena Dijksma",
-        "url": "https://lenadijksma.is-a.dev",
-        "jobTitle": "Software Developer Student",
-        "email": "mailto:lenadijksma08@gmail.com",
-        "address": {
-            "@type": "PostalAddress",
-            "addressCountry": "NL"
-        },
-        "sameAs": [
-            "https://github.com/LenaDijksma"
-        ]
-    }
-    </script>
-
-    <script>
-        var savedTheme = localStorage.getItem("theme");
-        var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
-            document.documentElement.classList.add("dark");
-        }
-        document.documentElement.classList.add("no-transition");
-        window.addEventListener("load", () => {
-            document.documentElement.classList.remove("no-transition");
-        });
-    </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lena Dijksma | Portfolio</title>
+<link rel="shortcut icon" href="/images/logo.png" type="image/png">
+<link rel="apple-touch-icon" href="/images/logo.png" sizes="180x180">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#080808">
+<link rel="stylesheet" href="/vendor/ldcss/ldcss.min.css">
+<link rel="stylesheet" href="/css/site.css">
+<meta property="og:title" content="Lena Dijksma | Portfolio">
+<meta property="og:description" content="Lena Dijksma is a software development student from the Netherlands, focused on clean design and dependable code. Two live client sites shipped so far, with more personal projects underway.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lenadijksma.is-a.dev">
+<meta property="og:image" content="https://lenadijksma.is-a.dev/images/og-preview.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lena Dijksma | Portfolio">
+<meta name="twitter:description" content="Lena Dijksma is a software development student from the Netherlands, focused on clean design and dependable code. Two live client sites shipped so far, with more personal projects underway.">
+<meta name="twitter:image" content="https://lenadijksma.is-a.dev/images/og-preview.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Lena Dijksma","url":"https://lenadijksma.is-a.dev","jobTitle":"Software Developer Student","email":"mailto:lenadijksma08@gmail.com","address":{"@type":"PostalAddress","addressCountry":"NL"},"sameAs":["https://github.com/LenaDijksma"]}
+</script>
+<script>/* apply saved/OS theme before first paint (same key ldcss uses) */
+(function(){var t=null;try{t=localStorage.getItem("ld-theme")}catch(e){}
+if(!t&&window.matchMedia("(prefers-color-scheme: dark)").matches)t="dark";
+if(t)document.documentElement.setAttribute("data-ld-theme",t)})();</script>
 </head>
-
 <body>
-    <div class="background-glow"></div>
+<a class="ld-skip-link" href="#main">Skip to content</a>
 
-    <header class="header">
-        <div class="logo">
-            <div class="stacked">
-                <span>Lena</span>
-                <span class="stacked-btm">Dijksma</span>
-            </div>
+<nav class="ld-nav ld-glass site-nav" aria-label="Main">
+  <a href="/" class="ld-nav-brand" data-ld-mark="$">Lena Dijksma</a>
+  <ul class="ld-nav-links ld-d-none ld-sm:d-flex" data-ld-scrollspy>
+    <li><a class="ld-nav-link" href="#about">About</a></li>
+    <li><a class="ld-nav-link" href="#projects">Projects</a></li>
+    <li><a class="ld-nav-link" href="#contact">Contact</a></li>
+  </ul>
+  <div class="ld-row">
+    <button class="ld-btn" data-ld-size="sm" data-ld-variant="ghost" data-ld-toggle="command" data-ld-target="#cmd" aria-label="Open the command palette">⌘K</button>
+    <button class="ld-btn" data-ld-size="sm" data-ld-toggle="theme" aria-label="Toggle light/dark theme">theme</button>
+  </div>
+</nav>
+
+<main id="main">
+  <header class="site-hero">
+    <div class="ld-container"><div class="ld-grid-row ld-items-center ld-gap-y-6">
+      <div class="ld-col-12 ld-col-md-7" data-ld-animate="fade-up">
+        <p class="site-eyebrow">Software developer student · Netherlands · ROC van Twente</p>
+        <h1>Clean design.<br><em>Dependable code.</em></h1>
+        <p class="site-lead">First-year software development student building clean, well-considered interfaces backed by solid code. Small terminal tools, client websites and a CSS framework of my own.</p>
+        <div class="ld-row ld-mar-t-5">
+          <a href="#projects" class="ld-btn" data-ld-variant="primary" data-ld-size="lg">View projects</a>
+          <a href="#contact" class="ld-btn" data-ld-variant="outline" data-ld-size="lg">Get in touch</a>
         </div>
-
-        <nav class="nav">
-            <a href="#projects">Projects</a>
-            <a href="#socials">Socials</a>
-        </nav>
-
-        <div class="theme-selector">
-            <button id="theme-trigger" aria-label="Toggle light/dark mode">
-                <i class="ri-moon-line"></i>
-            </button>
+      </div>
+      <div class="ld-col-12 ld-col-md-5" data-ld-animate="fade-up">
+        <div class="ld-terminal site-term" aria-hidden="true">
+          <div class="ld-terminal-bar"><span class="ld-terminal-dot"></span><span class="ld-terminal-dot"></span><span class="ld-terminal-dot"></span><span class="ld-terminal-title">lena@portfolio: ~</span></div>
+          <div class="ld-terminal-body"><span class="ld-text-muted">$</span> whoami
+lena dijksma
+<span class="ld-text-muted">$</span> stack --short
+html css js c# sql bash node
+<span class="ld-text-muted">$</span> <span id="typed"></span><span class="caret"></span></div>
         </div>
+      </div>
+    </div>
+    </div>
+  </header>
 
-    </header>
+  <div class="ld-container">
+    <section class="ld-section" aria-label="At a glance">
+      <div class="ld-grid" data-ld-cols="3">
+        <div class="ld-stat"><span class="ld-stat-value" id="stat-projects">–</span><span class="ld-stat-label">Projects listed</span></div>
+        <div class="ld-stat"><span class="ld-stat-value" id="stat-live">–</span><span class="ld-stat-label">Live client sites</span></div>
+        <div class="ld-stat"><span class="ld-stat-value" id="stat-commits">–</span><span class="ld-stat-label">GitHub contributions, last year</span></div>
+      </div>
+    </section>
 
-    <main>
-        <section class="hero">
-            <div class="hero-content" data-aos="fade-up">
-                <p class="small-text">Software Developer Student</p>
-                <p class="sub-text">Netherlands · ROC van Twente</p>
+    <section class="ld-section" id="about">
+      <p class="site-eyebrow">About</p>
+      <h2 class="ld-section-title">Lena Dijksma</h2>
+      <div class="ld-grid-row ld-gap-y-6">
+        <div class="ld-col-12 ld-col-md-7 prose">
+          <p>I'm Lena Dijksma, an 18-year-old trans software development student from the Netherlands. I got into coding almost by accident. A friend pushed me to try web development, and it hooked me almost immediately. I spent a while bouncing between web dev and game dev before eventually dropping the latter and gravitating toward building small terminal applications. There's something I like about the constraint of a command line, no framework to lean on, just you and the problem.</p>
+          <p>I care about clean design and dependable code in equal measure. I'd rather ship something a little smaller that actually holds together than something flashy that doesn't. That's shown up in most of what I build: a bit of structure, with enough give in it to stay fun to work in.</p>
+          <div class="project-tags ld-mar-t-4" aria-label="Technologies">
+            <a class="ld-tag tech-link" href="https://en.wikipedia.org/wiki/HTML" target="_blank" rel="noopener noreferrer">HTML</a>
+            <a class="ld-tag tech-link" href="https://en.wikipedia.org/wiki/CSS" target="_blank" rel="noopener noreferrer">CSS</a>
+            <a class="ld-tag tech-link" href="https://en.wikipedia.org/wiki/JavaScript" target="_blank" rel="noopener noreferrer">JS</a>
+            <a class="ld-tag tech-link" href="https://en.wikipedia.org/wiki/C_Sharp_(programming_language)" target="_blank" rel="noopener noreferrer">C#</a>
+            <a class="ld-tag tech-link" href="https://en.wikipedia.org/wiki/SQL" target="_blank" rel="noopener noreferrer">SQL</a>
+            <a class="ld-tag tech-link" href="https://en.wikipedia.org/wiki/Git" target="_blank" rel="noopener noreferrer">git</a>
+            <a class="ld-tag tech-link" href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)" target="_blank" rel="noopener noreferrer">Bash</a>
+            <a class="ld-tag tech-link" href="https://en.wikipedia.org/wiki/Node.js" target="_blank" rel="noopener noreferrer">NodeJS</a>
+            <a class="ld-tag tech-link" href="https://en.wikipedia.org/wiki/Linux" target="_blank" rel="noopener noreferrer">Linux</a>
+            <a class="ld-tag tech-link" href="https://en.wikipedia.org/wiki/Tailscale" target="_blank" rel="noopener noreferrer">Tailscale</a>
+          </div>
+        </div>
+        <div class="ld-col-12 ld-col-md-5">
+          <div class="ld-card">
+            <div class="ld-card-eyebrow">Right now</div>
+            <ul class="ld-timeline">
+              <li class="ld-timeline-item" data-ld-variant="accent"><span class="ld-timeline-time">school</span><span class="ld-timeline-title">ROC van Twente</span><div class="ld-timeline-body">Learning Razor Pages.</div></li>
+              <li class="ld-timeline-item" data-ld-variant="accent"><span class="ld-timeline-time">framework</span><span class="ld-timeline-title">ldcss</span><div class="ld-timeline-body">A CSS framework that's structured but not rigid. This site is built with it.</div></li>
+              <li class="ld-timeline-item"><span class="ld-timeline-time">terminal</span><span class="ld-timeline-title">ldmp</span><div class="ld-timeline-body">A terminal-based music player.</div></li>
+              <li class="ld-timeline-item"><span class="ld-timeline-time">client work</span><span class="ld-timeline-title">NerineZorg &amp; more</span><div class="ld-timeline-body">Alongside my own portfolio.</div></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
 
-                <h1 class="typing-title">
-                    <span id="typed-text"></span>
-                </h1>
+    <section class="ld-section" id="projects">
+      <p class="site-eyebrow">Selected work</p>
+      <h2 class="ld-section-title">Projects</h2>
+      <p class="ld-section-sub">Live client sites first, then personal and non-commercial projects. <span id="project-count"></span></p>
+      <div class="ld-search ld-mar-b-5" data-ld-search data-ld-search-filter="#project-grid" data-ld-search-count="#project-count" data-ld-shortcut="/">
+        <input type="search" class="ld-input" placeholder="Search projects…" aria-label="Search projects">
+      </div>
+      <div class="ld-grid" data-ld-cols="3" id="project-grid"></div>
+      <p data-ld-search-empty hidden class="ld-text-muted">No project matches that search.</p>
+    </section>
 
-                <p class="description">
-                    First-year software development student in the Netherlands,
-                    building clean, well-considered interfaces backed by solid code.
-                </p>
+    <section class="ld-section" id="activity" aria-label="GitHub activity">
+      <p class="site-eyebrow">Activity</p>
+      <h2 class="ld-section-title">GitHub contributions</h2>
+      <div class="ld-card"><div class="git-scroll" id="git" role="img" aria-label="GitHub contribution calendar for the last year"><span class="ld-text-muted">Loading…</span></div></div>
+    </section>
 
-                <a href="#projects" class="primary-btn">
-                    View Projects
-                </a>
+    <section class="ld-section" id="contact">
+      <p class="site-eyebrow">Contact</p>
+      <h2 class="ld-section-title">Get in touch</h2>
+      <div class="ld-grid-row ld-gap-y-6">
+        <div class="ld-col-12 ld-col-md-5">
+          <p class="ld-text-muted">Have a project in mind or a question about my work? Send a message and I'll get back to you promptly.</p>
+          <div class="ld-stack">
+            <div class="ld-stat"><span class="ld-stat-label">Email</span>
+              <div class="ld-row"><a href="mailto:lenadijksma08@gmail.com">lenadijksma08@gmail.com</a>
+              <button type="button" class="ld-btn" data-ld-size="sm" data-ld-toggle="copy" data-ld-copy="lenadijksma08@gmail.com">Copy</button></div></div>
+            <div class="ld-stat"><span class="ld-stat-label">GitHub</span><a href="https://github.com/LenaDijksma" target="_blank" rel="noopener noreferrer">github.com/LenaDijksma</a></div>
+            <div class="ld-stat"><span class="ld-stat-label">Location</span><span>Netherlands</span></div>
+            <div class="ld-stat"><span class="ld-stat-label">Availability</span><span>Monday – Friday</span></div>
+          </div>
+        </div>
+        <div class="ld-col-12 ld-col-md-7">
+          <form id="contact-form" class="ld-card ld-validate">
+            <div class="ld-grid" data-ld-cols="2">
+              <div class="ld-form-group"><label class="ld-label" for="name">Full name</label><input class="ld-input" type="text" id="name" name="name" autocomplete="name" required></div>
+              <div class="ld-form-group"><label class="ld-label" for="email">Email address</label><input class="ld-input" type="email" id="email" name="email" autocomplete="email" required></div>
             </div>
-        </section>
-
-        <section class="tech-section" data-aos="fade-up">
-            <div class="tech-list">
-
-                <div class="tech-item" data-aos="fade-up" data-aos-delay="50">
-                    <a href="https://en.wikipedia.org/wiki/HTML" class="tech-pill" target="_blank">HTML</a>
-                </div>
-
-                <div class="tech-item" data-aos="fade-up" data-aos-delay="100">
-                    <a href="https://en.wikipedia.org/wiki/CSS" class="tech-pill" target="_blank">CSS</a>
-                </div>
-
-                <div class="tech-item" data-aos="fade-up" data-aos-delay="150">
-                    <a href="https://en.wikipedia.org/wiki/JavaScript" class="tech-pill" target="_blank">JS</a>
-                </div>
-
-                <div class="tech-item" data-aos="fade-up" data-aos-delay="200">
-                    <a href="https://en.wikipedia.org/wiki/C_Sharp_(programming_language)" class="tech-pill"
-                        target="_blank">C#</a>
-                </div>
-
-                <div class="tech-item" data-aos="fade-up" data-aos-delay="250">
-                    <a href="https://en.wikipedia.org/wiki/SQL" class="tech-pill" target="_blank">SQL</a>
-                </div>
-
-                <div class="tech-item" data-aos="fade-up" data-aos-delay="300">
-                    <a href="https://en.wikipedia.org/wiki/Git" class="tech-pill" target="_blank">git</a>
-                </div>
-
-                <div class="tech-item" data-aos="fade-up" data-aos-delay="350">
-                    <a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)" class="tech-pill" target="_blank">Bash</a>
-                </div>
-
-                <div class="tech-item" data-aos="fade-up" data-aos-delay="400">
-                    <a href="https://en.wikipedia.org/wiki/Node.js" class="tech-pill" target="_blank">NodeJS</a>
-                </div>
-
-                <div class="tech-item" data-aos="fade-up" data-aos-delay="450">
-                    <a href="https://en.wikipedia.org/wiki/linux" class="tech-pill" target="_blank">Linux</a>
-                </div>
-
-                <div class="tech-item" data-aos="fade-up" data-aos-delay="500">
-                    <a href="https://en.wikipedia.org/wiki/tailscale" class="tech-pill" target="_blank">Tailscale</a>
-                </div>
-
-            </div>
-        </section>
-
-        <section id="about" class="about-section">
-
-            <div class="content">
-                <div class="section-title" data-aos="fade-up">
-                    <p>About</p>
-                    <h2>Lena Dijksma</h2>
-                </div>
-
-                <div class="about-card" data-aos="fade-up" data-aos-delay="200">
-                    <p>
-                        I'm Lena Dijksma, an 18-year-old trans software development student from the
-                        Netherlands. I got into coding almost by accident. A friend pushed me to try web
-                        development, and it hooked me almost immediately. I spent a while bouncing between web
-                        dev and game dev before eventually dropping the latter and gravitating toward something
-                        else entirely: building small terminal applications. There's something I like about the
-                        constraint of a command line, no framework to lean on, just you and the problem.
-                    </p>
-                    <p>
-                        Right now I'm splitting my time between school and personal projects. At ROC van Twente
-                        I'm learning Razor Pages. Outside of class I'm building ldcss, a CSS framework built to
-                        be structured but not rigid, ldmp, a terminal-based music player, and working on client
-                        work like NerineZorg alongside my own portfolio.
-                    </p>
-                    <p>
-                        I care about clean design and dependable code in equal measure. I'd rather ship something
-                        a little smaller that actually holds together than something flashy that doesn't. That's
-                        shown up in most of what I build: a bit of structure, with enough give in it to stay fun
-                        to work in.
-                    </p>
-                </div>
-            </div>
-
-        </section>
-
-        <section id="git" class="git-section">
-            <div class="git-commits"></div>
-        </section>
-
-        <section id="projects" class="projects-section">
-
-            <div class="section-title" data-aos="fade-up">
-                <p>Selected Work</p>
-                <h2>Public Projects</h2>
-            </div>
-
-            <div class="projects-grid" id="public-projects"></div>
-
-        </section>
-
-        <section class="projects-section">
-
-            <div class="section-title" data-aos="fade-up">
-                <p>Personal Work</p>
-                <h2>Private/Non-commercial Projects</h2>
-            </div>
-
-            <div class="projects-grid" id="private-projects"></div>
-
-        </section>
-
-        <section id="links" class="links-section">
-
-            <div class="links-card" data-aos="fade-up">
-
-                <div class="section-title left-align">
-                    <p>Links</p>
-                    <h2>Elsewhere Online</h2>
-                </div>
-
-                <div class="links-div">
-                    <span class="link">
-                        <i class="ri-github-line icon"></i><a href="https://github.com/LenaDijksma" class="no-deco-link"
-                            target="_blank">Github</a>
-                    </span>
-                    <span class="link">
-                        <i class="ri-mail-line icon"></i><a href="mailto:lenadijksma08@gmail.com"
-                            class="no-deco-link">lenadijksma08@gmail.com</a>
-                    </span>
-                </div>
-
-            </div>
-
-        </section>
-
-        <section id="socials" class="contact-section">
-
-            <div class="content">
-                <div class="contact-grid">
-
-                    <!-- CONTACT INFO -->
-
-                    <div data-aos="fade-right">
-
-                        <div class="section-title left-align">
-                            <p>Contact</p>
-                            <h2>Get In Touch</h2>
-                        </div>
-
-                        <p class="contact-description">
-                            Have a project in mind or a question about my work? Send a message
-                            and I'll get back to you promptly.
-                        </p>
-
-                        <div class="contact-info">
-
-                            <div class="contact-item">
-                                <span>Email</span>
-
-                                <div class="email-copy-row">
-                                    <a href="mailto:lenadijksma08@gmail.com">
-                                        lenadijksma08@gmail.com
-                                    </a>
-                                    <button type="button" class="copy-email-btn" data-email="lenadijksma08@gmail.com"
-                                        aria-label="Copy email address">
-                                        <i class="ri-file-copy-line"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="contact-item">
-                                <span>Location</span>
-
-                                <p>Netherlands</p>
-                            </div>
-
-                            <div class="contact-item">
-                                <span>Availability</span>
-
-                                <p>Monday - Friday</p>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <!-- CONTACT FORM -->
-
-                    <div data-aos="fade-left">
-
-                        <div class="contact-card">
-
-                            <form id="contact-form">
-
-                                <div class="form-row">
-
-                                    <div class="form-group">
-                                        <label for="name">
-                                            Full Name
-                                        </label>
-
-                                        <input type="text" id="name" name="name" required>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="email">
-                                            Email Address
-                                        </label>
-
-                                        <input type="email" id="email" name="email" required>
-                                    </div>
-
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="subject">
-                                        Subject
-                                    </label>
-
-                                    <input type="text" id="subject" name="subject" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="message">
-                                        Project Details
-                                    </label>
-
-                                    <textarea id="message" name="message" rows="6" required></textarea>
-                                </div>
-
-                                <!-- HONEYPOT -->
-
-                                <input type="text" name="company" autocomplete="off" tabindex="-1"
-                                    class="hidden-input" />
-
-                                <div id="form-feedback" class="form-feedback"></div>
-
-                                <div class="g-recaptcha" data-sitekey="6LdX6EItAAAAALJwK-VZLUwJrgCnJIxTmI7DJ8Yo">
-                                </div>
-
-
-                                <button type="submit" class="primary-btn contact-btn">
-                                    Send Message
-                                </button>
-
-                            </form>
-
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-
-        </section>
-    </main>
-
-    <footer class="footer">
-        <p>© <span id="year"></span> Lena Dijksma</p>
-    </footer>
-
-    <!-- AOS -->
-    <script src="vendor/aos/aos.js"></script>
-
-    <script src="js/main.js"></script>
-    <script src="js/modules.js"></script>
+            <div class="ld-form-group"><label class="ld-label" for="subject">Subject</label><input class="ld-input" type="text" id="subject" name="subject" required></div>
+            <div class="ld-form-group"><label class="ld-label" for="message">Project details</label><textarea class="ld-textarea" id="message" name="message" rows="6" required></textarea></div>
+            <div class="ld-sr-only" aria-hidden="true"><input type="text" name="company" autocomplete="off" tabindex="-1"></div>
+            <div class="g-recaptcha ld-form-group" data-sitekey="6LdX6EItAAAAALJwK-VZLUwJrgCnJIxTmI7DJ8Yo"></div>
+            <button type="submit" class="ld-btn contact-btn" data-ld-variant="primary" data-ld-size="lg">Send message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="ld-footer"><p class="ld-mar-b-0 ld-text-muted ld-text-sm">© <span id="year"></span> Lena Dijksma · built with <a href="/ldcss">ldcss</a></p></footer>
+
+<div class="ld-command-backdrop" id="cmd">
+  <div class="ld-command">
+    <input class="ld-command-input" type="text" placeholder="Type a command or search…" data-ld-autofocus>
+    <ul class="ld-command-list" data-ld-command-list>
+      <li class="ld-command-item" data-ld-command-item data-ld-command-action="goto:#about">Go to About</li>
+      <li class="ld-command-item" data-ld-command-item data-ld-command-action="goto:#projects">Go to Projects</li>
+      <li class="ld-command-item" data-ld-command-item data-ld-command-action="goto:#contact">Go to Contact</li>
+      <li class="ld-command-item" data-ld-command-item data-ld-command-action="goto:https://github.com/LenaDijksma">Open GitHub</li>
+      <li class="ld-command-item" data-ld-command-item data-ld-command-action="theme">Toggle theme</li>
+    </ul>
+    <div class="ld-command-empty">No matching commands.</div>
+    <div class="ld-command-hint"><span class="ld-kbd">↑↓</span> navigate <span class="ld-kbd">↵</span> select <span class="ld-kbd">esc</span> close</div>
+  </div>
+</div>
+
+<script src="/vendor/ldcss/ldcss.min.js"></script>
+<script src="/js/main.js"></script>
 </body>
-
 </html>
