@@ -2,14 +2,11 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const crypto = require('crypto');
-const { Resend } = require('resend');
 const rateLimit = require("express-rate-limit");
 const { renderProjectPage } = require('./templates');
 
 const router = express.Router();
 
-const resend =
-    new Resend(process.env.RESEND_API_KEY);
 
 const PROJECTS_PATH = path.join(__dirname, 'public', 'data', 'projects.json');
 const SESSION_MAX_AGE_MS = 12 * 60 * 60 * 1000; // 12 hours
@@ -405,109 +402,6 @@ router.post('/admin/api/upload-image', requireAuth, express.json({ limit: '8mb' 
     }
 });
 
-// =========================
-// SEND EMAIL
-// =========================
-
-router.post("/send-email", contactLimiter, async (req, res) => {
-
-    try {
-
-        const {
-            name,
-            email,
-            subject,
-            message,
-            company,
-            captcha
-        } = req.body;
-
-        // HONEYPOT SPAM CHECK
-
-        if (company) {
-            return res
-                .status(400)
-                .json({
-                    error: 'Spam detected'
-                });
-        }
-
-        const verifyResponse = await fetch(
-            "https://www.google.com/recaptcha/api/siteverify",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: new URLSearchParams({
-                    secret: process.env.RECAPTCHA_SECRET,
-                    response: captcha
-                })
-            }
-        );
-
-        const verifyData = await verifyResponse.json();
-
-        if (!verifyData.success) {
-            return res.status(400).json({
-                error: "Captcha verification failed"
-            });
-        }
-
-        const data =
-            await resend.emails.send({
-
-                from:
-                    'Portfolio Contact <noreply@lenadijksma.is-a.dev>',
-
-                to:
-                    'lenadijksma08@gmail.com',
-
-                subject:
-                    `[Portfolio] ${subject}`,
-
-                html: `
-                    <h2>New Portfolio Contact</h2>
-
-                    <p>
-                        <strong>Name:</strong>
-                        ${name}
-                    </p>
-
-                    <p>
-                        <strong>Email:</strong>
-                        ${email}
-                    </p>
-
-                    <p>
-                        <strong>Subject:</strong>
-                        ${subject}
-                    </p>
-
-                    <p>
-                        <strong>Message:</strong>
-                    </p>
-
-                    <p>
-                        ${message}
-                    </p>
-                `
-            });
-
-        res.json({
-            success: true,
-            data
-        });
-
-    } catch (error) {
-
-        console.error(error);
-
-        res.status(500).json({
-            error: 'Failed to send email'
-        });
-    }
-});
 
 // =========================
 // AUTO-GENERATED PROJECT PAGES
