@@ -8,7 +8,8 @@
   <link rel="shortcut icon" href="/images/logo.png" type="image/png">
   <link rel="apple-touch-icon" href="/images/logo.png" sizes="180x180">
   <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#080808">
+  <meta name="theme-color" content="#f6f6f3" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#161719" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="/vendor/ldcss/ldcss.min.css">
   <link rel="stylesheet" href="/css/site.css">
   <meta property="og:title" content="Lena Dijksma | Portfolio">
@@ -36,174 +37,84 @@
 <body>
   <a class="ld-skip-link" href="#main">Skip to content</a>
 
-  <nav class="ld-nav ld-glass site-nav" aria-label="Main">
-    <a href="/" class="ld-nav-brand" data-ld-mark="$">Lena Dijksma</a>
-    <ul class="ld-nav-links ld-d-none ld-sm:d-flex" data-ld-scrollspy>
-      <li><a class="ld-nav-link" href="#about">About</a></li>
-      <li><a class="ld-nav-link" href="#projects">Projects</a></li>
-      <li><a class="ld-nav-link" href="#contact">Contact</a></li>
+  <nav class="site-nav" aria-label="Main">
+    <a class="site-brand" href="/">Lena Dijksma</a>
+    <ul>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
-    <div class="ld-row">
-      <button class="ld-btn" data-ld-size="sm" data-ld-variant="ghost" data-ld-toggle="command" data-ld-target="#cmd"
-        aria-label="Open the command palette">⌘K</button>
-      <button class="ld-btn" data-ld-size="sm" data-ld-toggle="theme"
-        aria-label="Toggle light/dark theme">theme</button>
-    </div>
+    <button type="button" class="site-theme" data-ld-toggle="theme" aria-label="Toggle light/dark theme">Theme</button>
   </nav>
 
   <main id="main">
-    <header class="site-hero">
-      <div class="ld-container">
-        <div class="ld-grid-row ld-items-center ld-gap-y-6">
-          <div class="ld-col-12 ld-col-md-7" data-ld-animate="fade-up">
-            <p class="site-eyebrow">Software developer student · Netherlands · ROC van Twente</p>
-            <h1>Clean design.<br><em>Dependable code.</em></h1>
-            <p class="site-lead">First-year software development student building clean, well-considered interfaces
-              backed by solid code. Small terminal tools, client websites and a <a
-                href="https://ldcss.lenadijksma.is-a.dev" target="_blank">CSS
-                framework</a> of my own.</p>
-            <div class="ld-row ld-mar-t-5">
-              <a href="#projects" class="ld-btn" data-ld-variant="primary" data-ld-size="lg">View projects</a>
-              <a href="#contact" class="ld-btn" data-ld-variant="outline" data-ld-size="lg">Get in touch</a>
-            </div>
-          </div>
-          <div class="ld-col-12 ld-col-md-5" data-ld-animate="fade-up">
-            <div class="ld-terminal site-term" aria-hidden="true">
-              <div class="ld-terminal-bar"><span class="ld-terminal-dot"></span><span
-                  class="ld-terminal-dot"></span><span class="ld-terminal-dot"></span><span
-                  class="ld-terminal-title">lena@portfolio: ~</span></div>
-              <div class="ld-terminal-body"><span class="ld-text-muted">$</span> whoami
-                lena dijksma
-                <span class="ld-text-muted">$</span> stack --short
-                html css js c# sql bash node
-                <span class="ld-text-muted">$</span> <span id="typed"></span><span class="caret"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
+    <div class="wrap">
+      <header class="hero">
+        <h1>Clean design.<br>Dependable code.</h1>
+        <p>Second-year software development student at ROC van Twente in the Netherlands, building clean,
+          well-considered interfaces backed by solid code: small terminal tools, client websites and a
+          <a href="https://ldcss.lenadijksma.is-a.dev" target="_blank" rel="noopener noreferrer">CSS framework</a> of
+          my own.
+        </p>
+      </header>
 
-    <div class="ld-container">
-      <section class="ld-section" aria-label="At a glance">
-        <div class="ld-grid" data-ld-cols="3">
-          <div class="ld-stat"><span class="ld-stat-value" id="stat-projects">–</span><span
-              class="ld-stat-label">Projects listed</span></div>
-          <div class="ld-stat"><span class="ld-stat-value" id="stat-live">–</span><span class="ld-stat-label">Live
-              client sites</span></div>
-          <div class="ld-stat"><span class="ld-stat-value" id="stat-commits">–</span><span class="ld-stat-label">GitHub
-              contributions, last year</span></div>
+      <section class="section" id="work" aria-labelledby="work-title">
+        <h2 id="work-title">Client work</h2>
+        <div id="client-work">
+          <noscript>
+            <p>Projects load with JavaScript. You can also find my code on
+              <a href="https://github.com/LenaDijksma">GitHub</a>.
+            </p>
+          </noscript>
         </div>
       </section>
 
-      <section class="ld-section" id="about">
-        <p class="site-eyebrow">About</p>
-        <h2 class="ld-section-title">Lena Dijksma</h2>
-        <div class="ld-grid-row ld-gap-y-6">
-          <div class="ld-col-12 ld-col-md-7 prose">
-            <p>I'm Lena Dijksma, an 18-year-old trans software development student from the Netherlands. I got into
-              coding almost by accident. A friend pushed me to try web development, and it hooked me almost immediately.
-              I spent a while bouncing between web dev and game dev before eventually dropping the latter and
-              gravitating toward building small terminal applications. There's something I like about the constraint of
-              a command line, no framework to lean on, just you and the problem.</p>
-            <p>I care about clean design and dependable code in equal measure. I'd rather ship something a little
-              smaller that actually holds together than something flashy that doesn't. That's shown up in most of what I
-              build: a bit of structure, with enough give in it to stay fun to work in.</p>
-            <div class="project-tags ld-mar-t-4" aria-label="Technologies">
-              <a class="ld-tag tech-link" href="https://en.wikipedia.org/wiki/HTML" target="_blank"
-                rel="noopener noreferrer">HTML</a>
-              <a class="ld-tag tech-link" href="https://en.wikipedia.org/wiki/CSS" target="_blank"
-                rel="noopener noreferrer">CSS</a>
-              <a class="ld-tag tech-link" href="https://en.wikipedia.org/wiki/JavaScript" target="_blank"
-                rel="noopener noreferrer">JS</a>
-              <a class="ld-tag tech-link" href="https://en.wikipedia.org/wiki/C_Sharp_(programming_language)"
-                target="_blank" rel="noopener noreferrer">C#</a>
-              <a class="ld-tag tech-link" href="https://en.wikipedia.org/wiki/SQL" target="_blank"
-                rel="noopener noreferrer">SQL</a>
-              <a class="ld-tag tech-link" href="https://en.wikipedia.org/wiki/Git" target="_blank"
-                rel="noopener noreferrer">git</a>
-              <a class="ld-tag tech-link" href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)" target="_blank"
-                rel="noopener noreferrer">Bash</a>
-              <a class="ld-tag tech-link" href="https://en.wikipedia.org/wiki/Node.js" target="_blank"
-                rel="noopener noreferrer">NodeJS</a>
-              <a class="ld-tag tech-link" href="https://en.wikipedia.org/wiki/Linux" target="_blank"
-                rel="noopener noreferrer">Linux</a>
-              <a class="ld-tag tech-link" href="https://en.wikipedia.org/wiki/Tailscale" target="_blank"
-                rel="noopener noreferrer">Tailscale</a>
-            </div>
-          </div>
-          <div class="ld-col-12 ld-col-md-5">
-            <div class="ld-card">
-              <div class="ld-card-eyebrow">Right now</div>
-              <ul class="ld-timeline">
-                <li class="ld-timeline-item" data-ld-variant="accent"><span class="ld-timeline-time">school</span><span
-                    class="ld-timeline-title">ROC van Twente</span>
-                  <div class="ld-timeline-body">Learning Razor Pages.</div>
-                </li>
-                <li class="ld-timeline-item" data-ld-variant="accent"><span
-                    class="ld-timeline-time">framework</span><span class="ld-timeline-title">ldcss</span>
-                  <div class="ld-timeline-body">A CSS framework that's structured but not rigid. This site is built with
-                    it.</div>
-                </li>
-                <li class="ld-timeline-item"><span class="ld-timeline-time">terminal</span><span
-                    class="ld-timeline-title">ldmp</span>
-                  <div class="ld-timeline-body">A terminal-based music player.</div>
-                </li>
-                <li class="ld-timeline-item"><span class="ld-timeline-time">client work</span><span
-                    class="ld-timeline-title">NerineZorg &amp; more</span>
-                  <div class="ld-timeline-body">Alongside my own portfolio.</div>
-                </li>
-              </ul>
-            </div>
-          </div>
+      <section class="section" id="projects" aria-labelledby="projects-title">
+        <h2 id="projects-title">Personal projects</h2>
+        <ul class="index" id="project-index"></ul>
+      </section>
+
+      <section class="section" id="about" aria-labelledby="about-title">
+        <h2 id="about-title">About</h2>
+        <div class="prose">
+          <p>I'm Lena Dijksma, an 18-year-old trans software development student from the Netherlands. I got into
+            coding almost by accident. A friend pushed me to try web development, and it hooked me almost immediately.
+            I spent a while bouncing between web dev and game dev before eventually dropping the latter and
+            gravitating toward building small terminal applications. There's something I like about the constraint of
+            a command line, no framework to lean on, just you and the problem.</p>
+          <p>I care about clean design and dependable code in equal measure. I'd rather ship something a little
+            smaller that actually holds together than something flashy that doesn't. That's shown up in most of what I
+            build: a bit of structure, with enough give in it to stay fun to work in.</p>
+          <dl class="facts">
+            <dt>Tools</dt>
+            <dd>HTML, CSS, JavaScript, C#, SQL, git, Bash, Node.js, Linux, Tailscale</dd>
+            <dt>School</dt>
+            <dd>ROC van Twente, learning Razor Pages.</dd>
+            <dt>Framework</dt>
+            <dd>ldcss, a CSS framework that's structured but not rigid. This site is built with it.</dd>
+            <dt>Terminal</dt>
+            <dd>ldmp, a terminal-based music player.</dd>
+            <dt>Client work</dt>
+            <dd>NerineZorg &amp; more, alongside my own portfolio.</dd>
+          </dl>
         </div>
       </section>
 
-      <section class="ld-section" id="projects">
-        <p class="site-eyebrow">Selected work</p>
-        <h2 class="ld-section-title">Projects</h2>
-        <p class="ld-section-sub">Live client sites first, then personal and non-commercial projects. <span
-            id="project-count"></span></p>
-        <div class="ld-search ld-mar-b-5" data-ld-search data-ld-search-filter="#project-grid"
-          data-ld-search-count="#project-count" data-ld-shortcut="/">
-          <input type="search" class="ld-input" placeholder="Search projects…" aria-label="Search projects">
-        </div>
-        <div class="ld-grid" data-ld-cols="3" id="project-grid"></div>
-        <p data-ld-search-empty hidden class="ld-text-muted">No project matches that search.</p>
-      </section>
-
-      <section class="ld-section" id="activity" aria-label="GitHub activity">
-        <p class="site-eyebrow">Activity</p>
-        <h2 class="ld-section-title">GitHub contributions</h2>
-        <div class="ld-card">
-          <div class="git-scroll" id="git" role="img" aria-label="GitHub contribution calendar for the last year"><span
-              class="ld-text-muted">Loading…</span></div>
+      <section class="section" id="contact" aria-labelledby="contact-title">
+        <h2 id="contact-title">Contact</h2>
+        <div>
+          <a class="contact-mail" href="mailto:lenadijksma08@gmail.com">lenadijksma08@gmail.com</a>
+          <p class="contact-note">Email is the easiest way to reach me.</p>
         </div>
       </section>
     </div>
   </main>
 
-  <footer class="ld-footer">
-    <p class="ld-mar-b-0 ld-text-muted ld-text-sm">© <span id="year"></span> Lena Dijksma · built with <a
-        href="/ldcss">ldcss</a></p>
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> Lena Dijksma. Built with <a href="/ldcss">ldcss</a>.</p>
+    <p><a href="https://github.com/LenaDijksma">GitHub</a><span id="git-count"></span></p>
   </footer>
-
-  <div class="ld-command-backdrop" id="cmd">
-    <div class="ld-command">
-      <input class="ld-command-input" type="text" placeholder="Type a command or search…" data-ld-autofocus>
-      <ul class="ld-command-list" data-ld-command-list>
-        <li class="ld-command-item" data-ld-command-item data-ld-command-action="goto:#about">Go to About</li>
-        <li class="ld-command-item" data-ld-command-item data-ld-command-action="goto:#projects">Go to Projects</li>
-        <li class="ld-command-item" data-ld-command-item data-ld-command-action="goto:#contact">Go to Contact</li>
-        <li class="ld-command-item" data-ld-command-item data-ld-command-action="goto:https://github.com/LenaDijksma">
-          Open GitHub</li>
-        <li class="ld-command-item" data-ld-command-item data-ld-command-action="theme">Toggle theme</li>
-      </ul>
-      <div class="ld-command-empty">No matching commands.</div>
-      <div class="ld-command-hint"><span class="ld-kbd">↑↓</span> navigate <span class="ld-kbd">↵</span> select <span
-          class="ld-kbd">esc</span> close</div>
-    </div>
-  </div>
 
   <script src="/vendor/ldcss/ldcss.min.js"></script>
   <script src="/js/main.js"></script>

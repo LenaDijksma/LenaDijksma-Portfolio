@@ -1,4 +1,3 @@
-<!-- autonote.html - hand-maintained; generated once from templates.js -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,17 +7,19 @@
     <link rel="shortcut icon" href="/images/logo.png" type="image/png">
     <link rel="apple-touch-icon" href="/images/logo.png" sizes="180x180">
     <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#080808">
+    <meta name="theme-color" content="#f6f6f3" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#161719" media="(prefers-color-scheme: dark)">
+    
     <link rel="stylesheet" href="/vendor/ldcss/ldcss.min.css">
     <link rel="stylesheet" href="/css/site.css">
     <meta property="og:title" content="Lena Dijksma | Autonote Systems" />
-    <meta property="og:description" content="The autonote tool and associated tools were made to track days weeks months and eventually years." />
+    <meta property="og:description" content="This project was created as a personal day tracker to see how different lifestyle choices impact sleep and happiness." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://lenadijksma.is-a.dev/autonote" />
     <meta property="og:image" content="https://lenadijksma.is-a.dev/images/og-preview.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Lena Dijksma | Autonote Systems" />
-    <meta name="twitter:description" content="The autonote tool and associated tools were made to track days weeks months and eventually years." />
+    <meta name="twitter:description" content="This project was created as a personal day tracker to see how different lifestyle choices impact sleep and happiness." />
     <meta name="twitter:image" content="https://lenadijksma.is-a.dev/images/og-preview.png" />
     <script>
         (function(){var t=null;try{t=localStorage.getItem("ld-theme")}catch(e){}
@@ -28,63 +29,48 @@
 </head>
 <body>
     <a class="ld-skip-link" href="#main">Skip to content</a>
-    <nav class="ld-nav ld-glass site-nav" aria-label="Main">
-        <a href="/" class="ld-nav-brand" data-ld-mark="$">Lena Dijksma</a>
-        <div class="ld-row">
-            <a href="/#projects" class="ld-btn" data-ld-size="sm" data-ld-variant="ghost">← Portfolio</a>
-            <button class="ld-btn" data-ld-size="sm" data-ld-toggle="theme" aria-label="Toggle light/dark theme">theme</button>
-        </div>
+    <nav class="site-nav" aria-label="Main">
+        <a class="site-brand" href="/">Lena Dijksma</a>
+        <ul>
+            <li><a href="/#work">Work</a></li>
+            <li><a href="/#projects">Projects</a></li>
+            <li><a href="/#about">About</a></li>
+            <li><a href="/#contact">Contact</a></li>
+        </ul>
+        <button type="button" class="site-theme" data-ld-toggle="theme" aria-label="Toggle light/dark theme">Theme</button>
     </nav>
     <main id="main">
 
-        <header class="site-hero">
-            <div class="ld-container ld-container-sm" data-ld-animate="fade-up">
-                <p class="site-eyebrow">Private / Non-Commercial Project</p>
+        <div class="wrap">
+            <header class="page-head">
+                <p class="meta">Private / Non-Commercial Project</p>
                 <h1>Autonote Systems</h1>
-                <p class="site-lead">This project was created as a personal day tracker to see how different lifestyle choices impact sleep and happiness.</p>
-                <div class="ld-row ld-mar-t-5">
-                    <a href="/#projects" class="ld-btn" data-ld-variant="primary" data-ld-size="lg">Back to portfolio</a>
-                    <a href="https://github.com/LenaDijksma/Autonote" class="ld-btn" data-ld-variant="outline" data-ld-size="lg" target="_blank" rel="noopener noreferrer">Source code ↗</a>
+                <p class="lede">This project was created as a personal day tracker to see how different lifestyle choices impact sleep and happiness.</p>
+                <p class="links"><a href="https://github.com/LenaDijksma/Autonote" target="_blank" rel="noopener noreferrer">Source code on GitHub</a></p>
+            </header>
+            <section class="section" aria-labelledby="about-title">
+                <h2 id="about-title">About</h2>
+                <div class="prose" aria-label="Autonote Systems">
+<p>AutoNote is a small suite of bash scripts for tracking mood and energy over time as plain numbers, run straight from the terminal with no GUI. Everything is written to Markdown files in an Obsidian vault, under a configurable path that defaults to Documents/obsidian/Main/011-autonote. I built it to track how lifestyle changes and medication adjustments were actually affecting my day to day, so I could see what was helping and what wasn&#39;t instead of just guessing.</p>
+<p>The suite has three parts. newnote.sh creates the note for the current day, prompting for mood (1-10), energy (1-5), current focus, and plans, and writing it out as a Markdown file with YAML frontmatter plus a body for freeform notes and links. It can be run more than once a day, in which case it backs up the existing note and appends a new timestamped section rather than overwriting anything, though only the first entry of the day is what weeklystats and monthlystats actually read. It also maintains a running index file with a log of every note created and a total count.</p>
+<p>weeklystats.sh and monthlystats.sh both work the same way, just over different windows: they walk through each day&#39;s note, pull the mood and energy values out of the frontmatter, and generate a summary file with overall averages, a line chart plotting both values over the period, and a breakdown table. Weeklystats runs Monday to Sunday and includes a per-day note list; monthlystats covers the full calendar month and breaks it down week by week, along with flagging the best and lowest mood days. Both accept an optional offset argument to look back at a previous week or month instead of the current one.</p>
+<p>All three scripts share the same terminal styling, with colored status messages and clear errors if the configured paths don&#39;t exist, so failures are obvious rather than silent.</p>
                 </div>
-            </div>
-        </header>
-        <div class="ld-container ld-container-sm">
-            <section class="ld-section" aria-label="Technologies">
-                <p class="site-eyebrow">Development</p>
-                <h2 class="ld-section-title">Technologies</h2>
-                <div class="project-tags"><span class="ld-tag">Bash</span></div>
             </section>
-            <section class="ld-section prose">
-                <p class="site-eyebrow">About</p>
-                <h2 class="ld-section-title">Autonote Systems</h2>
-                <p>
-                    AutoNote is a small suite of bash scripts for tracking mood and energy over time as plain numbers, run straight from the terminal with no GUI. Everything is written to Markdown files in an Obsidian vault, under a configurable path that defaults to Documents/obsidian/Main/011-autonote. I built it to track how lifestyle changes and medication adjustments were actually affecting my day to day, so I could see what was helping and what wasn&#39;t instead of just guessing.
-                </p>
-
-                <p>
-                    The suite has three parts. newnote.sh creates the note for the current day, prompting for mood (1-10), energy (1-5), current focus, and plans, and writing it out as a Markdown file with YAML frontmatter plus a body for freeform notes and links. It can be run more than once a day, in which case it backs up the existing note and appends a new timestamped section rather than overwriting anything, though only the first entry of the day is what weeklystats and monthlystats actually read. It also maintains a running index file with a log of every note created and a total count.
-                </p>
-
-                <p>
-                    weeklystats.sh and monthlystats.sh both work the same way, just over different windows: they walk through each day&#39;s note, pull the mood and energy values out of the frontmatter, and generate a summary file with overall averages, a line chart plotting both values over the period, and a breakdown table. Weeklystats runs Monday to Sunday and includes a per-day note list; monthlystats covers the full calendar month and breaks it down week by week, along with flagging the best and lowest mood days. Both accept an optional offset argument to look back at a previous week or month instead of the current one.
-                </p>
-
-                <p>
-                    All three scripts share the same terminal styling, with colored status messages and clear errors if the configured paths don&#39;t exist, so failures are obvious rather than silent.
-                </p>
+            <section class="section" aria-labelledby="tech-title">
+                <h2 id="tech-title">Built with</h2>
+                <p>Bash</p>
             </section>
-            <section class="ld-section" aria-label="Showcase">
-                <figure class="ld-mar-a-0">
-                    <div class="ld-terminal project-shot">
-                        <div class="ld-terminal-bar"><span class="ld-terminal-dot"></span><span class="ld-terminal-dot"></span><span class="ld-terminal-dot"></span><span class="ld-terminal-title">autonote</span></div>
-                        <img src="/images/autonote.webp" alt="Autonote Systems showcase" loading="lazy">
-                    </div>
-                    <figcaption class="ld-text-muted ld-text-sm ld-mar-t-3">Running <strong>newnote</strong> for the second time that day — note the append behavior</figcaption>
-                </figure>
-            </section>
+            <figure class="shot">
+                <img src="/images/autonote.webp" alt="Autonote Systems screenshot" loading="lazy">
+                <figcaption>Running <strong>newnote</strong> for the second time that day: note the append behavior</figcaption>
+            </figure>
         </div>
     </main>
-    <footer class="ld-footer"><p class="ld-mar-b-0 ld-text-muted ld-text-sm">© 2026 Lena Dijksma · built with <a href="/ldcss">ldcss</a></p></footer>
+    <footer class="site-footer">
+        <p>&copy; 2026 Lena Dijksma. Built with <a href="/ldcss">ldcss</a>.</p>
+        <p><a href="https://github.com/LenaDijksma">GitHub</a></p>
+    </footer>
     <script src="/vendor/ldcss/ldcss.min.js"></script>
 </body>
 </html>

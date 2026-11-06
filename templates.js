@@ -1,7 +1,7 @@
 // templates.js
 // Renders a full HTML page for a private/personal project, using the same
-// header/nav/theme-selector/footer markup as the hand-written project pages
-// (e.g. autonote.html), with content filled in from projects.json.
+// header/nav/theme-toggle/footer markup as the home page, with content filled
+// in from projects.json.
 
 function escapeHtml(str) {
     return String(str ?? '')
@@ -23,18 +23,18 @@ function formatInline(str) {
         .replace(/(?:\*(.+?)\*|_(.+?)_)/g, (match, a, b) => `<em>${a ?? b}</em>`);
 }
 
+// A paragraph with line breaks in it is a list: one item per line.
 function paragraphsToHtml(paragraphs) {
     return (paragraphs || [])
         .filter(p => p && p.trim())
-        .map(p => `                <p>\n                    ${formatInline(p.trim())}\n                </p>`)
-        .join('\n\n');
-}
-
-function techTagsToHtml(tech) {
-    return (tech || [])
-        .filter(Boolean)
-        .map(t => `<span class="ld-tag">${escapeHtml(t)}</span>`)
-        .join('\n                ');
+        .map(p => {
+            const lines = p.trim().split('\n').map(l => l.trim()).filter(Boolean);
+            if (lines.length > 1) {
+                return `<ul>\n${lines.map(l => `<li>${formatInline(l)}</li>`).join('\n')}\n</ul>`;
+            }
+            return `<p>${formatInline(lines[0])}</p>`;
+        })
+        .join('\n');
 }
 
 // Shared page shell (head, nav, footer) so project pages, Autonote and the 404 all match the home page.
@@ -48,7 +48,8 @@ function renderShell({ title, description, url, body, noindex = true }) {
     <link rel="shortcut icon" href="/images/logo.png" type="image/png">
     <link rel="apple-touch-icon" href="/images/logo.png" sizes="180x180">
     <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#080808">
+    <meta name="theme-color" content="#f6f6f3" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#161719" media="(prefers-color-scheme: dark)">
     ${noindex ? '<meta name="robots" content="noindex, follow">' : ''}
     <link rel="stylesheet" href="/vendor/ldcss/ldcss.min.css">
     <link rel="stylesheet" href="/css/site.css">
@@ -69,74 +70,70 @@ function renderShell({ title, description, url, body, noindex = true }) {
 </head>
 <body>
     <a class="ld-skip-link" href="#main">Skip to content</a>
-    <nav class="ld-nav ld-glass site-nav" aria-label="Main">
-        <a href="/" class="ld-nav-brand" data-ld-mark="$">Lena Dijksma</a>
-        <div class="ld-row">
-            <a href="/#projects" class="ld-btn" data-ld-size="sm" data-ld-variant="ghost">← Portfolio</a>
-            <button class="ld-btn" data-ld-size="sm" data-ld-toggle="theme" aria-label="Toggle light/dark theme">theme</button>
-        </div>
+    <nav class="site-nav" aria-label="Main">
+        <a class="site-brand" href="/">Lena Dijksma</a>
+        <ul>
+            <li><a href="/#work">Work</a></li>
+            <li><a href="/#projects">Projects</a></li>
+            <li><a href="/#about">About</a></li>
+            <li><a href="/#contact">Contact</a></li>
+        </ul>
+        <button type="button" class="site-theme" data-ld-toggle="theme" aria-label="Toggle light/dark theme">Theme</button>
     </nav>
     <main id="main">
 ${body}
     </main>
-    <footer class="ld-footer"><p class="ld-mar-b-0 ld-text-muted ld-text-sm">© ${new Date().getFullYear()} Lena Dijksma · built with <a href="/ldcss">ldcss</a></p></footer>
+    <footer class="site-footer">
+        <p>&copy; ${new Date().getFullYear()} Lena Dijksma. Built with <a href="/ldcss">ldcss</a>.</p>
+        <p><a href="https://github.com/LenaDijksma">GitHub</a></p>
+    </footer>
     <script src="/vendor/ldcss/ldcss.min.js"></script>
 </body>
 </html>
 `;
 }
 
-function renderProjectPage(project, slug) {
+function renderProjectPage(project, slug, { noindex = true } = {}) {
     const page = project.page || {};
 
     const title = escapeHtml(project.name);
     const tag = escapeHtml(page.tag || 'Private / Non-Commercial Project');
     const heroDesc = formatInline(page.heroDesc || project.desc || '');
     const aboutTitle = escapeHtml(page.aboutTitle || project.name);
-    const aboutParagraphsHtml = paragraphsToHtml(
+    const aboutHtml = paragraphsToHtml(
         page.aboutParagraphs && page.aboutParagraphs.length
             ? page.aboutParagraphs
             : [project.desc || '']
     );
-    const techHtml = techTagsToHtml(project.tech);
+    const techText = (project.tech || []).filter(Boolean).map(escapeHtml).join(', ');
     const showcaseImg = page.showcaseImg || project.img || '';
     const showcaseCaption = formatInline(page.showcaseCaption || '');
-    const srcBtn = project.srcLink
-        ? `<a href="${escapeHtml(project.srcLink)}" class="ld-btn" data-ld-variant="outline" data-ld-size="lg" target="_blank" rel="noopener noreferrer">Source code ↗</a>`
+    const srcLink = project.srcLink
+        ? `<a href="${escapeHtml(project.srcLink)}" target="_blank" rel="noopener noreferrer">Source code on GitHub</a>`
         : '';
 
     const body = `
-        <header class="site-hero">
-            <div class="ld-container ld-container-sm" data-ld-animate="fade-up">
-                <p class="site-eyebrow">${tag}</p>
+        <div class="wrap">
+            <header class="page-head">
+                <p class="meta">${tag}</p>
                 <h1>${title}</h1>
-                <p class="site-lead">${heroDesc}</p>
-                <div class="ld-row ld-mar-t-5">
-                    <a href="/#projects" class="ld-btn" data-ld-variant="primary" data-ld-size="lg">Back to portfolio</a>
-                    ${srcBtn}
+                <p class="lede">${heroDesc}</p>
+                ${srcLink ? `<p class="links">${srcLink}</p>` : ''}
+            </header>
+            <section class="section" aria-labelledby="about-title">
+                <h2 id="about-title">About</h2>
+                <div class="prose" aria-label="${aboutTitle}">
+${aboutHtml}
                 </div>
-            </div>
-        </header>
-        <div class="ld-container ld-container-sm">
-            ${techHtml ? `<section class="ld-section" aria-label="Technologies">
-                <p class="site-eyebrow">Development</p>
-                <h2 class="ld-section-title">Technologies</h2>
-                <div class="project-tags">${techHtml}</div>
-            </section>` : ''}
-            <section class="ld-section prose">
-                <p class="site-eyebrow">About</p>
-                <h2 class="ld-section-title">${aboutTitle}</h2>
-${aboutParagraphsHtml}
             </section>
-            ${showcaseImg ? `<section class="ld-section" aria-label="Showcase">
-                <figure class="ld-mar-a-0">
-                    <div class="ld-terminal project-shot">
-                        <div class="ld-terminal-bar"><span class="ld-terminal-dot"></span><span class="ld-terminal-dot"></span><span class="ld-terminal-dot"></span><span class="ld-terminal-title">${escapeHtml(slug)}</span></div>
-                        <img src="${escapeHtml(showcaseImg)}" alt="${title} showcase" loading="lazy">
-                    </div>
-                    ${showcaseCaption ? `<figcaption class="ld-text-muted ld-text-sm ld-mar-t-3">${showcaseCaption}</figcaption>` : ''}
-                </figure>
+            ${techText ? `<section class="section" aria-labelledby="tech-title">
+                <h2 id="tech-title">Built with</h2>
+                <p>${techText}</p>
             </section>` : ''}
+            ${showcaseImg ? `<figure class="shot">
+                <img src="${escapeHtml(showcaseImg)}" alt="${title} screenshot" loading="lazy">
+                ${showcaseCaption ? `<figcaption>${showcaseCaption}</figcaption>` : ''}
+            </figure>` : ''}
         </div>`;
 
     return `<!-- ${escapeHtml(slug)}.html - auto-generated by the admin panel, do not hand-edit -->\n` +
@@ -144,7 +141,8 @@ ${aboutParagraphsHtml}
             title: project.name,
             description: project.desc || '',
             url: `https://lenadijksma.is-a.dev/${slug}`,
-            body
+            body,
+            noindex
         });
 }
 

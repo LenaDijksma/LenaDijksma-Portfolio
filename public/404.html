@@ -7,7 +7,8 @@
     <link rel="shortcut icon" href="/images/logo.png" type="image/png">
     <link rel="apple-touch-icon" href="/images/logo.png" sizes="180x180">
     <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#080808">
+    <meta name="theme-color" content="#f6f6f3" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#161719" media="(prefers-color-scheme: dark)">
     <meta name="robots" content="noindex, follow">
     <link rel="stylesheet" href="/vendor/ldcss/ldcss.min.css">
     <link rel="stylesheet" href="/css/site.css">
@@ -28,25 +29,31 @@
 </head>
 <body>
     <a class="ld-skip-link" href="#main">Skip to content</a>
-    <nav class="ld-nav ld-glass site-nav" aria-label="Main">
-        <a href="/" class="ld-nav-brand" data-ld-mark="$">Lena Dijksma</a>
-        <div class="ld-row">
-            <a href="/#projects" class="ld-btn" data-ld-size="sm" data-ld-variant="ghost">← Portfolio</a>
-            <button class="ld-btn" data-ld-size="sm" data-ld-toggle="theme" aria-label="Toggle light/dark theme">theme</button>
-        </div>
+    <nav class="site-nav" aria-label="Main">
+        <a class="site-brand" href="/">Lena Dijksma</a>
+        <ul>
+            <li><a href="/#work">Work</a></li>
+            <li><a href="/#projects">Projects</a></li>
+            <li><a href="/#about">About</a></li>
+            <li><a href="/#contact">Contact</a></li>
+        </ul>
+        <button type="button" class="site-theme" data-ld-toggle="theme" aria-label="Toggle light/dark theme">Theme</button>
     </nav>
     <main id="main">
 
-        <header class="site-hero">
-            <div class="ld-container ld-container-sm" data-ld-animate="fade-up">
-                <p class="site-eyebrow">Error page</p>
-                <h1>404 <em>page not found</em></h1>
-                <p class="site-lead">The page you're looking for doesn't exist, or the link may be outdated.</p>
-                <div class="ld-row ld-mar-t-5"><a href="/" class="ld-btn" data-ld-variant="primary" data-ld-size="lg">Back to portfolio</a></div>
-            </div>
-        </header>
+        <div class="wrap">
+            <header class="page-head">
+                <p class="meta">Error 404</p>
+                <h1>Page not found</h1>
+                <p class="lede">The page you're looking for doesn't exist, or the link may be outdated.</p>
+                <p class="links"><a href="/">Back to the portfolio</a></p>
+            </header>
+        </div>
     </main>
-    <footer class="ld-footer"><p class="ld-mar-b-0 ld-text-muted ld-text-sm">© 2026 Lena Dijksma · built with <a href="/ldcss">ldcss</a></p></footer>
+    <footer class="site-footer">
+        <p>&copy; 2026 Lena Dijksma. Built with <a href="/ldcss">ldcss</a>.</p>
+        <p><a href="https://github.com/LenaDijksma">GitHub</a></p>
+    </footer>
     <script src="/vendor/ldcss/ldcss.min.js"></script>
 </body>
 </html>
